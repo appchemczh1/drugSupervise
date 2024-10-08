@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.spht.mapper.TYwZsNMapper">
+
+    <insert id="saveSpDateHt"  parameterType="java.lang.String">
+        INSERT INTO YJJXZSPXT.t_yw_zs_n   (ID,QYID,ZSLX,ZSBH,QYMC,SHXYDM,ZCDZ,FDDBR ,QYFZR ,ZLFZR,FLM ,RCJDGLJG,RCJDGLRY,SCDZHFW,FZJG,QFR,FZRQ,YXQQ,YXQZ,SCDZ,SLH,CKDZ,JGJZC,FW,FWYW,BZ,ZS,CPLB,CPMX,DH,CZ,gg,JX,FJ,WZYM,ZT,YWLB,BBID,MBID,YLZD1,YLZD2,YLZD3,YLZD4,YLZD5,FZJGID,SJTB_ZSGS,SJTB_DA,SJTB_XZSP,SJTB_GJ,SJTB_CWXX,SJTB_GJSJ,YLZD6,YLZD7,YLZD8,YLZD9,YLZD10,YLZD11,YLZD12,YLZD13,YLZD14,YLZD15,YLZD16,YLZD17,YLZD18,YLZD19,YLZD20,YLZD21,YLZD22,YLZD23,YLZD24,YLZD25,YLZD26,YLZD27,YLZD28,YLZD29,YLZD30,YLZD31,YLZD32,YLZD33,YLZD34,YLZD35,YLZD36,YLZD37,YLZD38,YLZD39,YLZD40,EWM,EWMLJ,SYNC,GLZDB,QYLX,LXRYX,LXDH,TYPELEVEL,MOBILE)
+         VALUES
+             (#{id},#{qyid},#{zslx},#{zsbh},#{qymc},#{shxydm},#{zcdz},#{fddbr },#{qyfzr },#{zlfzr},#{flm },#{rcjdgljg},#{rcjdglry},#{scdzhfw},#{fzjg},#{qfr},#{fzrq},#{yxqq},#{yxqz},#{scdz},#{slh},#{ckdz},#{jgjzc},#{fw},#{fwyw},#{bz},#{zs},#{cplb},#{cpmx},#{dh},#{cz},#{gg},#{jx},#{fj},#{wzym},#{zt},#{ywlb},#{bbid},#{mbid},#{ylzd1},#{ylzd2},#{ylzd3},#{ylzd4},#{ylzd5},#{fzjgid},#{sjtb_zsgs},#{sjtb_da},#{sjtb_xzsp},#{sjtb_gj},#{sjtb_cwxx},#{sjtb_gjsj},#{ylzd6},#{ylzd7},#{ylzd8},#{ylzd9},#{ylzd10},#{ylzd11},#{ylzd12},#{ylzd13},#{ylzd14},#{ylzd15},#{ylzd16},#{ylzd17},#{ylzd18},#{ylzd19},#{ylzd20},#{ylzd21},#{ylzd22},#{ylzd23},#{ylzd24},#{ylzd25},#{ylzd26},#{ylzd27},#{ylzd28},#{ylzd29},#{ylzd30},#{ylzd31},#{ylzd32},#{ylzd33},#{ylzd34},#{ylzd35},#{ylzd36},#{ylzd37},#{ylzd38},#{ylzd39},#{ylzd40},#{ewm},#{ewmlj},#{sync},#{glzdb},#{qylx},#{lxryx},#{lxdh},#{typelevel},#{mobile})
+
+    </insert>
+</mapper>

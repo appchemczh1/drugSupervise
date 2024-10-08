@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.homepage.mapper.AreaMapper">
+    <select id="selectAllAreas" resultType="org.jeecg.modules.demo.dzzz.homepage.entity.Area">
+        SELECT DEPT_ID as deptId,
+               DEPT_NAME as deptName,
+               PARENT_ID as parentId,
+               AREA_ID as areaId,
+               XZQH
+        FROM s_dept   WHERE STATUS != '2'
+    </select>
+</mapper>

@@ -1,0 +1,457 @@
+<template>
+    <view>
+        <!--标题和返回-->
+		<cu-custom :bgColor="NavBarColor" isBack :backRouterName="backRouteName">
+			<block slot="backText">返回</block>
+			<block slot="content">t_jc_zs_ypscxk_jbxx_ls</block>
+		</cu-custom>
+		 <!--表单区域-->
+		<view>
+			<form>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业id：</text></view>
+                  <input  placeholder="请输入企业id" v-model="model.entid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业名称：</text></view>
+                  <input  placeholder="请输入企业名称" v-model="model.entname"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">注册地址：</text></view>
+                  <input  placeholder="请输入注册地址" v-model="model.zcdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">社会信用代码：</text></view>
+                  <input  placeholder="请输入社会信用代码" v-model="model.shxydm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">邮编：</text></view>
+                  <input  placeholder="请输入邮编" v-model="model.yb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">许可编号：</text></view>
+                  <input  placeholder="请输入许可编号" v-model="model.xkzbh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业类型：</text></view>
+                  <input  placeholder="请输入企业类型" v-model="model.qylx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">三资企业外方国别或地区名称：</text></view>
+                  <input  placeholder="请输入三资企业外方国别或地区名称" v-model="model.areaname"/>
+                </view>
+              </view>
+              <my-date label="企业创建时间：" fields="day" v-model="model.founddate" placeholder="请输入企业创建时间"></my-date>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">是否隶属企业集团：</text></view>
+                  <input  placeholder="请输入是否隶属企业集团" v-model="model.isheadquarter"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业集团名称：</text></view>
+                  <input  placeholder="请输入企业集团名称" v-model="model.headquartername"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业集团社会信用代码：</text></view>
+                  <input  placeholder="请输入企业集团社会信用代码" v-model="model.headquarterorgcode"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">法定代表人：</text></view>
+                  <input  placeholder="请输入法定代表人" v-model="model.legalrepresentative"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业负责人：</text></view>
+                  <input  placeholder="请输入企业负责人" v-model="model.enterprisehead"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量负责人：</text></view>
+                  <input  placeholder="请输入质量负责人" v-model="model.qualityhead"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产负责人：</text></view>
+                  <input  placeholder="请输入生产负责人" v-model="model.productionhead"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量受权人：</text></view>
+                  <input  placeholder="请输入质量受权人" v-model="model.licensor"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">法定代表人职称：</text></view>
+                  <input  placeholder="请输入法定代表人职称" v-model="model.legaltitle"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">法定代表人所学专业：</text></view>
+                  <input  placeholder="请输入法定代表人所学专业" v-model="model.legalschoolmajor"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">法定代表人毕业院校：</text></view>
+                  <input  placeholder="请输入法定代表人毕业院校" v-model="model.legalschool"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">法定代表人身份证号：</text></view>
+                  <input  placeholder="请输入法定代表人身份证号" v-model="model.legalidno"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业负责人职称：</text></view>
+                  <input  placeholder="请输入企业负责人职称" v-model="model.enterpristitle"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业负责人所学专业：</text></view>
+                  <input  placeholder="请输入企业负责人所学专业" v-model="model.enterprislschoolmajor"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业负责人毕业院校：</text></view>
+                  <input  placeholder="请输入企业负责人毕业院校" v-model="model.enterpriseschool"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业负责人身份证号：</text></view>
+                  <input  placeholder="请输入企业负责人身份证号" v-model="model.enterpriseidno"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量负责人职称：</text></view>
+                  <input  placeholder="请输入质量负责人职称" v-model="model.qualitytitle"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量负责人所学专业：</text></view>
+                  <input  placeholder="请输入质量负责人所学专业" v-model="model.qualityschoolmajor"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量负责人毕业院校：</text></view>
+                  <input  placeholder="请输入质量负责人毕业院校" v-model="model.qualityschool"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量负责人身份证号：</text></view>
+                  <input  placeholder="请输入质量负责人身份证号" v-model="model.qualityidno"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产负责人职称：</text></view>
+                  <input  placeholder="请输入生产负责人职称" v-model="model.productiontitle"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产负责人所学专业：</text></view>
+                  <input  placeholder="请输入生产负责人所学专业" v-model="model.productionschoolmajor"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产负责人毕业院校：</text></view>
+                  <input  placeholder="请输入生产负责人毕业院校" v-model="model.productionschool"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产负责人身份证号：</text></view>
+                  <input  placeholder="请输入生产负责人身份证号" v-model="model.productionidno"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量受权人职称：</text></view>
+                  <input  placeholder="请输入质量受权人职称" v-model="model.licensortitle"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量受权人所学专业：</text></view>
+                  <input  placeholder="请输入质量受权人所学专业" v-model="model.licensorschoolmajor"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量受权人毕业院校：</text></view>
+                  <input  placeholder="请输入质量受权人毕业院校" v-model="model.licensorschool"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量受权人身份证号：</text></view>
+                  <input  placeholder="请输入质量受权人身份证号" v-model="model.licensoridno"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">职工人数（人）：</text></view>
+                  <input type="number" placeholder="请输入职工人数（人）" v-model="model.staffnumber"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">其中：技术人员（人）：</text></view>
+                  <input type="number" placeholder="请输入其中：技术人员（人）" v-model="model.technicalnumber"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">高级职称（人）：</text></view>
+                  <input type="number" placeholder="请输入高级职称（人）" v-model="model.seniortitlenumber"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">初级职称（人）：</text></view>
+                  <input type="number" placeholder="请输入初级职称（人）" v-model="model.juniortitlenumber"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">研究生学历（人）：</text></view>
+                  <input type="number" placeholder="请输入研究生学历（人）" v-model="model.graduatedegreenumber"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">本科专科学历（人）：</text></view>
+                  <input type="number" placeholder="请输入本科专科学历（人）" v-model="model.bachelordegreenumber"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">固定资产原值（万元）：</text></view>
+                  <input type="number" placeholder="请输入固定资产原值（万元）" v-model="model.gdoriginalvalue"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">固定资产净值（万元）：</text></view>
+                  <input type="number" placeholder="请输入固定资产净值（万元）" v-model="model.gdoriginalnet"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">厂区占地面积（平米）：</text></view>
+                  <input type="number" placeholder="请输入厂区占地面积（平米）" v-model="model.plantarea"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">建筑面积（平米）：</text></view>
+                  <input type="number" placeholder="请输入建筑面积（平米）" v-model="model.builtuparea"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">上年度产值（万元）：</text></view>
+                  <input type="number" placeholder="请输入上年度产值（万元）" v-model="model.annualoutputvalue"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">上年度利润（万元）：</text></view>
+                  <input type="number" placeholder="请输入上年度利润（万元）" v-model="model.lastyearsprofit"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">原料药注册品种数：</text></view>
+                  <input type="number" placeholder="请输入原料药注册品种数" v-model="model.crudedrugregnumber"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">制剂注册品种数：</text></view>
+                  <input type="number" placeholder="请输入制剂注册品种数" v-model="model.preparationregnumber"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">其他类注册产品数：</text></view>
+                  <input type="number" placeholder="请输入其他类注册产品数" v-model="model.otherregnumber"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">常年生产品种数：</text></view>
+                  <input type="number" placeholder="请输入常年生产品种数" v-model="model.annualproductionnumber"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">联系人：</text></view>
+                  <input  placeholder="请输入联系人" v-model="model.contacter"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">传真：</text></view>
+                  <input  placeholder="请输入传真" v-model="model.faxphone"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">固定电话：</text></view>
+                  <input  placeholder="请输入固定电话" v-model="model.telephone"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">手机：</text></view>
+                  <input  placeholder="请输入手机" v-model="model.mobilephone"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">E-mail：</text></view>
+                  <input  placeholder="请输入E-mail" v-model="model.email"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">分类码：</text></view>
+                  <input  placeholder="请输入分类码" v-model="model.typecode"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">是否无菌生产：</text></view>
+                  <input  placeholder="请输入是否无菌生产" v-model="model.isasepsis"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">备注：</text></view>
+                  <input  placeholder="请输入备注" v-model="model.remark"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">证书id：</text></view>
+                  <input  placeholder="请输入证书id" v-model="model.zsid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">行政审批id：</text></view>
+                  <input  placeholder="请输入行政审批id" v-model="model.xzspid"/>
+                </view>
+              </view>
+              <my-date label="createdate：" fields="day" v-model="model.createdate" placeholder="请输入createdate"></my-date>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">instanceno：</text></view>
+                  <input  placeholder="请输入instanceno" v-model="model.instanceno"/>
+                </view>
+              </view>
+				<view class="padding">
+					<button class="cu-btn block bg-blue margin-tb-sm lg" @click="onSubmit">
+						<text v-if="loading" class="cuIcon-loading2 cuIconfont-spin"></text>提交
+					</button>
+				</view>
+			</form>
+		</view>
+    </view>
+</template>
+
+<script>
+    import myDate from '@/components/my-componets/my-date.vue'
+
+    export default {
+        name: "TJcZsYpscxkJbxxLsForm",
+        components:{ myDate },
+        props:{
+          formData:{
+              type:Object,
+              default:()=>{},
+              required:false
+          }
+        },
+        data(){
+            return {
+				CustomBar: this.CustomBar,
+				NavBarColor: this.NavBarColor,
+				loading:false,
+                model: {},
+                backRouteName:'index',
+                url: {
+                  queryById: "/dzzz.shiyan2/tJcZsYpscxkJbxxLs/queryById",
+                  add: "/dzzz.shiyan2/tJcZsYpscxkJbxxLs/add",
+                  edit: "/dzzz.shiyan2/tJcZsYpscxkJbxxLs/edit",
+                },
+            }
+        },
+        created(){
+             this.initFormData();
+        },
+        methods:{
+           initFormData(){
+               if(this.formData){
+                    let dataId = this.formData.dataId;
+                    this.$http.get(this.url.queryById,{params:{id:dataId}}).then((res)=>{
+                        if(res.data.success){
+                            console.log("表单数据",res);
+                            this.model = res.data.result;
+                        }
+                    })
+                }
+            },
+            onSubmit() {
+                let myForm = {...this.model};
+                this.loading = true;
+                let url = myForm.id?this.url.edit:this.url.add;
+				this.$http.post(url,myForm).then(res=>{
+				   console.log("res",res)
+				   this.loading = false
+				   this.$Router.push({name:this.backRouteName})
+				}).catch(()=>{
+					this.loading = false
+				});
+            }
+        }
+    }
+</script>

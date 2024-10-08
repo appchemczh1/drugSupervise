@@ -1,0 +1,229 @@
+<template>
+    <view>
+        <!--标题和返回-->
+		<cu-custom :bgColor="NavBarColor" isBack :backRouterName="backRouteName">
+			<block slot="backText">返回</block>
+			<block slot="content">s_dept</block>
+		</cu-custom>
+		 <!--表单区域-->
+		<view>
+			<form>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">部门主键：</text></view>
+                  <input  placeholder="请输入部门主键" v-model="model.deptId"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">父部门id：</text></view>
+                  <input  placeholder="请输入父部门id" v-model="model.parentId"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">祖级列表：</text></view>
+                  <input  placeholder="请输入祖级列表" v-model="model.ancestors"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">部门名称：</text></view>
+                  <input  placeholder="请输入部门名称" v-model="model.deptName"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">显示顺序：</text></view>
+                  <input type="number" placeholder="请输入显示顺序" v-model="model.orderNum"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">负责人：</text></view>
+                  <input  placeholder="请输入负责人" v-model="model.leader"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">联系电话：</text></view>
+                  <input  placeholder="请输入联系电话" v-model="model.phone"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">邮箱：</text></view>
+                  <input  placeholder="请输入邮箱" v-model="model.email"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">部门状态（0正常 1停用）：</text></view>
+                  <input type="number" placeholder="请输入部门状态（0正常 1停用）" v-model="model.status"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">删除标志（0代表存在 2代表删除）：</text></view>
+                  <input type="number" placeholder="请输入删除标志（0代表存在 2代表删除）" v-model="model.delFlag"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">部门类型：</text></view>
+                  <input  placeholder="请输入部门类型" v-model="model.deptType"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">地区编码：</text></view>
+                  <input  placeholder="请输入地区编码" v-model="model.areaId"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">地区名称：</text></view>
+                  <input  placeholder="请输入地区名称" v-model="model.areaName"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">组织类型对应菜单：</text></view>
+                  <input  placeholder="请输入组织类型对应菜单" v-model="model.deptPatter"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">是否是顶级机构(0否1是)：</text></view>
+                  <input  placeholder="请输入是否是顶级机构(0否1是)" v-model="model.topDept"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业统一社会信用代码 颁发机构代码：</text></view>
+                  <input  placeholder="请输入企业统一社会信用代码 颁发机构代码" v-model="model.orgNo"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">创建用户id：</text></view>
+                  <input  placeholder="请输入创建用户id" v-model="model.createByUid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">前置库部门名称：</text></view>
+                  <input  placeholder="请输入前置库部门名称" v-model="model.var1"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp"> 颁发机构代码：</text></view>
+                  <input  placeholder="请输入 颁发机构代码" v-model="model.var2"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">扩展字符类字段3：</text></view>
+                  <input  placeholder="请输入扩展字符类字段3" v-model="model.var3"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">var4：</text></view>
+                  <input  placeholder="请输入var4" v-model="model.var4"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">var5：</text></view>
+                  <input  placeholder="请输入var5" v-model="model.var5"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">var6：</text></view>
+                  <input  placeholder="请输入var6" v-model="model.var6"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">var7：</text></view>
+                  <input  placeholder="请输入var7" v-model="model.var7"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">var8：</text></view>
+                  <input  placeholder="请输入var8" v-model="model.var8"/>
+                </view>
+              </view>
+              <my-date label="date1：" fields="day" v-model="model.date1" placeholder="请输入date1"></my-date>
+              <my-date label="date2：" fields="day" v-model="model.date2" placeholder="请输入date2"></my-date>
+				<view class="padding">
+					<button class="cu-btn block bg-blue margin-tb-sm lg" @click="onSubmit">
+						<text v-if="loading" class="cuIcon-loading2 cuIconfont-spin"></text>提交
+					</button>
+				</view>
+			</form>
+		</view>
+    </view>
+</template>
+
+<script>
+    import myDate from '@/components/my-componets/my-date.vue'
+
+    export default {
+        name: "SDeptForm",
+        components:{ myDate },
+        props:{
+          formData:{
+              type:Object,
+              default:()=>{},
+              required:false
+          }
+        },
+        data(){
+            return {
+				CustomBar: this.CustomBar,
+				NavBarColor: this.NavBarColor,
+				loading:false,
+                model: {},
+                backRouteName:'index',
+                url: {
+                  queryById: "/dzzz.dept/sDept/queryById",
+                  add: "/dzzz.dept/sDept/add",
+                  edit: "/dzzz.dept/sDept/edit",
+                },
+            }
+        },
+        created(){
+             this.initFormData();
+        },
+        methods:{
+           initFormData(){
+               if(this.formData){
+                    let dataId = this.formData.dataId;
+                    this.$http.get(this.url.queryById,{params:{id:dataId}}).then((res)=>{
+                        if(res.data.success){
+                            console.log("表单数据",res);
+                            this.model = res.data.result;
+                        }
+                    })
+                }
+            },
+            onSubmit() {
+                let myForm = {...this.model};
+                this.loading = true;
+                let url = myForm.id?this.url.edit:this.url.add;
+				this.$http.post(url,myForm).then(res=>{
+				   console.log("res",res)
+				   this.loading = false
+				   this.$Router.push({name:this.backRouteName})
+				}).catch(()=>{
+					this.loading = false
+				});
+            }
+        }
+    }
+</script>

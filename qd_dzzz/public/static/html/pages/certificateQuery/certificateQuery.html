@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页-证书查询</title>
+    <link rel="stylesheet" href="../css/biz_common.css">
+    <link rel="stylesheet" href="../../js/libs/element-ui/index.css">
+    <link rel="stylesheet" href="../../js/libs/swiper/swiper.min.css">
+    <link rel="stylesheet" href="./css/certificateQuery.css">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="container">
+            <div class="con-l">
+                <div class="box box1">
+                    <h2 class="box-title"><span>待盖章情况</span></h2>
+                    <div class="box-ct">
+                        <div class="total-box">
+                            <div class="item">
+                                <p class="item-name">待盖章总量</p>
+                                <p class="item-val"><a href="javascript:void(0)" @click="openmenu('/dzzz/certmulu/zsml2')">{{
+                                        stampCaseData.await_stamp }}</a></p>
+                            </div>
+                            <div class="item">
+                                <p class="item-name">盖章超时预警量</p>
+                                <p class="item-val"><a href="javascript:void(0)" @click="openmenu('/wgzWarnList')">{{
+                                        stampCaseData.warn_stamp }}</a></p>
+                            </div>
+                        </div>
+                        <div class="list-head">
+                            <p class="col1">证书类型</p>
+                            <p class="col2">数量</p>
+                        </div>
+                        <div class="list-body diy-scroll">
+                            <div class="list-item" v-for="(item,index) of stampCaseData.list" :key="index" @click="openLayer(item.name,'/dzzz/certmulu/zsml2')">
+                                <p class="col1">{{ item.name }}</p>
+                                <p class="col2">{{ item.VALUE }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box2">
+                    <h2 class="box-title"><span>证书有效期预警数据</span></h2>
+                    <p class="more-btn" @click="openmenu('/yxqWarnList')">更多</p>
+                    <div class="box-ct">
+                        <div class="list-head">
+                            <p class="col1">许可证书类型</p>
+                            <p class="col2">企业名称</p>
+                            <p class="col3">证书编号</p>
+                            <p class="col4">预警状态</p>
+                        </div>
+                        <div class="list-body diy-scroll">
+                            <div class="list-item" v-for="(item,index) of stampWarnData" :key="index">
+                                <p class="col1" :title="item.certtypename">{{ item.certtypename }}</p>
+                                <p class="col2" :title="item.qymc">{{ item.qymc }}</p>
+                                <p class="col3" :title="item.zsbh">{{ item.zsbh }}</p>
+                                <p class="col4" :class="`${item.yjzt}`">{{ item.yjzt }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="con-m">
+                <div class="box box3">
+                    <h2 class="box-title"><span>证书分布</span></h2>
+                    <div class="box-ct">
+                        <div class="chart-map" ref="chartMap"></div>
+                        <div class="info-box">
+                            <p class="item">湖北省：<span>{{ stampDistributionData.total }}</span></p>
+                            <p class="item">省本级：<span>{{ stampDistributionData.pro_total }}</span></p>
+                        </div>
+                        <div class="border-box">
+                            <div class="city-info">
+                                <p class="item-name">湖北省</p>
+                                <p class="item-val">{{ stampDistributionData.total }}</p>
+                            </div>
+                            <div class="info-list">
+                                <div class="item">
+                                    <p class="item-name">药品证书数量</p>
+                                    <p class="item-val">{{ stampDistributionData.drug_total }}</p>
+                                </div>
+                                <div class="item">
+                                    <p class="item-name">医疗器械证书数量</p>
+                                    <p class="item-val">{{ stampDistributionData.app_total }}</p>
+                                </div>
+                                <div class="item">
+                                    <p class="item-name">化妆品证书数量</p>
+                                    <p class="item-val">{{ stampDistributionData.cosmetics_total }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box4">
+                    <h2 class="box-title"><span>证书数量排名</span></h2>
+                    <div class="box-ct">
+                        <div class="swiper-container" ref="mySwiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide" v-for="(item,index) of stampRankData" :key="index">
+                                    <p class="item-name" :title="item.name">{{ item.name }}</p>
+                                    <div class="bar">
+                                        <div class="inner" :style="{width: item.ratio + '%'}"></div>
+                                    </div>
+                                    <div class="item-val">{{ item.VALUE }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="con-r">
+                <div class="box box5">
+                    <h2 class="box-title"><span>证书总览</span></h2>
+                    <div class="box-ct">
+                        <div class="item" v-for="(item,index) of stampInfoData" :key="index">
+                            <p class="item-title">{{ item.name }}</p>
+                            <p class="item-total">{{ item.total }}</p>
+                            <div class="row">
+                                <div class="data-box">
+                                    <p class="item-name">本月发证量</p>
+                                    <p class="item-val">{{ item.month_total }}</p>
+                                </div>
+                                <div class="data-box">
+                                    <p class="item-name">今日发证量</p>
+                                    <p class="item-val">{{ item.day_total }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box6">
+                    <h2 class="box-title"><span>持证企业</span></h2>
+                    <div class="box-ct">
+                        <a  target="_blank">
+                            <div class="item">
+                                <p class="item-name">药品生产</p>
+                                <p class="item-val">{{ firmInfoData.ypsc }}</p>
+                            </div>
+                        </a>
+                        <a  target="_blank">
+                            <div class="item">
+                                <p class="item-name">药品批发</p>
+                                <p class="item-val">{{ firmInfoData.ypjypf }}</p>
+                            </div>
+                        </a>
+                        <a  target="_blank">
+                            <div class="item">
+                                <p class="item-name">零售连锁总部</p>
+                                <p class="item-val">{{ firmInfoData.ypjyls }}</p>
+                            </div>
+                        </a>
+                        <a  target="_blank">
+                            <div class="item">
+                                <p class="item-name">医疗机构制剂</p>
+                                <p class="item-val">{{ firmInfoData.yljg }}</p>
+                            </div>
+                        </a>
+                        <a  target="_blank">
+                            <div class="item">
+                                <p class="item-name">器械生产</p>
+                                <p class="item-val">{{ firmInfoData.qxsc }}</p>
+                            </div>
+                        </a>
+                        <a  target="_blank">
+                            <div class="item">
+                                <p class="item-name">化妆品生产</p>
+                                <p class="item-val">{{ firmInfoData.hzpsc }}</p>
+                            </div>
+                        </a>
+                        <a  target="_blank">
+                            <div class="item">
+                                <p class="item-name">互联网信</p>
+                                <p class="item-val">{{ firmInfoData.hlwsc }}</p>
+                            </div>
+                        </a>
+                        <a  target="_blank">
+                            <div class="item">
+                                <p class="item-name">放射性生产</p>
+                                <p class="item-val">{{ firmInfoData.fsxsc }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="../../js/config.js"></script>
+    <script src="../../js/libs/rem2.js"></script>
+    <script src="../../js/libs/jquery-1.12.4.min.js"></script>
+    <script src="../../js/libs/vue/vue.js"></script>
+    <script src="../../js/libs/echarts/echarts.min.js"></script>
+    <script src="../../js/libs/element-ui/index.js"></script>
+    <script src="../../js/util/util.js"></script>
+    <script src="../../js/libs/swiper/swiper.min.js"></script>
+    <script src="../../js/libs/mock.min.js"></script>
+    <!-- <script src="http://mockjs.com/dist/mock.js"></script> -->
+    <script src="./test/test_certificateQuery.js"></script>
+    <script src="./js/certificateQuery.js"></script>
+</body>
+
+</html>

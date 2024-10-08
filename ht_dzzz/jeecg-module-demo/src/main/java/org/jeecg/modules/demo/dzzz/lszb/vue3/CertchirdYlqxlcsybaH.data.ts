@@ -1,0 +1,176 @@
+import {BasicColumn} from '/@/components/Table';
+import {FormSchema} from '/@/components/Table';
+import { rules} from '/@/utils/helper/validator';
+import { render } from '/@/utils/common/renderUtils';
+//列表数据
+export const columns: BasicColumn[] = [
+   {
+    title: '证书id',
+    align:"center",
+    dataIndex: 'zsid'
+   },
+   {
+    title: '拟生产药品的名称',
+    align:"center",
+    dataIndex: 'nscypmc'
+   },
+   {
+    title: '地址/科室',
+    align:"center",
+    dataIndex: 'dz'
+   },
+   {
+    title: '批准文号联系人/职务',
+    align:"center",
+    dataIndex: 'lxr'
+   },
+   {
+    title: '电话',
+    align:"center",
+    dataIndex: 'dh'
+   },
+   {
+    title: '类别 1临床实验机构(如多中心应注明牵头单位)2:研究者',
+    align:"center",
+    dataIndex: 'lb'
+   },
+   {
+    title: '状态 0正常 1删除',
+    align:"center",
+    dataIndex: 'zt'
+   },
+   {
+    title: '条数',
+    align:"center",
+    dataIndex: 'ts'
+   },
+   {
+    title: 'ylzd1',
+    align:"center",
+    dataIndex: 'ylzd1'
+   },
+   {
+    title: 'ylzd2',
+    align:"center",
+    dataIndex: 'ylzd2'
+   },
+   {
+    title: 'ylzd3',
+    align:"center",
+    dataIndex: 'ylzd3'
+   },
+   {
+    title: 'ylzd4',
+    align:"center",
+    dataIndex: 'ylzd4'
+   },
+   {
+    title: 'ylzd5',
+    align:"center",
+    dataIndex: 'ylzd5'
+   },
+];
+//查询数据
+export const searchFormSchema: FormSchema[] = [
+];
+//表单数据
+export const formSchema: FormSchema[] = [
+  {
+    label: '证书id',
+    field: 'zsid',
+    component: 'Input',
+  },
+  {
+    label: '拟生产药品的名称',
+    field: 'nscypmc',
+    component: 'Input',
+  },
+  {
+    label: '地址/科室',
+    field: 'dz',
+    component: 'Input',
+  },
+  {
+    label: '批准文号联系人/职务',
+    field: 'lxr',
+    component: 'Input',
+  },
+  {
+    label: '电话',
+    field: 'dh',
+    component: 'Input',
+  },
+  {
+    label: '类别 1临床实验机构(如多中心应注明牵头单位)2:研究者',
+    field: 'lb',
+    component: 'Input',
+  },
+  {
+    label: '状态 0正常 1删除',
+    field: 'zt',
+    component: 'Input',
+  },
+  {
+    label: '条数',
+    field: 'ts',
+    component: 'Input',
+  },
+  {
+    label: 'ylzd1',
+    field: 'ylzd1',
+    component: 'Input',
+  },
+  {
+    label: 'ylzd2',
+    field: 'ylzd2',
+    component: 'Input',
+  },
+  {
+    label: 'ylzd3',
+    field: 'ylzd3',
+    component: 'Input',
+  },
+  {
+    label: 'ylzd4',
+    field: 'ylzd4',
+    component: 'Input',
+  },
+  {
+    label: 'ylzd5',
+    field: 'ylzd5',
+    component: 'Input',
+  },
+	// TODO 主键隐藏字段，目前写死为ID
+	{
+	  label: '',
+	  field: 'id',
+	  component: 'Input',
+	  show: false
+	},
+];
+
+// 高级查询数据
+export const superQuerySchema = {
+  zsid: {title: '证书id',order: 0,view: 'text', type: 'string',},
+  nscypmc: {title: '拟生产药品的名称',order: 1,view: 'text', type: 'string',},
+  dz: {title: '地址/科室',order: 2,view: 'text', type: 'string',},
+  lxr: {title: '批准文号联系人/职务',order: 3,view: 'text', type: 'string',},
+  dh: {title: '电话',order: 4,view: 'text', type: 'string',},
+  lb: {title: '类别 1临床实验机构(如多中心应注明牵头单位)2:研究者',order: 5,view: 'text', type: 'string',},
+  zt: {title: '状态 0正常 1删除',order: 6,view: 'text', type: 'string',},
+  ts: {title: '条数',order: 7,view: 'text', type: 'string',},
+  ylzd1: {title: 'ylzd1',order: 8,view: 'text', type: 'string',},
+  ylzd2: {title: 'ylzd2',order: 9,view: 'text', type: 'string',},
+  ylzd3: {title: 'ylzd3',order: 10,view: 'text', type: 'string',},
+  ylzd4: {title: 'ylzd4',order: 11,view: 'text', type: 'string',},
+  ylzd5: {title: 'ylzd5',order: 12,view: 'text', type: 'string',},
+};
+
+/**
+* 流程表单调用这个方法获取formSchema
+* @param param
+*/
+export function getBpmFormSchema(_formData): FormSchema[]{
+  // 默认和原始表单保持一致 如果流程中配置了权限数据，这里需要单独处理formSchema
+  return formSchema;
+}

@@ -1,0 +1,270 @@
+<template>
+    <view>
+        <!--标题和返回-->
+		<cu-custom :bgColor="NavBarColor" isBack :backRouterName="backRouteName">
+			<block slot="backText">返回</block>
+			<block slot="content">证书模板</block>
+		</cu-custom>
+		 <!--表单区域-->
+		<view>
+			<form>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">模板版本号：</text></view>
+                  <input  placeholder="请输入模板版本号" v-model="model.bbNo"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">模板编号：</text></view>
+                  <input  placeholder="请输入模板编号" v-model="model.templateCode"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">模板名称：</text></view>
+                  <input  placeholder="请输入模板名称" v-model="model.templateName"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">模板类型：</text></view>
+                  <input  placeholder="请输入模板类型" v-model="model.templateType"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">显示顺序：</text></view>
+                  <input  placeholder="请输入显示顺序" v-model="model.orderNum"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">类型状态：</text></view>
+                  <input  placeholder="请输入类型状态" v-model="model.status"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">纸张类型：</text></view>
+                  <input  placeholder="请输入纸张类型" v-model="model.papertype"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">是否有背景：</text></view>
+                  <input  placeholder="请输入是否有背景" v-model="model.isbackgroud"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">附件：</text></view>
+                  <input  placeholder="请输入附件" v-model="model.file"/>
+                </view>
+              </view>
+              <my-date label="过期时间：" v-model="model.gqTime" placeholder="请输入过期时间"></my-date>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">模板格式：</text></view>
+                  <input  placeholder="请输入模板格式" v-model="model.modeformat"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">证照类型编码：</text></view>
+                  <input  placeholder="请输入证照类型编码" v-model="model.certtypecode"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">盖章位置左一：</text></view>
+                  <input  placeholder="请输入盖章位置左一" v-model="model.postLeft1"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">盖章位置左二：</text></view>
+                  <input  placeholder="请输入盖章位置左二" v-model="model.postLeft2"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">盖章位置左三：</text></view>
+                  <input  placeholder="请输入盖章位置左三" v-model="model.postLeft3"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">盖章位置左四：</text></view>
+                  <input  placeholder="请输入盖章位置左四" v-model="model.postLeft4"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">盖章位置右一：</text></view>
+                  <input  placeholder="请输入盖章位置右一" v-model="model.postRight1"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">盖章位置右二：</text></view>
+                  <input  placeholder="请输入盖章位置右二" v-model="model.postRight2"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">盖章位置右三：</text></view>
+                  <input  placeholder="请输入盖章位置右三" v-model="model.postRight3"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">盖章位置右四：</text></view>
+                  <input  placeholder="请输入盖章位置右四" v-model="model.postRight4"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">模板状态 1启用2历史：</text></view>
+                  <input  placeholder="请输入模板状态 1启用2历史" v-model="model.modestatus"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">是否合并附件0不合并1合并：</text></view>
+                  <input  placeholder="请输入是否合并附件0不合并1合并" v-model="model.ismergeFile"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">定位方式：</text></view>
+                  <input  placeholder="请输入定位方式" v-model="model.postmethod"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">排版类型：</text></view>
+                  <input  placeholder="请输入排版类型" v-model="model.pblx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">文本定位：</text></view>
+                  <input  placeholder="请输入文本定位" v-model="model.wbpost"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">是否推送企业端：</text></view>
+                  <input  placeholder="请输入是否推送企业端" v-model="model.isqy"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">是否公示：</text></view>
+                  <input  placeholder="请输入是否公示" v-model="model.isgs"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">是否为变更记录替换模板：</text></view>
+                  <input  placeholder="请输入是否为变更记录替换模板" v-model="model.iswbgjlthmb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">模板页数：</text></view>
+                  <input type="number" placeholder="请输入模板页数" v-model="model.mbys"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">变更字数项：</text></view>
+                  <input type="number" placeholder="请输入变更字数项" v-model="model.bgzsx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">附件来源：</text></view>
+                  <input  placeholder="请输入附件来源" v-model="model.fjly"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">附件盖章位置x轴：</text></view>
+                  <input  placeholder="请输入附件盖章位置x轴" v-model="model.fjpostX"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">附件盖章位置y轴：</text></view>
+                  <input  placeholder="请输入附件盖章位置y轴" v-model="model.fjpostY"/>
+                </view>
+              </view>
+				<view class="padding">
+					<button class="cu-btn block bg-blue margin-tb-sm lg" @click="onSubmit">
+						<text v-if="loading" class="cuIcon-loading2 cuIconfont-spin"></text>提交
+					</button>
+				</view>
+			</form>
+		</view>
+    </view>
+</template>
+
+<script>
+    import myDate from '@/components/my-componets/my-date.vue'
+
+    export default {
+        name: "CertModeForm",
+        components:{ myDate },
+        props:{
+          formData:{
+              type:Object,
+              default:()=>{},
+              required:false
+          }
+        },
+        data(){
+            return {
+				CustomBar: this.CustomBar,
+				NavBarColor: this.NavBarColor,
+				loading:false,
+                model: {},
+                backRouteName:'index',
+                url: {
+                  queryById: "/dzzz.certmode/certMode/queryById",
+                  add: "/dzzz.certmode/certMode/add",
+                  edit: "/dzzz.certmode/certMode/edit",
+                },
+            }
+        },
+        created(){
+             this.initFormData();
+        },
+        methods:{
+           initFormData(){
+               if(this.formData){
+                    let dataId = this.formData.dataId;
+                    this.$http.get(this.url.queryById,{params:{id:dataId}}).then((res)=>{
+                        if(res.data.success){
+                            console.log("表单数据",res);
+                            this.model = res.data.result;
+                        }
+                    })
+                }
+            },
+            onSubmit() {
+                let myForm = {...this.model};
+                this.loading = true;
+                let url = myForm.id?this.url.edit:this.url.add;
+				this.$http.post(url,myForm).then(res=>{
+				   console.log("res",res)
+				   this.loading = false
+				   this.$Router.push({name:this.backRouteName})
+				}).catch(()=>{
+					this.loading = false
+				});
+            }
+        }
+    }
+</script>

@@ -1,0 +1,1653 @@
+<template>
+    <view>
+        <!--标题和返回-->
+		<cu-custom :bgColor="NavBarColor" isBack :backRouterName="backRouteName">
+			<block slot="backText">返回</block>
+			<block slot="content">cert_zminfo</block>
+		</cu-custom>
+		 <!--表单区域-->
+		<view>
+			<form>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">经营方式/服务性质
+：</text></view>
+                  <input  placeholder="请输入经营方式/服务性质
+" v-model="model.jyfs"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">注册地址/申请地址/调出方地址/制剂配制地址/调入方地址/申请人注册地址/申请人制剂配制地址/委托配制制剂配制地址/受托方制剂配制地址/委托方单位地址/工厂地址中文/药品生产企业或者药品上市许可持有人地址中文/住所/委托方住所/备案人住所/注册人住所/生产企业住所/申办者地址
+：</text></view>
+                  <input  placeholder="请输入注册地址/申请地址/调出方地址/制剂配制地址/调入方地址/申请人注册地址/申请人制剂配制地址/委托配制制剂配制地址/受托方制剂配制地址/委托方单位地址/工厂地址中文/药品生产企业或者药品上市许可持有人地址中文/住所/委托方住所/备案人住所/注册人住所/生产企业住所/申办者地址
+" v-model="model.zcdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">日常监督管理机构
+：</text></view>
+                  <input  placeholder="请输入日常监督管理机构
+" v-model="model.rcjdgljg"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">法定代表人/关键人员类型/委托方法定代表人
+：</text></view>
+                  <input  placeholder="请输入法定代表人/关键人员类型/委托方法定代表人
+" v-model="model.fddbr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">投诉举报电话
+：</text></view>
+                  <input  placeholder="请输入投诉举报电话
+" v-model="model.tsjbdh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业负责人/原负责人/委托方企业负责人
+：</text></view>
+                  <input  placeholder="请输入企业负责人/原负责人/委托方企业负责人
+" v-model="model.qyfzr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量负责人/变更后负责人/医疗器械质量安全管理人
+：</text></view>
+                  <input  placeholder="请输入质量负责人/变更后负责人/医疗器械质量安全管理人
+" v-model="model.zlfzr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">发证机关/备案部门/审批部门
+：</text></view>
+                  <input  placeholder="请输入发证机关/备案部门/审批部门
+" v-model="model.fzjg"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产地址和生产范围/配置地址和配置范围/生产地址/生产范围/委托方生产地址
+：</text></view>
+                  <input  placeholder="请输入生产地址和生产范围/配置地址和配置范围/生产地址/生产范围/委托方生产地址
+" v-model="model.scdzscfw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">签发人/签字
+：</text></view>
+                  <input  placeholder="请输入签发人/签字
+" v-model="model.qfr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">发证日期/签章与日期/备案日期/批准日期/生效日期
+：</text></view>
+                  <input  placeholder="请输入发证日期/签章与日期/备案日期/批准日期/生效日期
+" v-model="model.fzrq"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">有效期至/失效日期/有效期限/批准文号有效期/批准文号有效期至/本证明文件的有效期/批准时间中文/证明的有效期至中文
+：</text></view>
+                  <input  placeholder="请输入有效期至/失效日期/有效期限/批准文号有效期/批准文号有效期至/本证明文件的有效期/批准时间中文/证明的有效期至中文
+" v-model="model.yxqz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量授权人
+：</text></view>
+                  <input  placeholder="请输入质量授权人
+" v-model="model.zlsqr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产负责人
+：</text></view>
+                  <input  placeholder="请输入生产负责人
+" v-model="model.scfzr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">主要负责人/制剂室负责人/网站负责人
+：</text></view>
+                  <input  placeholder="请输入主要负责人/制剂室负责人/网站负责人
+" v-model="model.zyfzr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">经营范围/使用范围/网站域名/范围/检查范围/品种/适用范围/生产范围/适用范围或者预期用途
+：</text></view>
+                  <input  placeholder="请输入经营范围/使用范围/网站域名/范围/检查范围/品种/适用范围/生产范围/适用范围或者预期用途
+" v-model="model.jyfw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">仓库地址/网站ip地址/检查场地地址/库房地址
+：</text></view>
+                  <input  placeholder="请输入仓库地址/网站ip地址/检查场地地址/库房地址
+" v-model="model.ckdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">科室地址/生产企业所在辖区/经营场所/经营场所或生产场所/办公场所
+：</text></view>
+                  <input  placeholder="请输入科室地址/生产企业所在辖区/经营场所/经营场所或生产场所/办公场所
+" v-model="model.ksdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">许可证类别
+：</text></view>
+                  <input  placeholder="请输入许可证类别
+" v-model="model.xkzlb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">科室名称
+：</text></view>
+                  <input  placeholder="请输入科室名称
+" v-model="model.ksmc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">医疗机构类别
+：</text></view>
+                  <input  placeholder="请输入医疗机构类别
+" v-model="model.yljglb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">科室负责人
+：</text></view>
+                  <input  placeholder="请输入科室负责人
+" v-model="model.ksfzr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">进口单位
+：</text></view>
+                  <input  placeholder="请输入进口单位
+" v-model="model.jkdw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">进口单位英文名称
+：</text></view>
+                  <input  placeholder="请输入进口单位英文名称
+" v-model="model.jkdwyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">进口单位地址
+：</text></view>
+                  <input  placeholder="请输入进口单位地址
+" v-model="model.jkdwdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">进口单位英文地址
+：</text></view>
+                  <input  placeholder="请输入进口单位英文地址
+" v-model="model.jkdwdzyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">出口单位
+：</text></view>
+                  <input  placeholder="请输入出口单位
+" v-model="model.ckdw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">出口单位英文名称
+：</text></view>
+                  <input  placeholder="请输入出口单位英文名称
+" v-model="model.ckdwyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">出口单位地址
+：</text></view>
+                  <input  placeholder="请输入出口单位地址
+" v-model="model.ckdwdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">出口单位英文地址
+：</text></view>
+                  <input  placeholder="请输入出口单位英文地址
+" v-model="model.ckdwdzyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">进口药物名称
+：</text></view>
+                  <input  placeholder="请输入进口药物名称
+" v-model="model.jkywmc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">进口药物英文名称
+：</text></view>
+                  <input  placeholder="请输入进口药物英文名称
+" v-model="model.jkywmcyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">商品编码
+：</text></view>
+                  <input  placeholder="请输入商品编码
+" v-model="model.spbm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">剂型中文/剂型
+：</text></view>
+                  <input  placeholder="请输入剂型中文/剂型
+" v-model="model.jxzw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">剂型英文
+：</text></view>
+                  <input  placeholder="请输入剂型英文
+" v-model="model.jxyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">包装与规格中文/规格/包装规格/型号、规格/规格型号/试验用医疗器械型号规格
+：</text></view>
+                  <input  placeholder="请输入包装与规格中文/规格/包装规格/型号、规格/规格型号/试验用医疗器械型号规格
+" v-model="model.bzgg"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">包装与规格英文/规格英文
+：</text></view>
+                  <input  placeholder="请输入包装与规格英文/规格英文
+" v-model="model.bzggyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">进口药物数量
+：</text></view>
+                  <input  placeholder="请输入进口药物数量
+" v-model="model.jkywsl"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">进口药物数量英文
+：</text></view>
+                  <input  placeholder="请输入进口药物数量英文
+" v-model="model.jkywslyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">管制药物含量
+：</text></view>
+                  <input  placeholder="请输入管制药物含量
+" v-model="model.gzywhl"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产企业/药品实际生产者中文
+：</text></view>
+                  <input  placeholder="请输入生产企业/药品实际生产者中文
+" v-model="model.scqy"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产企业英文/药品实际生产者英文
+：</text></view>
+                  <input  placeholder="请输入生产企业英文/药品实际生产者英文
+" v-model="model.scqyyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">进口口岸
+：</text></view>
+                  <input  placeholder="请输入进口口岸
+" v-model="model.jkka"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">进口口岸英文
+：</text></view>
+                  <input  placeholder="请输入进口口岸英文
+" v-model="model.jkkayw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">出口口岸
+：</text></view>
+                  <input  placeholder="请输入出口口岸
+" v-model="model.ckka"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">出口口岸英文
+：</text></view>
+                  <input  placeholder="请输入出口口岸英文
+" v-model="model.ckkayw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">于下列日期前进口/于下列日期前出口/有效期起
+：</text></view>
+                  <input  placeholder="请输入于下列日期前进口/于下列日期前出口/有效期起
+" v-model="model.yxqq"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">发证机关英文/证明当局英文
+：</text></view>
+                  <input  placeholder="请输入发证机关英文/证明当局英文
+" v-model="model.fzjgyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">出口药物名称/准予运输药品名称/药品名称/申请定点生产药品名称/药品通用名称/药品名称英文名拉丁名
+：</text></view>
+                  <input  placeholder="请输入出口药物名称/准予运输药品名称/药品名称/申请定点生产药品名称/药品通用名称/药品名称英文名拉丁名
+" v-model="model.ckywmc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">出口药物数量
+：</text></view>
+                  <input  placeholder="请输入出口药物数量
+" v-model="model.ckywsl"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">出口药物数量英文
+：</text></view>
+                  <input  placeholder="请输入出口药物数量英文
+" v-model="model.ckywslyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">发货单位联系电话/联系电话/委托方联系电话/委托方住所电话
+	：</text></view>
+                  <input  placeholder="请输入发货单位联系电话/联系电话/委托方联系电话/委托方住所电话
+	" v-model="model.fhdwlxdh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">运输证明有效期开始日期/有效证明有效期限自
+：</text></view>
+                  <input  placeholder="请输入运输证明有效期开始日期/有效证明有效期限自
+" v-model="model.yszmyxqq"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">运输证明有效期截止日期/邮寄证明有效期限至
+：</text></view>
+                  <input  placeholder="请输入运输证明有效期截止日期/邮寄证明有效期限至
+" v-model="model.yszmyxqz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">发证机关联系电话/电话
+：</text></view>
+                  <input  placeholder="请输入发证机关联系电话/电话
+" v-model="model.fzjgdh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">邮编/地址和邮编/委托方住所邮编
+：</text></view>
+                  <input  placeholder="请输入邮编/地址和邮编/委托方住所邮编
+" v-model="model.yb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">管制类别/类别/制剂类别/药品分类
+：</text></view>
+                  <input  placeholder="请输入管制类别/类别/制剂类别/药品分类
+" v-model="model.gzlb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">专业、学历/技术职称/是否执业药师/从业年限
+：</text></view>
+                  <input  placeholder="请输入专业、学历/技术职称/是否执业药师/从业年限
+" v-model="model.zyxl"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">审批结论/备案结论/备案意见/检查结论
+：</text></view>
+                  <input  placeholder="请输入审批结论/备案结论/备案意见/检查结论
+" v-model="model.spjl"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">主送单位/主送
+：</text></view>
+                  <input  placeholder="请输入主送单位/主送
+" v-model="model.zsdw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">抄送单位/抄送
+：</text></view>
+                  <input  placeholder="请输入抄送单位/抄送
+" v-model="model.csdw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">说明
+：</text></view>
+                  <input  placeholder="请输入说明
+" v-model="model.sm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">备注
+：</text></view>
+                  <input  placeholder="请输入备注
+" v-model="model.bz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受理号/互联网药品信息服务资格证书编号/非经营性互联网信息服务备案编号
+：</text></view>
+                  <input  placeholder="请输入受理号/互联网药品信息服务资格证书编号/非经营性互联网信息服务备案编号
+" v-model="model.slh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">产品名称/制剂名称/制剂名称通用名称/网络客户端应用程序名/网站域名/产品名称中文/试验用医疗器械产品/准予运输药品名称
+：</text></view>
+                  <input  placeholder="请输入产品名称/制剂名称/制剂名称通用名称/网络客户端应用程序名/网站域名/产品名称中文/试验用医疗器械产品/准予运输药品名称
+" v-model="model.cpmc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">产品注册证明文件或备案凭证编号/《医疗机构制剂许可证》编号/《医疗机构制剂许可证》编号或《药品生产许可证》编号/《医疗机构制剂许可证》（或《药品生产质量管理规范》认证证书）编号/医疗器械生产(经营)许可证或备案凭证编号/生产许可或备案凭证号
+：</text></view>
+                  <input  placeholder="请输入产品注册证明文件或备案凭证编号/《医疗机构制剂许可证》编号/《医疗机构制剂许可证》编号或《药品生产许可证》编号/《医疗机构制剂许可证》（或《药品生产质量管理规范》认证证书）编号/医疗器械生产(经营)许可证或备案凭证编号/生产许可或备案凭证号
+" v-model="model.cpzcbapzbh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">上一级行政机关
+：</text></view>
+                  <input  placeholder="请输入上一级行政机关
+" v-model="model.syjxzzjg"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">人民政府
+：</text></view>
+                  <input  placeholder="请输入人民政府
+" v-model="model.rmzf"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">上传附件/附件
+：</text></view>
+                  <input  placeholder="请输入上传附件/附件
+" v-model="model.scfj"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">有效期/使用期限/检查时间/产品储存条件及有效期/试验方案版本号及日期
+：</text></view>
+                  <input  placeholder="请输入有效期/使用期限/检查时间/产品储存条件及有效期/试验方案版本号及日期
+" v-model="model.yxq"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量标准/药品标准
+：</text></view>
+                  <input  placeholder="请输入质量标准/药品标准
+" v-model="model.zlbz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">产品批号/电信业务经营许可证编号/非经营性互联网信息服务备案编号/产品注册或备案凭证号
+：</text></view>
+                  <input  placeholder="请输入产品批号/电信业务经营许可证编号/非经营性互联网信息服务备案编号/产品注册或备案凭证号
+" v-model="model.cpph"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">调剂数量
+：</text></view>
+                  <input  placeholder="请输入调剂数量
+" v-model="model.tjsl"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">制剂名称汉语拼音/汉语拼音
+：</text></view>
+                  <input  placeholder="请输入制剂名称汉语拼音/汉语拼音
+" v-model="model.zjmchypy"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">抄报单位
+：</text></view>
+                  <input  placeholder="请输入抄报单位
+" v-model="model.cbdw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">变更内容/申请内容/申请理由/备案事项/变更前情况/变更原因/变更后情况/其他内容
+：</text></view>
+                  <input  placeholder="请输入变更内容/申请内容/申请理由/备案事项/变更前情况/变更原因/变更后情况/其他内容
+" v-model="model.bgnr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业名称英文/药品生产企业或者药品上市许可持有人英文
+：</text></view>
+                  <input  placeholder="请输入企业名称英文/药品生产企业或者药品上市许可持有人英文
+" v-model="model.qymcyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业地址英文/药品生产企业或者药品上市许可持有人地址英文
+：</text></view>
+                  <input  placeholder="请输入企业地址英文/药品生产企业或者药品上市许可持有人地址英文
+" v-model="model.qydzyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">对该生产工厂检查的日期中文
+：</text></view>
+                  <input  placeholder="请输入对该生产工厂检查的日期中文
+" v-model="model.jcrqzw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">对该生产工厂检查的日期英文
+：</text></view>
+                  <input  placeholder="请输入对该生产工厂检查的日期英文
+" v-model="model.jcrqyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">本证明文件的有效期英文/批准时间英文/证明的有效期至英文
+：</text></view>
+                  <input  placeholder="请输入本证明文件的有效期英文/批准时间英文/证明的有效期至英文
+" v-model="model.zmwjyxqyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">签发部门地址中文/证明当局地址中文
+：</text></view>
+                  <input  placeholder="请输入签发部门地址中文/证明当局地址中文
+" v-model="model.fzjgdzzw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">签发部门地址英文/证明当局地址英文
+：</text></view>
+                  <input  placeholder="请输入签发部门地址英文/证明当局地址英文
+" v-model="model.fzjgdzyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">负责人姓名及职务中文
+：</text></view>
+                  <input  placeholder="请输入负责人姓名及职务中文
+" v-model="model.fzrxmzwzw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">负责人姓名及职务英文
+：</text></view>
+                  <input  placeholder="请输入负责人姓名及职务英文
+" v-model="model.fzrxmzwyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">电子邮箱/联系人电子邮箱
+：</text></view>
+                  <input  placeholder="请输入电子邮箱/联系人电子邮箱
+" v-model="model.dzyx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">传真/联系人传真
+：</text></view>
+                  <input  placeholder="请输入传真/联系人传真
+" v-model="model.lxrcz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">证书编号英文/产品批准文号英文
+：</text></view>
+                  <input  placeholder="请输入证书编号英文/产品批准文号英文
+" v-model="model.zsbhyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">产品名称英文
+：</text></view>
+                  <input  placeholder="请输入产品名称英文
+" v-model="model.cpmcyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">商品名中文
+：</text></view>
+                  <input  placeholder="请输入商品名中文
+" v-model="model.spmzw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">商品名英文
+：</text></view>
+                  <input  placeholder="请输入商品名英文
+" v-model="model.spmyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">活性成分中文
+：</text></view>
+                  <input  placeholder="请输入活性成分中文
+" v-model="model.hxcfzw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">活性成分英文
+：</text></view>
+                  <input  placeholder="请输入活性成分英文
+" v-model="model.hxcfyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">包括辅料在内的完整处方组成中文
+：</text></view>
+                  <input  placeholder="请输入包括辅料在内的完整处方组成中文
+" v-model="model.cfzczw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">包括辅料在内的完整处方组成英文
+：</text></view>
+                  <input  placeholder="请输入包括辅料在内的完整处方组成英文
+" v-model="model.cfzcyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">该药品规格是否获得许可在中国市场上使用
+：</text></view>
+                  <input  placeholder="请输入该药品规格是否获得许可在中国市场上使用
+" v-model="model.sfhdxkzzgscssy"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">该药品规格是否已经在中国市场上使用
+：</text></view>
+                  <input  placeholder="请输入该药品规格是否已经在中国市场上使用
+" v-model="model.sfyjzzgscssy"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">药品实际生产者地址中文
+：</text></view>
+                  <input  placeholder="请输入药品实际生产者地址中文
+" v-model="model.ypsjsczdzzw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">药品实际生产者地址英文
+：</text></view>
+                  <input  placeholder="请输入药品实际生产者地址英文
+" v-model="model.ypsjsczdzyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">证明当局是否对该药品的实际生产企业进行定期检查
+：</text></view>
+                  <input  placeholder="请输入证明当局是否对该药品的实际生产企业进行定期检查
+" v-model="model.jxdqjc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">定期检查的周期
+：</text></view>
+                  <input  placeholder="请输入定期检查的周期
+" v-model="model.dqjczq"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">此类剂型的生产是否检查过
+：</text></view>
+                  <input  placeholder="请输入此类剂型的生产是否检查过
+" v-model="model.jxscsfjc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产设备和操作是否符合WHO推荐的药品生产质量管理规范
+：</text></view>
+                  <input  placeholder="请输入生产设备和操作是否符合WHO推荐的药品生产质量管理规范
+" v-model="model.sffhwhogf"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">申请人所提供的信息是否满足证明当局的要求
+：</text></view>
+                  <input  placeholder="请输入申请人所提供的信息是否满足证明当局的要求
+" v-model="model.zmdjyq"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">该规格未注册的理由中文
+：</text></view>
+                  <input  placeholder="请输入该规格未注册的理由中文
+" v-model="model.wzclyzw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">该规格未注册的理由英文
+：</text></view>
+                  <input  placeholder="请输入该规格未注册的理由英文
+" v-model="model.wzclyyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">检查生产车间/线
+：</text></view>
+                  <input  placeholder="请输入检查生产车间/线
+" v-model="model.jcsccj"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业排查和整改情况表
+：</text></view>
+                  <input  placeholder="请输入企业排查和整改情况表
+" v-model="model.qyjczgqk"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业开展风险排查情况
+：</text></view>
+                  <input  placeholder="请输入企业开展风险排查情况
+" v-model="model.qykzfxpcqk"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">提示风险和问题是否存在
+：</text></view>
+                  <input  placeholder="请输入提示风险和问题是否存在
+" v-model="model.fxwtsfcz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业整改情况
+：</text></view>
+                  <input  placeholder="请输入企业整改情况
+" v-model="model.qyzgqk"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">其他建议或意见
+：</text></view>
+                  <input  placeholder="请输入其他建议或意见
+" v-model="model.qtjyyj"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">认证范围中文
+：</text></view>
+                  <input  placeholder="请输入认证范围中文
+" v-model="model.rzfwzw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">认证范围英文
+：</text></view>
+                  <input  placeholder="请输入认证范围英文
+" v-model="model.rzfwyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方企业名称
+：</text></view>
+                  <input  placeholder="请输入受托方企业名称
+" v-model="model.stfqymc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方生产备案编号
+：</text></view>
+                  <input  placeholder="请输入受托方生产备案编号
+" v-model="model.stfscbabh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方住所
+：</text></view>
+                  <input  placeholder="请输入受托方住所
+" v-model="model.stfzs"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方生产地址
+：</text></view>
+                  <input  placeholder="请输入受托方生产地址
+" v-model="model.stfscdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方生产企业所在辖区
+：</text></view>
+                  <input  placeholder="请输入受托方生产企业所在辖区
+" v-model="model.stfscqyszxq"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方组织机构代码
+：</text></view>
+                  <input  placeholder="请输入受托方组织机构代码
+" v-model="model.stfzzjgdm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方联系电话
+：</text></view>
+                  <input  placeholder="请输入受托方联系电话
+" v-model="model.stflxdh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方法定代表人
+：</text></view>
+                  <input  placeholder="请输入受托方法定代表人
+" v-model="model.stffddbr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方企业负责人
+：</text></view>
+                  <input  placeholder="请输入受托方企业负责人
+" v-model="model.stfqyfzr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">代理人名称
+：</text></view>
+                  <input  placeholder="请输入代理人名称
+" v-model="model.dlrmc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">代理人住所/代理人地址
+：</text></view>
+                  <input  placeholder="请输入代理人住所/代理人地址
+" v-model="model.dlrzs"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">结构组成/主要组成成分/性能结构及组成
+：</text></view>
+                  <input  placeholder="请输入结构组成/主要组成成分/性能结构及组成
+" v-model="model.jgzc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">预期用途/主要工作原理或者作用机理
+：</text></view>
+                  <input  placeholder="请输入预期用途/主要工作原理或者作用机理
+" v-model="model.yqyt"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">委托方生产地址邮编
+：</text></view>
+                  <input  placeholder="请输入委托方生产地址邮编
+" v-model="model.stfscdzyb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">委托方生产地址电话
+：</text></view>
+                  <input  placeholder="请输入委托方生产地址电话
+" v-model="model.stfscdzdh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方联系人
+：</text></view>
+                  <input  placeholder="请输入受托方联系人
+" v-model="model.stflxr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方住所邮编
+：</text></view>
+                  <input  placeholder="请输入受托方住所邮编
+" v-model="model.wtfzsyb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方住所电话
+：</text></view>
+                  <input  placeholder="请输入受托方住所电话
+" v-model="model.wtfzsdh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方生产地址邮编
+：</text></view>
+                  <input  placeholder="请输入受托方生产地址邮编
+" v-model="model.wtfscdzyb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受托方生产地址电话
+：</text></view>
+                  <input  placeholder="请输入受托方生产地址电话
+" v-model="model.wtfscdzdh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">医疗器械网络销售备案类型
+：</text></view>
+                  <input  placeholder="请输入医疗器械网络销售备案类型
+" v-model="model.ylqxwlxsbalx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">联系人姓名
+：</text></view>
+                  <input  placeholder="请输入联系人姓名
+" v-model="model.lxrxm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">联系人身份证类型
+：</text></view>
+                  <input  placeholder="请输入联系人身份证类型
+" v-model="model.lxrsfzlb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">联系人证件号
+：</text></view>
+                  <input  placeholder="请输入联系人证件号
+" v-model="model.lxrzjh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">联系人电话
+：</text></view>
+                  <input  placeholder="请输入联系人电话
+" v-model="model.lxrdh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">主体业态
+：</text></view>
+                  <input  placeholder="请输入主体业态
+" v-model="model.ztyt"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">服务器存放地址
+：</text></view>
+                  <input  placeholder="请输入服务器存放地址
+" v-model="model.fwqcfdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">联系地址
+：</text></view>
+                  <input  placeholder="请输入联系地址
+" v-model="model.lxdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">联系手机
+：</text></view>
+                  <input  placeholder="请输入联系手机
+" v-model="model.lxsj"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">申请资料
+：</text></view>
+                  <input  placeholder="请输入申请资料
+" v-model="model.syzl"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">试验名称
+：</text></view>
+                  <input  placeholder="请输入试验名称
+" v-model="model.symc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">试验目标
+：</text></view>
+                  <input  placeholder="请输入试验目标
+" v-model="model.symb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">试验用医疗器械分类
+：</text></view>
+                  <input  placeholder="请输入试验用医疗器械分类
+" v-model="model.syyylqxfl"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">需进行临床试验审批的第三类医疗器械
+：</text></view>
+                  <input  placeholder="请输入需进行临床试验审批的第三类医疗器械
+" v-model="model.xjjlcsyspdsfylqx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">中国境内同类产品
+：</text></view>
+                  <input  placeholder="请输入中国境内同类产品
+" v-model="model.zgjltlcp"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">多中心临床试验
+：</text></view>
+                  <input  placeholder="请输入多中心临床试验
+" v-model="model.dzxlcsy"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">代理人联系人
+：</text></view>
+                  <input  placeholder="请输入代理人联系人
+" v-model="model.dlrlxr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">代理人电话
+：</text></view>
+                  <input  placeholder="请输入代理人电话
+" v-model="model.dlrdh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">代理人邮编
+：</text></view>
+                  <input  placeholder="请输入代理人邮编
+" v-model="model.dlryb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">监查员姓名
+：</text></view>
+                  <input  placeholder="请输入监查员姓名
+" v-model="model.jcyxm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">监查员电话
+：</text></view>
+                  <input  placeholder="请输入监查员电话
+" v-model="model.jcydh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业名称/发货单位名称/药品生产企业名称/申请单位/产品持有人/医疗机构名称/调出方医疗机构单位名称/制剂配制单位名称/调入方医疗机构单位名称/申请人单位名称/委托配制单位名称/委托方单位名称/受托方单位名称/机构名称/网站名称/原药品生产企业名称/工厂名称中文/药品生产许可证编号/药品生产企业或者药品上市许可持有人中文/药品生产企业或者药品上市许可持有人/委托方企业名称/注册人名称/申请人名称/申办者：</text></view>
+                  <input  placeholder="请输入企业名称/发货单位名称/药品生产企业名称/申请单位/产品持有人/医疗机构名称/调出方医疗机构单位名称/制剂配制单位名称/调入方医疗机构单位名称/申请人单位名称/委托配制单位名称/委托方单位名称/受托方单位名称/机构名称/网站名称/原药品生产企业名称/工厂名称中文/药品生产许可证编号/药品生产企业或者药品上市许可持有人中文/药品生产企业或者药品上市许可持有人/委托方企业名称/注册人名称/申请人名称/申办者" v-model="model.qymc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">许可证编号/进口准许证号/编号/批件号/广告批准文号/批准文号/原制剂文号/制剂批准文号/备案号/原始编号/药品批准文号/批准文号/备案编号/委托方生产备案编号/注册证编号：</text></view>
+                  <input  placeholder="请输入许可证编号/进口准许证号/编号/批件号/广告批准文号/批准文号/原制剂文号/制剂批准文号/备案号/原始编号/药品批准文号/批准文号/备案编号/委托方生产备案编号/注册证编号" v-model="model.zsbh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">社会信用代码/统一社会信用代码/委托配制单位社会信用代码/委托方组织机构代码
+
+：</text></view>
+                  <input  placeholder="请输入社会信用代码/统一社会信用代码/委托配制单位社会信用代码/委托方组织机构代码
+
+" v-model="model.shxydm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">分类码
+：</text></view>
+                  <input  placeholder="请输入分类码
+" v-model="model.flm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产地址和范围副本/范围英文：</text></view>
+                  <input  placeholder="请输入生产地址和范围副本/范围英文" v-model="model.scdzscfwyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">areaname：</text></view>
+                  <input  placeholder="请输入areaname" v-model="model.areaname"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">areacode：</text></view>
+                  <input  placeholder="请输入areacode" v-model="model.areacode"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">dzzzid：</text></view>
+                  <input  placeholder="请输入dzzzid" v-model="model.dzzzid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ewm：</text></view>
+                  <input  placeholder="请输入ewm" v-model="model.ewm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">transid：</text></view>
+                  <input  placeholder="请输入transid" v-model="model.transid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">zjdwmc：</text></view>
+                  <input  placeholder="请输入zjdwmc" v-model="model.zjdwmc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">zjpzdz：</text></view>
+                  <input  placeholder="请输入zjpzdz" v-model="model.zjpzdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">fj：</text></view>
+                  <input  placeholder="请输入fj" v-model="model.fj"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">dwdz：</text></view>
+                  <input  placeholder="请输入dwdz" v-model="model.dwdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">dwmc：</text></view>
+                  <input  placeholder="请输入dwmc" v-model="model.dwmc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">pzwh：</text></view>
+                  <input  placeholder="请输入pzwh" v-model="model.pzwh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">syqx：</text></view>
+                  <input  placeholder="请输入syqx" v-model="model.syqx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">guige：</text></view>
+                  <input  placeholder="请输入guige" v-model="model.guige"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">yzjwh：</text></view>
+                  <input  placeholder="请输入yzjwh" v-model="model.yzjwh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">rzbh：</text></view>
+                  <input  placeholder="请输入rzbh" v-model="model.rzbh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">stfpjpzdz：</text></view>
+                  <input  placeholder="请输入stfpjpzdz" v-model="model.stfpjpzdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">pzwhyxq：</text></view>
+                  <input  placeholder="请输入pzwhyxq" v-model="model.pzwhyxq"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">zjyxq：</text></view>
+                  <input  placeholder="请输入zjyxq" v-model="model.zjyxq"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">wzmc：</text></view>
+                  <input  placeholder="请输入wzmc" v-model="model.wzmc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">sqly：</text></view>
+                  <input  placeholder="请输入sqly" v-model="model.sqly"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ysbh：</text></view>
+                  <input  placeholder="请输入ysbh" v-model="model.ysbh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ckywmcyw：</text></view>
+                  <input  placeholder="请输入ckywmcyw" v-model="model.ckywmcyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">jszc：</text></view>
+                  <input  placeholder="请输入jszc" v-model="model.jszc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">iszy：</text></view>
+                  <input  placeholder="请输入iszy" v-model="model.iszy"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">cynx：</text></view>
+                  <input  placeholder="请输入cynx" v-model="model.cynx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">bgqqk：</text></view>
+                  <input  placeholder="请输入bgqqk" v-model="model.bgqqk"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">bghqk：</text></view>
+                  <input  placeholder="请输入bghqk" v-model="model.bghqk"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">basx：</text></view>
+                  <input  placeholder="请输入basx" v-model="model.basx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">sqrsfzh：</text></view>
+                  <input  placeholder="请输入sqrsfzh" v-model="model.sqrsfzh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">jl：</text></view>
+                  <input  placeholder="请输入jl" v-model="model.jl"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">pzwhyw：</text></view>
+                  <input  placeholder="请输入pzwhyw" v-model="model.pzwhyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">dqjczqyw：</text></view>
+                  <input  placeholder="请输入dqjczqyw" v-model="model.dqjczqyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">wzcxm：</text></view>
+                  <input  placeholder="请输入wzcxm" v-model="model.wzcxm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ipdz：</text></view>
+                  <input  placeholder="请输入ipdz" v-model="model.ipdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">hlwbah：</text></view>
+                  <input  placeholder="请输入hlwbah" v-model="model.hlwbah"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">slsjn：</text></view>
+                  <input  placeholder="请输入slsjn" v-model="model.slsjn"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">slsjy：</text></view>
+                  <input  placeholder="请输入slsjy" v-model="model.slsjy"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">slsjr：</text></view>
+                  <input  placeholder="请输入slsjr" v-model="model.slsjr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">cpphyw：</text></view>
+                  <input  placeholder="请输入cpphyw" v-model="model.cpphyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">cpmc2：</text></view>
+                  <input  placeholder="请输入cpmc2" v-model="model.cpmc2"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">cpmc3：</text></view>
+                  <input  placeholder="请输入cpmc3" v-model="model.cpmc3"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">cpmc4：</text></view>
+                  <input  placeholder="请输入cpmc4" v-model="model.cpmc4"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">guige2：</text></view>
+                  <input  placeholder="请输入guige2" v-model="model.guige2"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">bzgg2：</text></view>
+                  <input  placeholder="请输入bzgg2" v-model="model.bzgg2"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">bzgg3：</text></view>
+                  <input  placeholder="请输入bzgg3" v-model="model.bzgg3"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">bzgg4：</text></view>
+                  <input  placeholder="请输入bzgg4" v-model="model.bzgg4"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">xh1：</text></view>
+                  <input  placeholder="请输入xh1" v-model="model.xh1"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">xh2：</text></view>
+                  <input  placeholder="请输入xh2" v-model="model.xh2"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">xh3：</text></view>
+                  <input  placeholder="请输入xh3" v-model="model.xh3"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">xh4：</text></view>
+                  <input  placeholder="请输入xh4" v-model="model.xh4"/>
+                </view>
+              </view>
+				<view class="padding">
+					<button class="cu-btn block bg-blue margin-tb-sm lg" @click="onSubmit">
+						<text v-if="loading" class="cuIcon-loading2 cuIconfont-spin"></text>提交
+					</button>
+				</view>
+			</form>
+		</view>
+    </view>
+</template>
+
+<script>
+    import myDate from '@/components/my-componets/my-date.vue'
+
+    export default {
+        name: "CertZminfoForm",
+        components:{ myDate },
+        props:{
+          formData:{
+              type:Object,
+              default:()=>{},
+              required:false
+          }
+        },
+        data(){
+            return {
+				CustomBar: this.CustomBar,
+				NavBarColor: this.NavBarColor,
+				loading:false,
+                model: {},
+                backRouteName:'index',
+                url: {
+                  queryById: "/dzzz.certzminfo/certZminfo/queryById",
+                  add: "/dzzz.certzminfo/certZminfo/add",
+                  edit: "/dzzz.certzminfo/certZminfo/edit",
+                },
+            }
+        },
+        created(){
+             this.initFormData();
+        },
+        methods:{
+           initFormData(){
+               if(this.formData){
+                    let dataId = this.formData.dataId;
+                    this.$http.get(this.url.queryById,{params:{id:dataId}}).then((res)=>{
+                        if(res.data.success){
+                            console.log("表单数据",res);
+                            this.model = res.data.result;
+                        }
+                    })
+                }
+            },
+            onSubmit() {
+                let myForm = {...this.model};
+                this.loading = true;
+                let url = myForm.id?this.url.edit:this.url.add;
+				this.$http.post(url,myForm).then(res=>{
+				   console.log("res",res)
+				   this.loading = false
+				   this.$Router.push({name:this.backRouteName})
+				}).catch(()=>{
+					this.loading = false
+				});
+            }
+        }
+    }
+</script>

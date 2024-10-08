@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.certmatadataversion.mapper.CertMetadataMapper">
+
+    <delete id="deleteByMainId" parameterType="java.lang.String">
+        DELETE
+        FROM cert_metadata
+        WHERE certmetadataversion_id = #{mainId}    </delete>
+
+    <select id="selectByMainId" parameterType="java.lang.String"
+            resultType="org.jeecg.modules.demo.dzzz.certmatadataversion.entity.CertMetadata">
+        SELECT *
+        FROM cert_metadata
+        WHERE certmetadataversion_id = #{mainId}    </select>
+    <select id="querycertinfo" parameterType="java.lang.String"
+            resultType="org.jeecg.modules.demo.dzzz.certmatadataversion.entity.CertMetadata">
+        SELECT b.comments lm,
+               a.column_name lbs,
+               a.data_type zdlx,
+               a.data_length zdcd
+        FROM user_tab_columns a,
+             user_col_comments b
+        WHERE a.column_name = b.column_name
+          AND a.Table_Name = 'cert_info'
+          AND b.Table_Name = 'cert_info'
+        <if  test="lm !=null">
+          AND b.comments LIKE concat('%',#{lm},'%')
+        </if>
+    </select>
+
+    <select id="selectZsyByCertTypeId" parameterType="java.lang.String"
+            resultType="org.jeecg.modules.demo.dzzz.certmatadataversion.entity.CertMetadata">
+        SELECT
+            cm.id,
+            cm.lbs,
+            cm.lm,
+            cm.yssx,
+            cm.zdlx,
+            cm.zdcd,
+            cm.sfwk,
+            cm."certmetadataversion_id",
+            cm.sfsc -- 是否隐藏
+        FROM
+            "cert_type" ct ,
+            "cert_metadata_version" cmv ,
+            "cert_metadata" cm
+        WHERE
+            ct.id = cmv."cert_type_id"
+            AND cm.certmetadataversion_id=cmv.id
+            AND cmv.status='0'
+            AND ct.id = #{certTypeId}
+            <if test="null != zdmc and '' != zdmc">
+                and cm.yssx = #{zdmc}
+            </if>
+        order by cm.px
+    </select>
+
+</mapper>

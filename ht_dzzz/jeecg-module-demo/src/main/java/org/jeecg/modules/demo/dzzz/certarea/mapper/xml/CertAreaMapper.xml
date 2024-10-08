@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.certarea.mapper.CertAreaMapper">
+
+    <select id="selectAreaByAreaName" parameterType="java.lang.String"
+            resultType="org.jeecg.modules.demo.dzzz.certarea.entity.CertArea">
+        SELECT "id", "areacode", "areaname", "parentid"
+        FROM cert_area zy
+        WHERE areaname = #{areaName}
+    </select>
+
+    <select id="selectAreaByAreaCode" parameterType="java.lang.String"
+            resultType="org.jeecg.modules.demo.dzzz.certarea.entity.CertArea">
+        SELECT "id", "areacode", "areaname", "parentid"
+        FROM cert_area zy
+        WHERE areacode = #{areacode}
+    </select>
+
+</mapper>

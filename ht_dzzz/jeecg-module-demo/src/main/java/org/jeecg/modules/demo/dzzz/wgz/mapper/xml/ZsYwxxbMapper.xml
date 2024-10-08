@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.wgz.mapper.ZsYwxxbMapper">
+
+    <select id="getByZsid" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.wgz.entity.ZsYwxxb" >
+        SELECT
+            *
+        FROM
+            "zs_ywxxb" cr
+        WHERE
+            cr."zsid" = #{zsid}
+         and zt='3'
+        order by fzrq
+            limit 1
+    </select>
+    <select id="getRealcodeByName" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.certinfo.entity.ResultBean" >
+        SELECT
+            *
+        FROM
+            "licence_seal_info" cr
+        WHERE
+            cr."SEAL_NAME" = #{fzjg}
+            or TO_CHAR(cr."VAR1") = #{fzjg}
+        order by cr.ID
+        limit 1
+    </select>
+    <select id="getSealcodeByKeySn" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.certinfo.entity.ResultBean" >
+        SELECT
+            LSI.*
+        FROM
+            "licence_seal_info" lsi ,
+            T_B_BM_KEY tbbk
+        WHERE
+            LSI.SEAL_NAME = TBBK."keyname_ofd"
+            AND
+	    ( TBBK."keysn_ofd" = #{keysn} or  TBBK."keysn_pdf"  = #{keysn} )
+            LIMIT 1
+    </select>
+</mapper>

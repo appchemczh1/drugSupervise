@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.certStatistics.mapper.QylxtjMapper">
+    <select id="selectQylxtjList" resultType="org.jeecg.modules.demo.dzzz.certStatistics.entity.Qylxtj">
+        select ct."certtypename" as qylx,
+        COUNT(case WHEN inf.ADMINDIVISION like '4200%' THEN 1 ELSE NULL END)as sbNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4201%' THEN 1 ELSE NULL END)as whNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4202%' THEN 1 ELSE NULL END)as hsNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4203%' THEN 1 ELSE NULL END)as syNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4205%' THEN 1 ELSE NULL END)as ycNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4206%' THEN 1 ELSE NULL END)as xyNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4207%' THEN 1 ELSE NULL END)as ezNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4208%' THEN 1 ELSE NULL END)as jmNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4209%' THEN 1 ELSE NULL END)as xgNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4210%' THEN 1 ELSE NULL END)as jzNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4211%' THEN 1 ELSE NULL END)as hgNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4212%' THEN 1 ELSE NULL END)as xnNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4213%' THEN 1 ELSE NULL END)as szNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '4228%' THEN 1 ELSE NULL END)as esNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '429004%' THEN 1 ELSE NULL END)as xtNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '429005%' THEN 1 ELSE NULL END)as qjNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '429006%' THEN 1 ELSE NULL END)as tmNum,
+        COUNT(case WHEN inf.ADMINDIVISION like '429021%' THEN 1 ELSE NULL END)as snjNum,
+        COUNT(case WHEN inf.ADMINDIVISION IS NOT NULL THEN 1 ELSE NULL END)as totalNum
+        from "cert_type" as ct
+        LEFT JOIN (SELECT *
+        FROM "CERT_INFO"
+        WHERE zt='4' and yxzt='10'
+        <if test="yxqq != null and yxqq != '' ">AND fzrq &gt;= &apos;${yxqq}&apos;</if>
+        <if test="yxqz != null and yxqz != '' ">AND fzrq &lt;= &apos;${yxqz}&apos;</if>
+        ) as ci
+        ON ci.certtypeId=ct.ID
+        LEFT JOIN "INFORMATION" as inf
+        ON inf.ENTZZJGDM=ci.shxydm
+        WHERE ct.status='2'
+        GROUP by ct."certtypename"
+    </select>
+
+
+    <select id="getType" parameterType="map" resultType="map">
+        SELECT type,
+               MIN(zsid) AS zsid
+        FROM ATTACHINFO
+        WHERE "zsid" =#{zsid} and STATUS ='1' GROUP BY type;
+    </select>
+    <select id="getTypeYgz" parameterType="map" resultType="map">
+        SELECT type,
+               MIN(zsid) AS zsid
+        FROM ATTACHINFO
+        WHERE "zsid" =#{zsid} and ISGZ = '1' and STATUS ='1' GROUP BY type;
+    </select>
+
+    <select id="getTypeYgzByIds" parameterType="map" resultType="map">
+        SELECT type,
+               MIN(zsid) AS zsid
+        FROM ATTACHINFO
+        WHERE "zsid" in 
+        <foreach collection="zsids" item="zsid" open="(" separator="," close=")">
+            #{zsid}
+        </foreach>
+      and ISGZ = '1' and STATUS ='1' GROUP BY zsid,type;
+    </select>
+
+    <select id="getCertYgz" parameterType="map" resultType="map">
+       select certtypename from cert_type where id = #{certtypeid}
+    </select>
+
+
+</mapper>

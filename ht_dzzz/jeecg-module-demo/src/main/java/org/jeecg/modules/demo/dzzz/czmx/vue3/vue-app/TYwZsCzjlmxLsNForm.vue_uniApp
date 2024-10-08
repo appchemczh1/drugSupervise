@@ -1,0 +1,162 @@
+<template>
+    <view>
+        <!--标题和返回-->
+		<cu-custom :bgColor="NavBarColor" isBack :backRouterName="backRouteName">
+			<block slot="backText">返回</block>
+			<block slot="content">t_yw_zs_czjlmx_ls_n</block>
+		</cu-custom>
+		 <!--表单区域-->
+		<view>
+			<form>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">zdmc：</text></view>
+                  <input  placeholder="请输入zdmc" v-model="model.zdmc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">jz：</text></view>
+                  <input  placeholder="请输入jz" v-model="model.jz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">xz：</text></view>
+                  <input  placeholder="请输入xz" v-model="model.xz"/>
+                </view>
+              </view>
+              <my-date label="czsj：" fields="day" v-model="model.czsj" placeholder="请输入czsj"></my-date>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">zt：</text></view>
+                  <input type="number" placeholder="请输入zt" v-model="model.zt"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">bz：</text></view>
+                  <input  placeholder="请输入bz" v-model="model.bz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">zsczjlid：</text></view>
+                  <input  placeholder="请输入zsczjlid" v-model="model.zsczjlid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">bm：</text></view>
+                  <input  placeholder="请输入bm" v-model="model.bm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">jlid：</text></view>
+                  <input  placeholder="请输入jlid" v-model="model.jlid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">pxm：</text></view>
+                  <input type="number" placeholder="请输入pxm" v-model="model.pxm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">pid：</text></view>
+                  <input  placeholder="请输入pid" v-model="model.pid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">zdzwmc：</text></view>
+                  <input  placeholder="请输入zdzwmc" v-model="model.zdzwmc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">bgcs：</text></view>
+                  <input type="number" placeholder="请输入bgcs" v-model="model.bgcs"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">synctime：</text></view>
+                  <input  placeholder="请输入synctime" v-model="model.synctime"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">issc：</text></view>
+                  <input  placeholder="请输入issc" v-model="model.issc"/>
+                </view>
+              </view>
+				<view class="padding">
+					<button class="cu-btn block bg-blue margin-tb-sm lg" @click="onSubmit">
+						<text v-if="loading" class="cuIcon-loading2 cuIconfont-spin"></text>提交
+					</button>
+				</view>
+			</form>
+		</view>
+    </view>
+</template>
+
+<script>
+    import myDate from '@/components/my-componets/my-date.vue'
+
+    export default {
+        name: "TYwZsCzjlmxLsNForm",
+        components:{ myDate },
+        props:{
+          formData:{
+              type:Object,
+              default:()=>{},
+              required:false
+          }
+        },
+        data(){
+            return {
+				CustomBar: this.CustomBar,
+				NavBarColor: this.NavBarColor,
+				loading:false,
+                model: {},
+                backRouteName:'index',
+                url: {
+                  queryById: "/dzzz.czmx/tYwZsCzjlmxLsN/queryById",
+                  add: "/dzzz.czmx/tYwZsCzjlmxLsN/add",
+                  edit: "/dzzz.czmx/tYwZsCzjlmxLsN/edit",
+                },
+            }
+        },
+        created(){
+             this.initFormData();
+        },
+        methods:{
+           initFormData(){
+               if(this.formData){
+                    let dataId = this.formData.dataId;
+                    this.$http.get(this.url.queryById,{params:{id:dataId}}).then((res)=>{
+                        if(res.data.success){
+                            console.log("表单数据",res);
+                            this.model = res.data.result;
+                        }
+                    })
+                }
+            },
+            onSubmit() {
+                let myForm = {...this.model};
+                this.loading = true;
+                let url = myForm.id?this.url.edit:this.url.add;
+				this.$http.post(url,myForm).then(res=>{
+				   console.log("res",res)
+				   this.loading = false
+				   this.$Router.push({name:this.backRouteName})
+				}).catch(()=>{
+					this.loading = false
+				});
+            }
+        }
+    }
+</script>

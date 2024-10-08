@@ -1,0 +1,681 @@
+<template>
+    <view>
+        <!--标题和返回-->
+		<cu-custom :bgColor="NavBarColor" isBack :backRouterName="backRouteName">
+			<block slot="backText">返回</block>
+			<block slot="content">zs_ywxxb</block>
+		</cu-custom>
+		 <!--表单区域-->
+		<view>
+			<form>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业id：</text></view>
+                  <input  placeholder="请输入企业id" v-model="model.qyid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">证书类型：</text></view>
+                  <input  placeholder="请输入证书类型" v-model="model.zslx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">证书编号：</text></view>
+                  <input  placeholder="请输入证书编号" v-model="model.zsbh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业名称：</text></view>
+                  <input  placeholder="请输入企业名称" v-model="model.qymc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">社会信用代码：</text></view>
+                  <input  placeholder="请输入社会信用代码" v-model="model.shxydm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">注册地址：</text></view>
+                  <input  placeholder="请输入注册地址" v-model="model.zcdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">法定代表人：</text></view>
+                  <input  placeholder="请输入法定代表人" v-model="model.fddbr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业负责人：</text></view>
+                  <input  placeholder="请输入企业负责人" v-model="model.qyfzr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">质量负责人：</text></view>
+                  <input  placeholder="请输入质量负责人" v-model="model.zlfzr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">分类码：</text></view>
+                  <input  placeholder="请输入分类码" v-model="model.flm"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">日常监督管理机构：</text></view>
+                  <input  placeholder="请输入日常监督管理机构" v-model="model.rcjdgljg"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">日常监督管理人员：</text></view>
+                  <input  placeholder="请输入日常监督管理人员" v-model="model.rcjdglry"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产地址范围：</text></view>
+                  <input  placeholder="请输入生产地址范围" v-model="model.scdzhfw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">发证机关：</text></view>
+                  <input  placeholder="请输入发证机关" v-model="model.fzjg"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">签发人：</text></view>
+                  <input  placeholder="请输入签发人" v-model="model.qfr"/>
+                </view>
+              </view>
+              <my-date label="发证日期：" fields="day" v-model="model.fzrq" placeholder="请输入发证日期"></my-date>
+              <my-date label="有效期起：" fields="day" v-model="model.yxqq" placeholder="请输入有效期起"></my-date>
+              <my-date label="有效期至：" fields="day" v-model="model.yxqz" placeholder="请输入有效期至"></my-date>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">生产地址：</text></view>
+                  <input  placeholder="请输入生产地址" v-model="model.scdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">受理号：</text></view>
+                  <input  placeholder="请输入受理号" v-model="model.slh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">仓库地址：</text></view>
+                  <input  placeholder="请输入仓库地址" v-model="model.ckdz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">your_comment_here：</text></view>
+                  <input  placeholder="请输入your_comment_here" v-model="model.jgjzc"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">范围：</text></view>
+                  <input  placeholder="请输入范围" v-model="model.fw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">范围副本：</text></view>
+                  <input  placeholder="请输入范围副本" v-model="model.fwyw"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">备注：</text></view>
+                  <input  placeholder="请输入备注" v-model="model.bz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">主送：</text></view>
+                  <input  placeholder="请输入主送" v-model="model.zs"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">抄送：</text></view>
+                  <input  placeholder="请输入抄送" v-model="model.chaosong"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">产品：</text></view>
+                  <input  placeholder="请输入产品" v-model="model.chanping"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">产品类别：</text></view>
+                  <input  placeholder="请输入产品类别" v-model="model.cplb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">产品明细：</text></view>
+                  <input  placeholder="请输入产品明细" v-model="model.cpmx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">电话：</text></view>
+                  <input  placeholder="请输入电话" v-model="model.dh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">传真：</text></view>
+                  <input  placeholder="请输入传真" v-model="model.cz"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">规格：</text></view>
+                  <input  placeholder="请输入规格" v-model="model.guige"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">剂型：</text></view>
+                  <input  placeholder="请输入剂型" v-model="model.jx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">附件：</text></view>
+                  <input  placeholder="请输入附件" v-model="model.fj"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">网站域名：</text></view>
+                  <input  placeholder="请输入网站域名" v-model="model.wzym"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">接受来源：</text></view>
+                  <input  placeholder="请输入接受来源" v-model="model.jsly"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">盖章生成状态 0同步 2未生成3生成未盖章 4盖章：</text></view>
+                  <input  placeholder="请输入盖章生成状态 0同步 2未生成3生成未盖章 4盖章" v-model="model.zt"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">业务类别：</text></view>
+                  <input  placeholder="请输入业务类别" v-model="model.ywlb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">版本id：</text></view>
+                  <input  placeholder="请输入版本id" v-model="model.bbid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">FZJGID：</text></view>
+                  <input  placeholder="请输入FZJGID" v-model="model.mbid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd1：</text></view>
+                  <input  placeholder="请输入ylzd1" v-model="model.ylzd1"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd2：</text></view>
+                  <input  placeholder="请输入ylzd2" v-model="model.ylzd2"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd3：</text></view>
+                  <input  placeholder="请输入ylzd3" v-model="model.ylzd3"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd4：</text></view>
+                  <input  placeholder="请输入ylzd4" v-model="model.ylzd4"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd5：</text></view>
+                  <input  placeholder="请输入ylzd5" v-model="model.ylzd5"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">发证机关id：</text></view>
+                  <input  placeholder="请输入发证机关id" v-model="model.fzjgid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">公示平台：</text></view>
+                  <input  placeholder="请输入公示平台" v-model="model.sjtbGspt"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">档案系统：</text></view>
+                  <input  placeholder="请输入档案系统" v-model="model.sjtbDa"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">1表示是行政审批推送来的数据：</text></view>
+                  <input  placeholder="请输入1表示是行政审批推送来的数据" v-model="model.sjtbXzsp"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">国家局数据同步：</text></view>
+                  <input  placeholder="请输入国家局数据同步" v-model="model.sjtbGj"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">sjtbCwxx：</text></view>
+                  <input  placeholder="请输入sjtbCwxx" v-model="model.sjtbCwxx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">sjtbGjsj：</text></view>
+                  <input  placeholder="请输入sjtbGjsj" v-model="model.sjtbGjsj"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd6：</text></view>
+                  <input  placeholder="请输入ylzd6" v-model="model.ylzd6"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd7：</text></view>
+                  <input  placeholder="请输入ylzd7" v-model="model.ylzd7"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd8：</text></view>
+                  <input  placeholder="请输入ylzd8" v-model="model.ylzd8"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd9：</text></view>
+                  <input  placeholder="请输入ylzd9" v-model="model.ylzd9"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd10：</text></view>
+                  <input  placeholder="请输入ylzd10" v-model="model.ylzd10"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd11：</text></view>
+                  <input  placeholder="请输入ylzd11" v-model="model.ylzd11"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd12：</text></view>
+                  <input  placeholder="请输入ylzd12" v-model="model.ylzd12"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd13：</text></view>
+                  <input  placeholder="请输入ylzd13" v-model="model.ylzd13"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd14：</text></view>
+                  <input  placeholder="请输入ylzd14" v-model="model.ylzd14"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd15：</text></view>
+                  <input  placeholder="请输入ylzd15" v-model="model.ylzd15"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd16：</text></view>
+                  <input  placeholder="请输入ylzd16" v-model="model.ylzd16"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd17：</text></view>
+                  <input  placeholder="请输入ylzd17" v-model="model.ylzd17"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd18：</text></view>
+                  <input  placeholder="请输入ylzd18" v-model="model.ylzd18"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd19：</text></view>
+                  <input  placeholder="请输入ylzd19" v-model="model.ylzd19"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd20：</text></view>
+                  <input  placeholder="请输入ylzd20" v-model="model.ylzd20"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd21：</text></view>
+                  <input  placeholder="请输入ylzd21" v-model="model.ylzd21"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd22：</text></view>
+                  <input  placeholder="请输入ylzd22" v-model="model.ylzd22"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd23：</text></view>
+                  <input  placeholder="请输入ylzd23" v-model="model.ylzd23"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd24：</text></view>
+                  <input  placeholder="请输入ylzd24" v-model="model.ylzd24"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd25：</text></view>
+                  <input  placeholder="请输入ylzd25" v-model="model.ylzd25"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd26：</text></view>
+                  <input  placeholder="请输入ylzd26" v-model="model.ylzd26"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd27：</text></view>
+                  <input  placeholder="请输入ylzd27" v-model="model.ylzd27"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd28：</text></view>
+                  <input  placeholder="请输入ylzd28" v-model="model.ylzd28"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd29：</text></view>
+                  <input  placeholder="请输入ylzd29" v-model="model.ylzd29"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd30：</text></view>
+                  <input  placeholder="请输入ylzd30" v-model="model.ylzd30"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd31：</text></view>
+                  <input  placeholder="请输入ylzd31" v-model="model.ylzd31"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd32：</text></view>
+                  <input  placeholder="请输入ylzd32" v-model="model.ylzd32"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd33：</text></view>
+                  <input  placeholder="请输入ylzd33" v-model="model.ylzd33"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd34：</text></view>
+                  <input  placeholder="请输入ylzd34" v-model="model.ylzd34"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd35：</text></view>
+                  <input  placeholder="请输入ylzd35" v-model="model.ylzd35"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd36：</text></view>
+                  <input  placeholder="请输入ylzd36" v-model="model.ylzd36"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd37：</text></view>
+                  <input  placeholder="请输入ylzd37" v-model="model.ylzd37"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd38：</text></view>
+                  <input  placeholder="请输入ylzd38" v-model="model.ylzd38"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd39：</text></view>
+                  <input  placeholder="请输入ylzd39" v-model="model.ylzd39"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ylzd40：</text></view>
+                  <input  placeholder="请输入ylzd40" v-model="model.ylzd40"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">二维码路径：</text></view>
+                  <input  placeholder="请输入二维码路径" v-model="model.ewmlj"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">同步：</text></view>
+                  <input  placeholder="请输入同步" v-model="model.sync"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">模板id：</text></view>
+                  <input  placeholder="请输入模板id" v-model="model.glzdb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">企业类型：</text></view>
+                  <input  placeholder="请输入企业类型" v-model="model.qylx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">联系人邮箱：</text></view>
+                  <input  placeholder="请输入联系人邮箱" v-model="model.lxryx"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">联系电话：</text></view>
+                  <input  placeholder="请输入联系电话" v-model="model.lxdh"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">类型级别：</text></view>
+                  <input  placeholder="请输入类型级别" v-model="model.typelevel"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">移动电话：</text></view>
+                  <input  placeholder="请输入移动电话" v-model="model.mobile"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">证照类型Id：</text></view>
+                  <input  placeholder="请输入证照类型Id" v-model="model.certtypeid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">有效状态10核发20变更30换证60证书纠错70数据维护：</text></view>
+                  <input  placeholder="请输入有效状态10核发20变更30换证60证书纠错70数据维护" v-model="model.zszt"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">证书状态10有效50注销60过期70吊销80撤销99作废：</text></view>
+                  <input  placeholder="请输入证书状态10有效50注销60过期70吊销80撤销99作废" v-model="model.yxzt"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">二维码：</text></view>
+                  <input  placeholder="请输入二维码" v-model="model.ewm"/>
+                </view>
+              </view>
+              <my-date label="synctime：" fields="day" v-model="model.synctime" placeholder="请输入synctime"></my-date>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">zsdl：</text></view>
+                  <input  placeholder="请输入zsdl" v-model="model.zsdl"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">oldId：</text></view>
+                  <input  placeholder="请输入oldId" v-model="model.oldId"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">isxt：</text></view>
+                  <input  placeholder="请输入isxt" v-model="model.isxt"/>
+                </view>
+              </view>
+				<view class="padding">
+					<button class="cu-btn block bg-blue margin-tb-sm lg" @click="onSubmit">
+						<text v-if="loading" class="cuIcon-loading2 cuIconfont-spin"></text>提交
+					</button>
+				</view>
+			</form>
+		</view>
+    </view>
+</template>
+
+<script>
+    import myDate from '@/components/my-componets/my-date.vue'
+
+    export default {
+        name: "ZsYwxxbForm",
+        components:{ myDate },
+        props:{
+          formData:{
+              type:Object,
+              default:()=>{},
+              required:false
+          }
+        },
+        data(){
+            return {
+				CustomBar: this.CustomBar,
+				NavBarColor: this.NavBarColor,
+				loading:false,
+                model: {},
+                backRouteName:'index',
+                url: {
+                  queryById: "/dzzz.wgz/zsYwxxb/queryById",
+                  add: "/dzzz.wgz/zsYwxxb/add",
+                  edit: "/dzzz.wgz/zsYwxxb/edit",
+                },
+            }
+        },
+        created(){
+             this.initFormData();
+        },
+        methods:{
+           initFormData(){
+               if(this.formData){
+                    let dataId = this.formData.dataId;
+                    this.$http.get(this.url.queryById,{params:{id:dataId}}).then((res)=>{
+                        if(res.data.success){
+                            console.log("表单数据",res);
+                            this.model = res.data.result;
+                        }
+                    })
+                }
+            },
+            onSubmit() {
+                let myForm = {...this.model};
+                this.loading = true;
+                let url = myForm.id?this.url.edit:this.url.add;
+				this.$http.post(url,myForm).then(res=>{
+				   console.log("res",res)
+				   this.loading = false
+				   this.$Router.push({name:this.backRouteName})
+				}).catch(()=>{
+					this.loading = false
+				});
+            }
+        }
+    }
+</script>

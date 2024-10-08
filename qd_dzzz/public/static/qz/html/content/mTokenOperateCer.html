@@ -1,0 +1,1363 @@
+﻿<html>
+
+<head>
+    <title>mToken Plugin Examples</title>
+    <link rel="stylesheet" type="text/css" href="css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/syalert.min.css" />
+    <!--页面样式的JS引用如下：-->
+    <script src="Web_js/jquery-1.10.2.min.js" type="text/javascript">
+    </script>
+    <script src="Web_js/syalert.min.js" type="text/javascript">
+    </script>
+    <script src="Web_js/PromptInfo.js" type="text/javascript">
+    </script>
+    <script src="Web_js/fileReader_oldstyle.js" type="text/javascript">
+    </script>
+
+
+    <!--涉及到操作KEY的JS引用如下：-->
+    <script src="USBKey_js/mToken.js" type="text/javascript">
+    </script>
+    <script src="USBKey_js/base64.js" type="text/javascript">
+    </script>
+    <script src="USBKey_js/mTokenBasicOper.js" type="text/javascript">
+    </script>
+    <script src="USBKey_js/mToken_RAClient.js" type="text/javascript">
+    </script>
+    <script src="USBKey_js/mToken_QRCode.js" type="text/javascript">
+    </script>
+
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<body>
+
+    <script type="text/javascript" src="Web_js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /* ----- 侧边悬浮 ---- */
+            $(document).on("mouseenter", ".suspension .a", function () {
+                var _this = $(this);
+                var s = $(".suspension");
+                var isService = _this.hasClass("a-service");
+                var isServicePhone = _this.hasClass("a-service-phone");
+                var isQrcode = _this.hasClass("a-qrcode");
+                if (isService) { s.find(".d-service").show().siblings(".d").hide(); }
+                if (isServicePhone) { s.find(".d-service-phone").show().siblings(".d").hide(); }
+                if (isQrcode) { s.find(".d-qrcode").show().siblings(".d").hide(); }
+            });
+            $(document).on("mouseleave", ".suspension, .suspension .a-top", function () {
+                $(".suspension").find(".d").hide();
+            });
+            $(document).on("mouseenter", ".suspension .a-top", function () {
+                $(".suspension").find(".d").hide();
+            });
+            $(document).on("click", ".suspension .a-top", function () {
+                $("html,body").animate({ scrollTop: 0 });
+            });
+            $(window).scroll(function () {
+                var st = $(document).scrollTop();
+                var $top = $(".suspension .a-top");
+                if (st > 400) {
+                    $top.css({ display: 'block' });
+                } else {
+                    if ($top.is(":visible")) {
+                        $top.hide();
+                    }
+                }
+            });
+        });	
+    </script>
+
+    <embed id="id_mPluginV2Router" type="application/mPluginV2Router" style="width:0px;height:0px;" />
+    <object id="mTokenPlugin" style="width:0px;height:0px;">
+        <param value="pluginLoaded" />
+    </object>
+    <!-- 消息弹窗 -->
+    <div class="sy-alert sy-alert-alert animated" sy-enter="zoomIn" sy-leave="zoomOut" sy-type="alert" sy-mask="true"
+        id="alert2">
+        <div class="sy-title"></div>
+        <div class="sy-content"></div>
+        <div class="sy-btn">
+            <button onclick="ok()" id="btn_Ok"></button>
+        </div>
+    </div>
+    <script>
+        function ok(id) {
+            syalert.syhide(id);
+        }
+    </script>
+
+<!--    <div class="titleClass">
+        <div class="titleClass_Div">mToken基本操作</div>
+        <div class="div_sj">
+            <div class="sj"></div>
+        </div>
+    </div>-->
+    <div class="blockClass">
+        <table class="tableClass" border="0">
+            <tr>
+                <td class="titleLeftInfo">型号列表：</td>
+                <td>
+                    <select id="platform" class="seleClass">
+                        <option value="GM3000">GM3000</option>
+                        <option value="K5">K5</option>
+                        <option value="GM3000PCSC">GM3000PCSC</option>
+                        <option value="K7">K7</option>
+                        <option value="TF">TF</option>
+                    </select>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">设备列表：</td>
+                <td>
+                    <select id="sele_devices" onchange="gradeChange()" class="seleClass">
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="查找" class="btnClass" onClick="return enumDevice()" />
+                </td>
+              <td>
+                <input type="button" value="确定" class="btnClass" onClick="iframeDoAction()" />
+              </td>
+<!--                <td>
+                    <input type="button" value="定时检测设备" id="btn_Timer" class="btnClass"
+                        onClick="return btnCheckExist()" />
+                </td>
+                <td>
+                    <input type="button" value="停止定时检测" id="btn_stopTimer" class="btnClass"
+                        onClick="return btnStopExist()" />
+                </td>
+                <td>
+                    <input type="button" value="跨进程访问" class="btnClass" onClick="return SetCrossAccess()" />
+                </td>-->
+            </tr>
+          <tr></tr>
+
+<!--            <tr>
+                <td class="titleLeftInfo">用户密码： </td>
+                <td><input type="text" value="12345678" id="txt_pwd" name="pwd" class="textClassStyle" /></td>
+                <td><input type="button" value="验证用户密码" class="btnClass" onClick="return verifyUserPin()" /></td>
+                <td><input type="button" value="登出" class="btnClass" onClick="return btnLoginOut()" /></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td class="titleLeftInfo">修改用户密码：</td>
+                <td><input type="text" value="" id="txt_Changepwd" name="txt_Changepwd" class="textClassStyle" /></td>
+                <td>
+                    <input type="button" value="修改" class="btnClass" onClick="return changeUserPin()" />
+                </td>
+                <td><input type="button" value="PIN最大重试次数" class="btnClass" onClick="return getMaxRetryCount()" /></td>
+                <td><input type="button" value="PIN剩余次数" class="btnClass" onClick="return getRetryCount()" /></td>
+                <td>
+                    <input type="button" value="获取指纹ID" class="btnClass" onClick="return QueryGingerID()" />
+                    <label id="tryCount"></label>
+                </td>
+                
+            </tr>
+
+            <tr>
+                <td class="titleLeftInfo">修改Token名称： </td>
+                <td><input type="text" value="mToken GM3000" id="txt_Lable" name="txt_Lable" class="textClassStyle" />
+                </td>
+                <td><input type="button" value="修改" class="btnClass" onClick="return btnSetLabel()" /></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">容器名称： </td>
+                <td><input type="text" value="" id="txt_createCon" name="pwd" class="textClassStyle" /></td>
+                <td>
+                    <input type="button" value="创建容器" class="btnClass" onClick="return CrateContainer()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">容器列表：</td>
+                <td>
+                    <select id="sele_contentList" class="seleClass">
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="列举容器证书" class="btnClass" onClick="return getUserList()" />
+                </td>
+                <td>
+                </td>
+                <td></td>
+                <td></td>
+
+            </tr>-->
+
+
+<!--            <tr>
+                <td class="titleLeftInfo">导出指定数字证书：</td>
+                <td>
+                    <textarea id="cerInfo" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td>
+                    <select id="sele_cerType" class="seleClassType">
+                        <option value="0">加密证书</option>
+                        <option value="1">签名证书</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="导出" class="btnClass" onClick="return exportUserCert()" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">获取证书信息：</td>
+                <td>
+                    <textarea id="showcerInfo" row="30" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td>
+                    <input type="button" value="获取" class="btnClass" onClick="return getCertInfo()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td class="titleLeftInfo">获取设备信息：</td>
+                <td>
+                    <textarea id="deviceInfo" wrap="hard" row="30" cols="60" class="textareaClass"
+                        name="infoCer"></textarea>
+                </td>
+                <td>
+                    <input type="button" value="获取" class="btnClass" onClick="return getDeviceInfo()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">根据证书序列号查询容器（输入多个序列号以逗号，分割）</td>
+                <td>
+                    <textarea class="textareaClass" name="certName" id="certId" cols="30" rows="10"></textarea>
+                </td>
+                <td>
+                    <input type="button" id="btn_FindCon" value="查询" class="btnClass" onClick="return btn_SelCert()" />
+                </td>
+                <td></td>
+                <td></td>
+
+            </tr>
+
+            <tr>
+                <td class="titleLeftInfo">控件版本信息：</td>
+                <td>
+                    <input type="text" id="contorlInfo" class="textClassStyle" />
+                </td>
+                <td>
+                    <input type="button" value="获取" class="btnClass" onClick="return getVersion()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>-->
+        </table>
+    </div>
+
+<!--
+    <div class="titleClass">
+        <div class="titleClass_Div">证书使用举例</div>
+        <div class="sj"></div>
+    </div>
+    <div class="blockClass">
+        <table class="tableClass" border="0">
+            <tr>
+                <td class="titleLeftInfo">
+                    待签名数据：
+                </td>
+                <td><input type="text" value="12345678123456781234567812345678" id="originalData" name="data"
+                        class="textClassStyle" /></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">用户ID：</td>
+                <td><input type="text" value="1234567812345678" id="userID" name="userdata" class="textClassStyle" />
+                </td>
+                <td>
+                    <select id="mech" class="seleClassType">
+                        <option value="129">SGD_MD5</option>
+                        <option value="1">SGD_SM3</option>
+                        <option value="2">SGD_SHA1</option>
+                        <option value="4">SGD_SHA256</option>
+                        <option value="130">SGD_SHA384</option>
+                        <option value="131">SGD_SHA512</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="签名数据" class="btnClass" onClick="return signData()" />
+                </td>
+                <td>
+                    <input type="button" value="签名数据(P7)" class="btnClass" onClick="return signData_P7()" />
+                </td>
+                <td>
+                    <input type="button" value="签名文件" class="btnClass" onClick="return signFile()" />
+                </td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo"> 待签名文件：</td>
+                <td>
+                    <input type="text" value="d:\test.txt" id="signFile" name="signFile" class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">签名后结果：</td>
+                <td>
+                    <textarea id="signedData" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" value="数据验签" class="btnClass" onClick="return verifySign()" />
+                </td>
+                <td>
+                    <input type="button" value="数据验签(P7)" class="btnClass" onClick="return verifySign_P7()" />
+                </td>
+                <td>
+                    <input type="button" value="文件验签" class="btnClass" onClick="return verifySignFile()" />
+                </td>
+
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">公钥数据：</td>
+                <td>
+                    <textarea id="PubKey" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" value="导出公钥" class="btnClass" onClick="return exportPubKey()" />
+                </td>
+                <td>
+                    <input type="button" value="公钥验签" class="btnClass" onClick="return publicVerify()" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">非对称运算明文：</td>
+                <td>
+                    <textarea id="AsymPlain" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" value="公钥加密" class="btnClass" onClick="return encryptbyPubKey()" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">非对称运算密文：</td>
+                <td>
+                    <textarea id="AsymCipher" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" value="私钥解密" class="btnClass" onClick="return decryptbyPrvKey()" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">待加密数据：</td>
+                <td>
+                    <input type="text" value="12345678" id="enData" name="pwd" class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">IV：</td>
+                <td>
+                    <input type="text" value="1234567812345678" id="iv" name="iv" class="textClassStyle" />
+                </td>
+                <td>
+                    <select id="encrymech" class="seleClassType">
+                        <option value="257">SGD_SM1_ECB</option>
+                        <option value="258">SGD_SM1_CBC</option>
+                        <option value="260">SGD_SM1_CFB </option>
+                        <option value="264">SGD_SM1_OFB</option>
+                        <option value="1025">SGD_SM4_ECB </option>
+                        <option value="1026">SGD_SM4_CBC</option>
+                        <option value="1028">SGD_SM4_CFB</option>
+                        <option value="1032">SGD_SM4_OFB</option>
+                        <option value="513">SGD_SSF33_ECB</option>
+                        <option value="514">SGD_SSF33_CBC</option>
+                        <option value="516">SGD_SSF33_CFB</option>
+                        <option value="520">SGD_SSF33_OFB</option>
+                        <option value="2147484177">SGD_DES_ECB</option>
+                        <option value="2147484178">SGD_DES_CBC</option>
+                        <option value="2147484225">SGD_3DES168_ECB</option>
+                        <option value="2147484226">SGD_3DES168_CBC</option>
+                        <option value="2147484193">SGD_3DES112_ECB</option>
+                        <option value="2147484194">SGD_3DES112_CBC</option>
+                        <option value="2147483921">SGD_AES128_ECB</option>
+                        <option value="2147483922">SGD_AES128_CBC</option>
+                        <option value="2147483937">SGD_AES192_ECB</option>
+                        <option value="2147483938">SGD_AES192_CBC</option>
+                        <option value="2147483969">SGD_AES256_ECB</option>
+                        <option value="2147483970">SGD_AES256_CBC</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="数据加密" class="btnClass" onClick="return encryptData()" />
+                </td>
+                <td>
+                    <input type="button" value="文件加密" class="btnClass" onClick="return encryptFile()" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">待加密的文件：</td>
+                <td>
+                    <input type="text" value="d:\test.txt" id="enFile" name="srcFile" class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">解密后的文件：</td>
+                <td>
+                    <input type="text" value="d:\test.txt.cip" id="enDstFile" name="enDstFile" class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">加密后结果：</td>
+                <td>
+                    <textarea id="enedData" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" value="数据解密" class="btnClass" onClick="return decryptData()" />
+                </td>
+                <td>
+                    <input type="button" value="文件解密" class="btnClass" onClick="return decryptFile()" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">解密后数据：</td>
+                <td>
+                    <input type="text" value="" id="deData" name="deData" class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">待摘要数据：</td>
+                <td>
+                    <input type="text" value="12345678" id="digestData" name="digestData" class="textClassStyle" />
+                </td>
+                <td>
+                    <select id="digestmech" class="seleClassType">
+                        <option value="129">SGD_MD5</option>
+                        <option value="1">SGD_SM3</option>
+                        <option value="2">SGD_SHA1</option>
+                        <option value="4">SGD_SHA256</option>
+                        <option value="130">SGD_SHA384</option>
+                        <option value="131">SGD_SHA512</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="摘要" class="btnClass" onClick="return digestData()" />
+                </td>
+                <td>
+                    <input type="button" value="无预处理" class="btnClass" onClick="return digestSM3Data()" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">摘要后结果：</td>
+                <td>
+                    <textarea id="digestedData" row="3" cols="23" class="textareaClass" name="verification"></textarea>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">远程解锁请求：</td>
+                <td>
+                    <textarea id="remoteUnlockPin" row="3" cols="23" class="textareaClass"
+                        name="remoteUnlockPin"></textarea>
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" value="生成请求" class="btnClass" onClick="return GenRemoteUnlockPin()" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">管理员PIN：</td>
+                <td>
+                    <input type="text" value="12345678" id="SoPinData" name="SoPinData" class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">用户PIN：</td>
+                <td>
+                    <input type="text" value="12345678" id="newPinData" name="newPinData" class="textClassStyle" />
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" value="响应请求" class="btnClass" onClick="return GenUnlockPinResponse()" />
+                </td>
+                <td>
+                    <input type="button" value="解锁" class="btnClass" onClick="return RemoteUnlockPin()" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">待加密数据：</td>
+                <td>
+                    <input type="text" value="12345678" id="Sym_InData" name="Sym_InData" class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">会话密钥(仅用于对称加解密)</td>
+                <td>
+                    <input type="text" value="1234567812345678" id="Sym_SessionKey" name="Sym_SessionKey"
+                        class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">IV：</td>
+                <td>
+                    <input type="text" value="1234567812345678" id="Sym_iv" name="Sym_iv" class="textClassStyle" />
+                </td>
+                <td>
+                    <select id="Sym_encrymech" class="seleClassType">
+                        <option value="257">SGD_SM1_ECB</option>
+                        <option value="258">SGD_SM1_CBC</option>
+                        <option value="260">SGD_SM1_CFB </option>
+                        <option value="264">SGD_SM1_OFB</option>
+                        <option value="1025">SGD_SM4_ECB </option>
+                        <option value="1026">SGD_SM4_CBC</option>
+                        <option value="1028">SGD_SM4_CFB</option>
+                        <option value="1032">SGD_SM4_OFB</option>
+                        <option value="513">SGD_SSF33_ECB</option>
+                        <option value="514">SGD_SSF33_CBC</option>
+                        <option value="516">SGD_SSF33_CFB</option>
+                        <option value="520">SGD_SSF33_OFB</option>
+                        <option value="2147484177">SGD_DES_ECB</option>
+                        <option value="2147484178">SGD_DES_CBC</option>
+                        <option value="2147484225">SGD_3DES168_ECB</option>
+                        <option value="2147484226">SGD_3DES168_CBC</option>
+                        <option value="2147484193">SGD_3DES112_ECB</option>
+                        <option value="2147484194">SGD_3DES112_CBC</option>
+                        <option value="2147483921">SGD_AES128_ECB</option>
+                        <option value="2147483922">SGD_AES128_CBC</option>
+                        <option value="2147483937">SGD_AES192_ECB</option>
+                        <option value="2147483938">SGD_AES192_CBC</option>
+                        <option value="2147483969">SGD_AES256_ECB</option>
+                        <option value="2147483970">SGD_AES256_CBC</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="数据对称加密" class="btnClass" onClick="return SymEncryptData()" />
+                </td>
+                <td>
+                    <input type="button" value="文件对称加密" class="btnClass" onClick="return SymEncryptFile()" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">待加密的文件：</td>
+                <td>
+                    <input type="text" value="d:\test.txt" id="Sym_srcFile" name="Sym_srcFile" class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">加密后的文件：</td>
+                <td>
+                    <input type="text" value="d:\test.txt.cip" id="Sym_DstFile" name="Sym_DstFile"
+                        class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">解密后的文件：</td>
+                <td>
+                    <input type="text" value="d:\test.txt..dec.cip" id="Sym_decDstFile" name="Sym_decDstFile"
+                        class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">加密后结果：</td>
+                <td>
+                    <textarea id="Sym_enedData" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" value="数据对称解密" class="btnClass" onClick="return SymDecryptData()" />
+                </td>
+                <td>
+                    <input type="button" value="文件对称解密" class="btnClass" onClick="return SymDecryptFile()" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">解密后数据：</td>
+                <td>
+                    <input type="text" value="" id="Sym_deData" name="deData" class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+
+        </table>
+    </div>
+
+
+
+
+    <div class="titleClass">
+        <div class="titleClass_Div">文件操作</div>
+        <div class="sj"></div>
+    </div>
+    <div class="blockClass">
+        <table class="tableClass" border="0">
+            <tr>
+                <td class="titleLeftInfo">创建文件：</td>
+                <td>
+                    <input type="text" id="Create_text" class="textClassStyle" />
+                </td>
+                <td>
+                    <input type="button" value="创建" class="btnClass" onclick="return btnCreateFile()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">文件列表：</td>
+                <td>
+                    <select id="sel_fileList" class="seleClass">
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="枚举文件" class="btnClass" onclick="return btnEnumFiles()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">选择图片：</td>
+                <td>
+                    <input type="text" class="textClassStyle" id="update_file_label" />
+                </td>
+                <td>
+                    <input accept="image/*" name="upimage" style="width: 70px;" id="upload_file" type="file" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <script type="text/javascript">
+                    document.getElementById("upload_file").onchange = function () {
+                        document.getElementById("update_file_label").value = this.value;
+                        gen_base64();
+                    };
+                </script>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">图片大小：</td>
+                <td>
+                    <div class="strong red" id="img_size"></div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">图片数据:</td>
+                <td>
+                    <textarea id="base64_output" name="Word" class="textareaClass"></textarea>
+                </td>
+                <td>
+                    <input type="button" value="写入文件区" class="btnClass" onclick="return btnWriteFile_Img()" />
+                </td>
+                <td>
+                    <input type="button" value="读取文件区" class="btnClass" onclick="return btnReadFile_Img()" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">还原图片：</td>
+                <td>
+                    <img id="img_prev" src="" style="max-width: 100%; border: 1px solid gray;"
+                        data-bd-imgshare-binded="1" />
+                </td>
+                <td>
+                    <input type="button" class="btnClass" value="转成图片" onclick="return test_base64();" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">文件数据：</td>
+                <td>
+                    <textarea id="file_data" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td style="text-align: center;">
+                    <input type="button" value="选择文件" id="trigger" class="btnClass" onclick="return btnReadFileData()" /><br/>
+                    <input id="fileD"   type="file" name="file_upload" multiple style="visibility:hidden;width:0px;" />
+                    加载进度：<span id="progressBar">0%</span>
+                </td>
+                <td>
+                    <input type="button" value="写文件数据" class="btnClass" onclick="return btnWriteFile()" />
+                </td>
+                <td>
+                    <input type="button" value="读文件数据" class="btnClass" onclick="return btnReadFile()" />
+                </td>
+                
+                <td></td>
+            </tr>
+            <script type="text/javascript">
+                function $_(id) {
+                    return document.getElementById(id);
+                }
+                function gen_base64() {
+                    $_('base64_output').value = '';
+                    $_('img_size').innerHTML = '';
+                    $_('img_prev').src = '';
+                    var file = $_('upload_file').files[0];
+                    if (!/image\/\w+/.test(file.type)) {
+                        alert("请确保文件为图像类型");
+                        return false;
+                    }
+                    r = new FileReader();  //本地预览
+                    r.onload = function () {
+                        $_('base64_output').value = r.result;
+                        $_('img_size').innerHTML = "    图片大小：" + Math.round(r.result.length / 1024 * 1000) / 1000 + " KB";
+                    }
+                    r.readAsDataURL(file);    //Base64
+                }
+                function test_base64() {
+                    $_('img_prev').src = '';
+                    $_('img_prev').src = $_('base64_output').value;
+                }
+
+                var fileUpload = document.getElementById("fileD");
+                var trigger = document.getElementById("trigger");
+                fileUpload.onchange = function() {
+                    document.getElementById("file_data").innerHTML="";
+                    var file = this.files,
+                        len = file.length,
+                        url = [];
+                        reader = new fileReader();
+                    for (var i=0; i<len; i++) {
+                        document.body.insertBefore(reader.getProgressBar(),document.getElementById("text"));
+                        var secquence = Promise.resolve();
+                        secquence.then(
+                        reader.readAsText(file[i],function(buffer) {
+                            //$('#file_data').val(buffer);
+                            document.getElementById("file_data").innerHTML+=buffer;
+                            
+                        },10));
+                    }
+                }
+                trigger.onclick = function() {
+                    fileUpload.click();
+                }
+
+            </script>
+        </table>
+    </div>
+
+
+    <div class="titleClass">
+        <div class="titleClass_Div">证书导入</div>
+        <div class="sj"></div>
+    </div>
+    <div class="blockClass">
+        <table class="tableClass" border="0">
+            <tr>
+                <td class="titleLeftInfo">DN：</td>
+                <td>
+                    <input type="text" id="txt_DN" class="textClassStyle"
+                        value="CN=longmai_CN,O=longmai_O,OU=longmai_OU,C=longmai_C" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">密钥类型：</td>
+                <td>
+                    <input type="text" class="textClassStyle" id="txt_keySpec" value="1" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">密钥长度：</td>
+                <td>
+                    <input type="text" class="textClassStyle" id="txt_keyLength" value="256" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">P10：</td>
+                <td>
+                    <textarea id="P10_requestData" class="textareaClass"></textarea>
+                </td>
+                <td>
+                    <select id="txt_asymAlg" class="seleClassType">
+                        <option value="131328">SGD_SM2_1</option>
+                        <option value="65536">SGD_RSA</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="生成P10请求" class="btnClass" onClick="return btn_P10_request()" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">签名证书数据：</td>
+                <td>
+                    <input type="text" class="textClassStyle" id="txt_SignCertData" value="" />
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" value="导入签名证书" class="btnClass" onClick="return importSignCert();" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">SessionKey(导入RSA时用到)：</td>
+                <td>
+                    <input type="text" class="textClassStyle" id="txt_SessionKey" value="" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">加密秘钥数据：</td>
+                <td>
+                    <input type="text" class="textClassStyle" id="txt_EncryptedPrivateKeyData" value="" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">加密证书数据：</td>
+                <td>
+                    <input type="text" class="textClassStyle" id="txt_CryptCertData" value="" />
+                </td>
+                <td>
+                    <select id="select_asymAlg" class="seleClassType">
+                        <option value="SM4">SGD_SM4_ECB</option>
+                        <option value="SM1">SGD_SM1_ECB</option>
+                        <option value="2147483921">SGD_AES128_ECB</option>
+                        <option value="2147483922">SGD_AES128_CBC</option>
+                        <option value="2147483937">SGD_AES192_ECB</option>
+                        <option value="2147483938">SGD_AES192_CBC</option>
+                        <option value="2147483969">SGD_AES256_ECB</option>
+                        <option value="2147483970">SGD_AES256_CBC</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="导入加密证书" class="btnClass" onClick="return importEncryptCertEx();" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </table>
+    </div>
+
+
+    <div class="titleClass">
+        <div class="titleClass_Div">摘要操作</div>
+        <div class="sj"></div>
+    </div>
+    <div class="blockClass">
+        <table class="tableClass" border="0">
+            <tr>
+                <td class="titleLeftInfo">摘要初始化：</td>
+                <td>
+                    <input type="text" class="textClassStyle" id="DigestInit_pubKey" value="" />
+                </td>
+                <td>
+                    <input type="button" value="摘要Init" class="btnClass" onclick="return btnDigestInit()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">摘要值更新：</td>
+                <td>
+                    <input type="text" class="textClassStyle" id="DigestUpdate_data" value="" />
+                </td>
+                <td>
+                    <input type="button" value="摘要Update" class="btnClass" onclick="return btnDigestUpdate()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">摘要完成：</td>
+                <td>
+                    <input type="text" class="textClassStyle" id="Digest_Value" value="" />
+                </td>
+                <td>
+                    <input type="button" value="摘要Final" class="btnClass" onclick="return btnDigestFinal()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">摘要值签名：</td>
+                <td>
+                    <input type="text" class="textClassStyle" id="Signed_Value" value="" />
+                </td>
+                <td>
+                    <input type="button" value="摘要签名" class="btnClass" onclick="return btnDigestToSigned()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="titleClass">
+        <div class="titleClass_Div">所见即所签交易(请确保UKey为K5-B4)</div>
+        <div class="sj"></div>
+    </div>
+    <div class="blockClass">
+        <table class="tableClass" border="0">
+            <tr>
+                <td class="titleLeftInfo">交易报文：(请先选择签名证书)</td>
+                <td>
+                    <textarea id="TransPacket" row="3" cols="23" class="textareaClassPro"><?xml version="1.0" encoding="utf-8" ?>
+
+                    <SignData>
+                    <TradeType name="行内转账" authLevel="0">innerTransfer </TradeType>
+                    <Timestamp>12345</Timestamp>
+                    <Fields>
+                    <PayerAcNo name="转出账户：">6221005550400770381</PayerAcNo>
+                    <PayeeAcNo name="转入账户：">6222331966476990586</PayeeAcNo>
+                    <Amount name="金额：">1998.95</Amount>
+                    <TranDate name="时间：">2016-03-02</TranDate>
+                    <Currency name="币种：" display="人民币">156</Currency>
+                    <JnlNo>xxxxxxx</JnlNo>
+						     </Fields>
+						 </SignData>
+					</textarea>
+                </td>
+                <td>
+                    <select id="TransDigestmech" class="seleClassType">
+                        <option value="2">SGD_SHA1</option>
+                        <option value="4">SGD_SHA256</option>
+                        <option value="1">SGD_SM3</option>
+                        <option value="130">SGD_SHA384</option>
+                        <option value="131">SGD_SHA512</option>
+                        <option value="129">SGD_MD5</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="交易签名" class="btnClass" onClick="return TransSignData()" />
+                </td>
+                <td>
+                    <input type="button" value="验证签名" class="btnClass" onClick="return TransVerifySignature()" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">签名后结果：</td>
+                <td>
+                    <textarea id="TransSignedData" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>-->
+
+
+<!--    <div class="titleClass">
+        <div class="titleClass_Div">按键签名(请确保UKey为GM3000 按键类型)</div>
+        <div>
+            <div class="sj"></div>
+        </div>
+    </div>
+    <div class="blockClass">
+        <table class="tableClass" border="0">
+            <tr>
+                <td class="titleLeftInfo">待签名数据：</td>
+                <td>
+                    <input type="text" value="Put data to be signed here..." id="BB_originalData" name="BB_data"
+                        class="textClassStyle" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">用户ID： </td>
+                <td>
+                    <input type="text" value="1234567812345678" id="BB_userID" name="BB_userdata"
+                        class="textClassStyle" />
+                </td>
+                <td>
+                    <select id="BB_mech" class="seleClassType">
+                        <option value="2">SGD_SHA1</option>
+                        <option value="4">SGD_SHA256</option>
+                        <option value="130">SGD_SHA384</option>
+                        <option value="131">SGD_SHA512</option>
+                        <option value="129">SGD_MD5</option>
+                        <option value="1">SGD_SM3</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="签名数据" class="btnClass" onClick="return BB_signData()" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">签名后结果：</td>
+                <td>
+                    <textarea id="BB_signedData" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" value="数据验签" class="btnClass" onClick="return BB_verifySign()" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>-->
+
+
+<!--    <div class="titleClass">
+        <div class="titleClass_Div">生成二维码</div>
+        <div class="sj"></div>
+    </div>
+    <div class="blockClass">
+        <table class="tableClass" border="0">
+            <tr>
+                <td class="titleLeftInfo">二维码：</td>
+                <td>
+                    <image id="Image_QRCode" name="Image_QRCode" src="data:image/png;base64,iVBOR">
+                    </image>
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" value="生成二维码" class="btnClass" onClick="return generateQRCode()" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>-->
+
+    <!--<div class="titleClass">
+        <div class="titleClass_Div">客户端密钥协商功能</div>
+        <div class="sj"></div>
+    </div>
+    <div class="blockClass">
+        <table class="tableClass" border="0">
+
+            <tr>
+                <td class="titleLeftInfo">发起方会话ID：</td>
+                <td>
+                    <input type="text" value="1234567812345678" id="txt_SponsorID" name="txt_SponsorID"
+                        class="textClassStyle" />
+                </td>
+                <td>
+                    <select id="slect_agreemntAlgID" class="seleClassType">
+                        <option value="257">SGD_SM1_ECB</option>
+                        <option value="1025">SGD_SM4_ECB</option>
+                        <option value="102">SGD_SM1_CBC</option>
+                        <option value="1026">SGD_SM4_CBC</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">发起方临时公钥：</td>
+                <td>
+                    <textarea id="txt_tempECCPubKeyBlob" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td>
+                    <input type="button" value="密钥协商请求" class="btnClass"
+                        onClick="return OnGenerateAgreementDataWithECC()" />
+                </td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">响应方公钥：</td>
+                <td>
+                    <textarea id="txt_ResponseECCPubKeyBlob" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">响应方临时公钥：</td>
+                <td>
+                    <textarea id="txt_ResponseTempECCPubKeyBlob" row="3" cols="23" class="textareaClass"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">响应方会话ID：</td>
+                <td>
+                    <input type="text" value="8765432187654321" id="txt_ResponseID" name="txt_ResponseID"
+                        class="textClassStyle" />
+                </td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">协商后Handle值：</td>
+                <td>
+                    <input type="text" value="" id="txt_AgreementKeyHandle" name="txt_AgreementKeyHandle"
+                        class="textClassStyle" />
+                </td>
+                <td>
+                    <input type="button" value="协商密钥" class="btnClass" onClick="return OnGenerateKeyWithECC()" />
+                </td>
+            </tr>
+
+            <tr>
+                <td class="titleLeftInfo">加密或解密数据源：</td>
+                <td>
+                    <textarea id="txt_AgreementEncrypteData" row="2" cols="23" class="textareaClass"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">加密或解密后数据：</td>
+                <td>
+                    <textarea id="txt_AgreementCiphertextData" row="2" cols="23" class="textareaClass"></textarea>
+                </td>
+                <td>
+                    <input type="button" value="加密操作" class="btnClass" onClick="return OnAgreementEncrypted()" />
+                </td>
+                <td>
+                    <input type="button" value="解密操作" class="btnClass" onClick="return OnAgreementDecrypted()" />
+                </td>
+            </tr>
+        </table>
+    </div>-->
+
+<!--    <div class="titleClass">
+        <div class="titleClass_Div">管理层操作</div>
+        <div class="sj"></div>
+    </div>
+    <div class="blockClass">
+        <table class="tableClass" border="0">
+            <tr>
+                <td class="titleLeftInfo">设备认证：</td>
+                <td>
+                    <input type="text" id="authDevCode" class="textClassStyle" value="1234567812345678" />
+                </td>
+                <td>
+                    <input type="button" value="认证设备密钥" class="btnClass" onClick="return btnAuthDevCode()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">修改设备认证密钥：</td>
+                <td>
+                    <input type="text" id="authDevCode_New" class="textClassStyle" value="" />
+                </td>
+                <td>
+                    <input type="button" value="修改设备密钥" class="btnClass" onClick="return btnChangeAuthDevCode()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">
+                    创建应用：
+                </td>
+                <td>
+                    <div class="AppDivClass">
+                        <table border="0" class="AppDivTableClass">
+                            <tr>
+                                <td class="labelClass">应用名称：</td>
+                                <td class="textClass"><input type="text" id="AppName" value="GM3000RSA" /></td>
+                            </tr>
+                            <tr>
+                                <td class="labelClass">管理员密码：</td>
+                                <td class="textClass"><input type="text" id="adminPin" value="admin" /></td>
+                            </tr>
+                            <tr>
+                                <td class="labelClass">管理密码最大重试次数：</td>
+                                <td class="textClass"> <input type="text" id="adminPinRetryCount" value="10" /></td>
+                            </tr>
+                            <tr>
+                                <td class="labelClass">用户密码：</td>
+                                <td class="textClass"><input type="text" id="userPin" value="12345678" /></td>
+                            </tr>
+                            <tr>
+                                <td class="labelClass">用户密码最大重试次数：</td>
+                                <td class="textClass"><input type="text" id="userPinRetryCount" value="10" /></td>
+                            </tr>
+                            <tr>
+                                <td class="labelClass">权限参数：</td>
+                                <td class="textClass"><input type="text" id="AppfileRights" value="16" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+                <td>
+                    <input type="button" value="创建应用" class="btnClass" onClick="return btnCreatAppName()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">获取应用名称：</td>
+                <td>
+                    <select id="sele_appNameList" class="seleClass">
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="获取应用" class="btnClass" onClick="return btnGetAppNameList()" />
+                </td>
+                <td>
+                    <input type="button" value="删除应用" class="btnClass" onClick="return btnDeleteAppName()" />
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">管理密码： </td>
+                <td><input type="text" value="admin" id="txt_AdminPwd" name="txt_AdminPwd" class="textClassStyle" />
+                </td>
+                <td><input type="button" value="验证管理密码" class="btnClass" onClick="return verifyAdminPin()" /></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">修改管理密码：</td>
+                <td>
+                    <input type="text" id="txt_NewSoPin" class="textClassStyle" value="" />
+                </td>
+                <td>
+                    <input type="button" value="修改" class="btnClass" onClick="return changeSoPin()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="titleLeftInfo">根据证书序列号删除容器：</td>
+                <td>
+                    <input type="text" id="txt_certNumber" class="textClassStyle" />
+                </td>
+                <td>
+                    <input type="button" id="btn_deleCon_ID" value="删除容器" class="btnClass"
+                        onClick="return btn_deleCon()" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>-->
+
+<script>
+
+  const iframeDoAction = () => {
+    var objS = document.getElementById("sele_devices");
+    var grade = objS.options[objS.selectedIndex];
+    if(grade?.text)
+    {
+      console.log("点击触发iframe页面的事件：iframeDoAction");
+      window.parent.postMessage({act: 'doUkey', key: grade.text}, "*");
+    }
+    else {
+      alert("请先查找设备");
+    }
+
+  };
+
+
+</script>
+
+</body>
+
+</html>

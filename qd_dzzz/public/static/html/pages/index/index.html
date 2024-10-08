@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公示平台</title>
+    <link rel="stylesheet" href="../css/biz_common.css">
+    <link rel="stylesheet" href="../../js/libs/pagination/mricode.pagination.css">
+    <link rel="stylesheet" href="../../js/libs/element-ui/index.css">
+    <link rel="stylesheet" href="../../js/libs/vue-treeselect/vue-treeselect.css">
+    <link rel="stylesheet" href="./css/index.css">
+
+</head>
+
+<body>
+    <div class="container" id="app" v-cloak>
+        <h2 class="page-title">湖北省药品监督管理局</h2>
+        <h3 class="sub-title">电子证书公示平台</h3>
+        <div class="search-box">
+            <input type="text" id="searchVal" class="search" v-model="keyWord" autocomplete="off"
+                placeholder="请输入企业名称、统一社会信用代码">
+            <p class="search-btn" id="searchBtn" @click="handleSearch">查证</p>
+        </div>
+        <div class="info">
+            <ul class="tab" id="tab">
+                <li class="tab-item" @click="tabType = 0" :class="{active: tabType === 0}">药品</li>
+                <li class="tab-item" @click="tabType = 1" :class="{active: tabType === 1}">医疗器械</li>
+                <li class="tab-item" @click="tabType = 2" :class="{active: tabType === 2}">化妆品</li>
+            </ul>
+            <ul class="type-list" id="typeList">
+                <li :class="{active: typeId === item.key}"
+                    v-for="(item,index) of typeListData"
+                    :key="index"
+                    @click="handleCertTypeClick(item)"
+                >
+                  {{ item.value }}
+                </li>
+            </ul>
+            <p class="explain-content">
+                说明：1、点击证书编号可查询证书详细信息；2、点击正本、副本等可查看电子证书；3、扫描电子证书中的图形二维码可查询证书详细信息；4、如遇网页打印无法没置纸张大小等情况，请下载安装OFD阅读器，打开下载到本地的OFD格式证书，进行打印。<span><a
+                        href="https://zsgs.hubyjj.cn:8096/download/Suwell.zip" download>(OFD阅读器下载)</a></span>；
+                5、技术问题可联系027-87110180或QQ咨询群952102219。</span></p>
+            <div class="search-info-box">
+                <div class="item">
+                    <p class="item-name">企业名称：</p>
+                    <input class="search-input" type="text" autocomplete="off" id="value1" placeholder="请输入" v-model="value1">
+                </div>
+                <div class="item">
+                    <p class="item-name">社会信用代码：</p>
+                    <input class="search-input" type="text" autocomplete="off" id="value2" placeholder="请输入" v-model="value2">
+                </div>
+                <div class="item">
+                    <p class="item-name">许可编号：</p>
+                    <input class="search-input" type="text" autocomplete="off" id="value3" placeholder="请输入" v-model="value3">
+                </div>
+<!--                <div class="item">-->
+<!--                    <p class="item-name">行政区划：</p>-->
+<!--                  <treeselect class="search-input search-input2" search-nested placeholder="选择地区" no-results-text="没有数据"-->
+<!--                              :flat="true" v-model="value4" :multiple="false" :options="cityData">-->
+<!--                    <div slot="value-label" slot-scope="{ node }">{{ formatNestedLabel(node) }}</div>-->
+<!--                  </treeselect>-->
+<!--&lt;!&ndash;                    <el-cascader v-model="value4" :options="cityData" :show-all-levels="false" :props="{ checkStrictly: true }" @change="handleChange"></el-cascader>&ndash;&gt;-->
+<!--&lt;!&ndash;                     <input type="text" autocomplete="off" id="value4" placeholder="请输入" v-model="value4">&ndash;&gt;-->
+<!--                </div>-->
+                <div class="item">
+                    <p class="item-name">发证机关：</p>
+                    <input class="search-input" type="text" autocomplete="off" id="value5" placeholder="请输入" v-model="value5">
+                </div>
+                <div class="item">
+                    <p class="item-name">发证日期：</p>
+                    <el-date-picker v-model="value6" :format="'yyyy-MM-dd'" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
+                    </el-date-picker>
+                </div>
+              <div class="item">
+                <p class="item-name">行政区划：</p>
+                <treeselect class="search-input search-input2" search-nested placeholder="选择地区" no-results-text="没有数据"
+                            :flat="true" v-model="value4" :multiple="false" :options="cityData">
+                  <div slot="value-label" slot-scope="{ node }">{{ formatNestedLabel(node) }}</div>
+                </treeselect>
+                <!--                    <el-cascader v-model="value4" :options="cityData" :show-all-levels="false" :props="{ checkStrictly: true }" @change="handleChange"></el-cascader>-->
+                <!--                     <input type="text" autocomplete="off" id="value4" placeholder="请输入" v-model="value4">-->
+              </div>
+                <div class="item" v-show="chanpingShow">
+                    <p class="item-name">产品名称：</p>
+                    <input class="search-input" type="text" autocomplete="off" id="value7" placeholder="请输入" v-model="value7">
+                </div>
+                <div class="firm-search-btn" id="firmSearchBtn" @click="handleSearch">点击查询</div>
+            </div>
+            <div class="list-box">
+                <div class="list-head">
+                    <p class="col1">序号</p>
+                    <p class="col2">证书类型</p>
+                    <div class="col3">证书编号<div class="number-arrow-box" id="numberArrowBox">
+                            <p class="arrow-up" id="numberUp" @click="rankState = 'numberup'" :class="{active: rankState === 'numberup'}"></p>
+                            <p class="arrow-down" id="numberDown" @click="rankState = 'numberdown'" :class="{active: rankState === 'numberdown'}"></p>
+                        </div>
+                    </div>
+                    <p class="col4">企业名称</p>
+                    <p class="col9" v-show="chanpingShow">产品名称</p>
+                    <p class="col5">发证机关</p>
+                    <div class="col6">发证日期<div class="number-arrow-box" id="timeArrowBox">
+                            <p class="arrow-up" id="timeUp" @click="rankState = 'timeup'" :class="{active: rankState === 'timeup'}"></p>
+                            <p class="arrow-down" id="timeDown" @click="rankState = 'timedown'" :class="{active: rankState === 'timedown'}"></p>
+                        </div>
+                    </div>
+
+                    <p class="col7">状态</p>
+                    <p class="col8">查看</p>
+                </div>
+                <div class="list-body" id="listBody" v-loading="loading">
+                    <p v-if="!listData.length" class="no-data">暂时数据</p>
+                    <div v-else>
+                        <div class="list-item" v-for="(item,index) of listData" :key="index">
+                            <p class="col1">{{ pageindex * pagesize + index + 1 }}</p>
+                            <p class="col2" :title="item.zslx">{{ item.zslx }}</p>
+                          <p class="col3" :title="item.zsbh"><a href='javascript:void(0);' :id="item" @click="openmenu(item)" >{{ item.zsbh }}</a></p>
+                            <p class="col4" :title="item.qymc">{{ item.qymc }}</p>
+                            <p class="col9" :title="item.chanping" v-show="chanpingShow">{{ item.chanping }}</p>
+                            <p class="col5" :title="item.fzjg">{{ item.fzjg }}</p>
+                            <p class="col6" :title="item.fzrq">{{ item.fzrq }}</p>
+                            <p class="col7" :title="getZtTitle(item.zszt)">{{ getZtTitle(item.zszt) }}</p>
+                            <p class="col8">
+                                <span v-for="(i,idx) of item.handle" :key="idx" @click="openLayer(i.zsid,i.name)">{{ i.name }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pager" id="pager"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/config.js"></script>
+    <script src="../../js/libs/rem.js"></script>
+    <script src="../../js/libs/jquery-1.12.4.min.js"></script>
+    <script src="../../js/libs/vue/vue.js"></script>
+    <script src="../../js/libs/pagination/mricode.pagination.js"></script>
+    <script src="../../js/util/util.js"></script>
+    <script src="../../js/libs/element-ui/index.js"></script>
+    <script src="../../js/libs/mock.min.js"></script>
+    <script src="./test/test_index.js"></script>
+    <script src="../../js/libs/vue-treeselect/vue-treeselect.js"></script>
+    <script src="./js/index.js"></script>
+    <script type="text/javascript" src="../../js/layer/layer.js"></script>
+
+</body>
+<script type="text/javascript">
+    //window.postMessage({token: 'gspt'},'*');
+</script>
+<style>
+  .m-pagination-info {
+    line-height: 235% !important;
+  }
+</style>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.certinfo.mapper.CertHandleMapper">
+
+	<select id="selectAll" resultType="org.jeecg.modules.demo.dzzz.certinfo.entity.CertInfo">
+		<if test="ew != null and ew.sqlFirst != null">${ew.sqlFirst}</if>
+		SELECT
+		<choose>
+			<when test="ew != null and ew.sqlSelect != null">${ew.sqlSelect}</when>
+			<otherwise>a.*</otherwise>
+		</choose>
+		FROM (
+			SELECT ID,QYID,ZSLX,ZSBH,QYMC,SHXYDM,ZCDZ,FDDBR,QYFZR,ZLFZR,FLM,RCJDGLJG,RCJDGLRY,SCDZHFW,FZJG,QFR,FZRQ,YXQQ,YXQZ,SCDZ,SLH,CKDZ,JGJZC,FW,FWYW,BZ,ZS,CHAOSONG,CHANPING,CPLB,CPMX,DH,CZ,GUIGE,JX,FJ,WZYM,JSLY,'3' ZT,YWLB,BBID,MBID,YLZD1,YLZD2,YLZD3,YLZD4,YLZD5,FZJGID,SJTB_GSPT,SJTB_DA,SJTB_XZSP,SJTB_GJ,SJTB_CWXX,SJTB_GJSJ,YLZD6,YLZD7,YLZD8,YLZD9,YLZD10,YLZD11,YLZD12,YLZD13,YLZD14,YLZD15,YLZD16,YLZD17,YLZD18,YLZD19,YLZD20,YLZD21,YLZD22,YLZD23,YLZD24,YLZD25,YLZD26,YLZD27,YLZD28,YLZD29,YLZD30,YLZD31,YLZD32,YLZD33,YLZD34,YLZD35,YLZD36,YLZD37,YLZD38,YLZD39,YLZD40,EWMLJ,SYNC,GLZDB,QYLX,LXRYX,LXDH,TYPELEVEL,MOBILE,CERTTYPEID,ZSZT,YXZT,EWM,SYNCTIME,ZSDL,ZSID,ISXT,WHID,CZZT,ISWH,GZTIME,OLD_ID
+			FROM ZS_YWXXB
+			<where>
+				<if test="ew.sqlSegment != null and ew.sqlSegment != '' and ew.nonEmptyOfWhere">${ew.sqlSegment}</if>
+			</where>
+			UNION ALL
+			SELECT ID,QYID,ZSLX,ZSBH,QYMC,SHXYDM,ZCDZ,FDDBR,QYFZR,ZLFZR,FLM,RCJDGLJG,RCJDGLRY,SCDZHFW,FZJG,QFR,FZRQ,YXQQ,YXQZ,SCDZ,SLH,CKDZ,JGJZC,FW,FWYW,BZ,ZS,CHAOSONG,CHANPING,CPLB,CPMX,DH,CZ,GUIGE,JX,FJ,WZYM,JSLY,'4' ZT,YWLB,BBID,MBID,YLZD1,YLZD2,YLZD3,YLZD4,YLZD5,FZJGID,SJTB_GSPT,SJTB_DA,SJTB_XZSP,SJTB_GJ,SJTB_CWXX,SJTB_GJSJ,YLZD6,YLZD7,YLZD8,YLZD9,YLZD10,YLZD11,YLZD12,YLZD13,YLZD14,YLZD15,YLZD16,YLZD17,YLZD18,YLZD19,YLZD20,YLZD21,YLZD22,YLZD23,YLZD24,YLZD25,YLZD26,YLZD27,YLZD28,YLZD29,YLZD30,YLZD31,YLZD32,YLZD33,YLZD34,YLZD35,YLZD36,YLZD37,YLZD38,YLZD39,YLZD40,EWMLJ,SYNC,GLZDB,QYLX,LXRYX,LXDH,TYPELEVEL,MOBILE,CERTTYPEID,ZSZT,YXZT,EWM,SYNCTIME,ZSDL,ZSID,ISXT,WHID,CZZT,ISWH,GZTIME,OLD_ID
+			FROM CERT_INFO c
+			<where>
+				NOT EXISTS(SELECT 1 FROM ZS_YWXXB WHERE ZSID=c.ZSID AND YXZT IN ('10', '98'))
+				<if test="ew.sqlSegment != null and ew.sqlSegment != '' and ew.nonEmptyOfWhere">AND ${ew.sqlSegment}</if>
+			</where>
+		) a
+		<if test="ew.sqlSegment != null and ew.sqlSegment != '' and ew.emptyOfWhere">${ew.sqlSegment}</if>
+		<if test="orderBy != null and orderBy != ''">${orderBy}</if>
+		<if test="ew != null and ew.sqlComment != null">${ew.sqlComment}</if>
+	</select>
+
+	<update id="copyToHistory">
+		INSERT INTO ${tableName}_H SELECT * FROM ${tableName} WHERE ZSID=#{zsid}
+		<if test="xzspId != null and xzspId != ''">AND XZSPID!=#{xzspId}</if>
+	</update>
+
+	<delete id="deleteByZsidAndXzspId">
+		DELETE FROM ${tableName} WHERE ZSID=#{zsid} AND XZSPID!=#{xzspId}
+	</delete>
+
+	<update id="mergeOperationRecordChange">
+		MERGE INTO CERT_INFO_OPERATION_RECORD t USING (
+			SELECT * FROM CERT_INFO_OPERATION_RECORD <where>${ew.sqlSegment}</where>
+		) s ON (s.ID='wh-'||t.ID)
+		WHEN MATCHED THEN UPDATE SET t.BGLX=s.BGLX,t.CZSJ=s.CZSJ,t.BGNR=s.BGNR,t.BGYY=s.BGYY,t.GZSTUTAS=s.GZSTUTAS,t.BGCS=s.BGCS,t.UPDATE_BY=s.CREATE_BY,t.UPDATE_TIME=SYSDATE()
+	</update>
+
+</mapper>

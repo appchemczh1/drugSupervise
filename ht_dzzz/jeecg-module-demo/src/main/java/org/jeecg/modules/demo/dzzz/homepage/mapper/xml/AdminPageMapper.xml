@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.homepage.mapper.AdminPageMapper">
+
+
+    <select id="getdgzCount" resultType="java.lang.Integer">
+        select count(1) from zs_ywxxb where zt='3' and yxzt = '10'
+    </select>
+    <select id="getDgzZs" resultType="java.util.Map">
+        SELECT  CT."certtypename" as name , COUNT(*) as value
+        FROM ZS_YWXXB zy JOIN  "cert_type" ct
+            ON zy.CERTTYPEID  = ct."id"
+            where zy.zt='3' and zy.yxzt = '10'
+            GROUP BY ct."certtypename"  ORDER BY value DESC
+    </select>
+
+    <select id="getYgzZs" resultType="java.util.Map">
+        SELECT  CT."certtypename" as name , COUNT(*) as value
+        FROM cert_info ci JOIN  "cert_type" ct
+        ON ci.CERTTYPEID  = ct."id"
+        where ci.zt='4' and ci.yxzt = '10'
+        GROUP BY ct."certtypename"  ORDER BY value DESC
+    </select>
+
+    <select id="getFirmInfo" resultType="java.util.Map">
+        SELECT
+            count(CASE WHEN ct."certtypename" = '药品生产许可证' THEN 1 ELSE null END) AS "ypsc",
+            count(CASE WHEN ct."certtypename" = '药品经营许可证（批发）' THEN 1 ELSE null END) AS "ypjypf",
+            count(CASE WHEN ct."certtypename" = '药品经营许可证（零售连锁总部）' THEN 1 ELSE null END) AS "ypjyls",
+            count(CASE WHEN ct."certtypename" = '医疗机构制剂配制许可证' THEN 1 ELSE null END) AS "yljg",
+            count(CASE WHEN ct."certtypename" = '第二、三类医疗器械生产许可证' THEN 1 ELSE null END) AS "qxsc",
+            count(CASE WHEN ct."certtypename" = '化妆品生产许可证' THEN 1 ELSE null END) AS "hzpsc",
+            count(CASE WHEN ct."certtypename" = '互联网药品信息服务资格证书' THEN 1 ELSE null END) AS "hlwsc",
+            count(CASE WHEN ct."certtypename" = '放射性药品生产许可证' THEN 1 ELSE null END) AS "fsxsc"
+        FROM cert_type ct
+                 JOIN CERT_INFO ci ON ct.id = ci.CERTTYPEID
+        where ci.zt = '4' AND ci.yxzt = '10'
+    </select>
+
+
+    <select id="getZsfb" resultType="java.util.Map">
+        SELECT /*+ENABLE_INDEX_JOIN(0)*/
+            COUNT(CASE WHEN  inf.DEPT_ID ='4028e49e404d20ed01404d33c1db0004'  THEN 1 ELSE NULL END) AS 省本级,
+            COUNT(CASE WHEN inf.ANCESTORS ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f187b6efc2664' OR inf.DEPT_ID ='ff8080816ce2137c016f187b6efc2664' THEN 1 ELSE NULL END) AS 武汉市,
+            COUNT(CASE WHEN inf.ANCESTORS ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f187fb5212674' OR inf.DEPT_ID ='ff8080816ce2137c016f187fb5212674' THEN 1 ELSE NULL END) AS 黄石市,
+            COUNT(CASE WHEN inf.ANCESTORS ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f188013972678' OR inf.DEPT_ID ='ff8080816ce2137c016f188013972678' THEN 1 ELSE NULL END) AS 十堰市,
+            COUNT(CASE WHEN inf.ANCESTORS ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f187dd3232668' OR inf.DEPT_ID ='ff8080816ce2137c016f187dd3232668' THEN 1 ELSE NULL END) AS 宜昌市,
+            COUNT(CASE WHEN inf.ANCESTORS ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f187d7fee2666' OR inf.DEPT_ID ='ff8080816ce2137c016f187d7fee2666' THEN 1 ELSE NULL END) AS 襄阳市,
+            COUNT(CASE WHEN inf.ANCESTORS = 'f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f187e075f266a' OR inf.DEPT_ID ='ff8080816ce2137c016f187e075f266a' THEN 1 ELSE NULL END) AS 鄂州市,
+            COUNT(CASE WHEN inf.ANCESTORS  ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f187f4c6f2670' OR inf.DEPT_ID ='ff8080816ce2137c016f187f4c6f2670' THEN 1 ELSE NULL END) AS 荆门市,
+            COUNT(CASE WHEN inf.ANCESTORS ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f187f0fd7266e' OR inf.DEPT_ID ='ff8080816ce2137c016f187f0fd7266e' THEN 1 ELSE NULL END) AS 孝感市,
+            COUNT(CASE WHEN inf.ANCESTORS ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f187fe51a2676' OR inf.DEPT_ID ='ff8080816ce2137c016f187fe51a2676' THEN 1 ELSE NULL END) AS 荆州市,
+            COUNT(CASE WHEN inf.ANCESTORS ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f18804cc8267a' OR inf.DEPT_ID ='ff8080816ce2137c016f18804cc8267a' THEN 1 ELSE NULL END) AS 黄冈市,
+            COUNT(CASE WHEN inf.ANCESTORS ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f187ed728266c' OR inf.DEPT_ID ='ff8080816ce2137c016f187ed728266c' THEN 1 ELSE NULL END) AS 咸宁市,
+            COUNT(CASE WHEN inf.ANCESTORS ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f18807ff7267c' OR inf.DEPT_ID ='ff8080816ce2137c016f18807ff7267c' THEN 1 ELSE NULL END) AS 随州市,
+            COUNT(CASE WHEN inf.ANCESTORS ='f4407802f29947f78dedbb0f268b68d2,4028e49e404d20ed01404d33c1db0004,ff8080816ce2137c016f187f7e0b2672' OR inf.DEPT_ID ='ff8080816ce2137c016f187f7e0b2672' THEN 1 ELSE NULL END) AS 恩施土家族苗族自治州,
+            COUNT(CASE WHEN inf.ANCESTORS LIKE '%87183c33f70549c8b9f880d79c5e4ba9%' OR inf.DEPT_ID ='87183c33f70549c8b9f880d79c5e4ba9' THEN 1 ELSE NULL END) AS 仙桃市,
+            COUNT(CASE WHEN inf.ANCESTORS LIKE '%dbe2bddff44d4b1484ef4fda425d680d%' OR inf.DEPT_ID ='dbe2bddff44d4b1484ef4fda425d680d' THEN 1 ELSE NULL END) AS 潜江市,
+            COUNT(CASE WHEN inf.ANCESTORS LIKE '%6789671b5f19446fa0196babc6121b88%' OR inf.DEPT_ID ='6789671b5f19446fa0196babc6121b88' THEN 1 ELSE NULL END) AS 天门市,
+            COUNT(CASE WHEN inf.ANCESTORS LIKE '%d2a3b3d2f6e6456d88924fb7cdf89f86%' OR inf.DEPT_ID ='d2a3b3d2f6e6456d88924fb7cdf89f86' THEN 1 ELSE NULL END) AS 神农架林区,
+            COUNT(CASE WHEN inf.ANCESTORS IS NOT NULL THEN 1 ELSE NULL END) AS 湖北省
+        FROM "s_dept" inf  JOIN CERT_INFO ci ON inf.DEPT_ID  = ci.FZJGID  WHERE ci.zt = '4' AND ci.YXzt ='10' and inf.status='0';
+    </select>
+
+
+    <select id="getStampInfo" resultType="java.util.Map">
+        SELECT
+        COUNT(CASE WHEN inf.DEPT_ID ='4028e49e404d20ed01404d33c1db0004' THEN 1 ELSE NULL END) AS 省本级,
+        COUNT(CASE WHEN inf.DEPT_ID !='4028e49e404d20ed01404d33c1db0004' THEN 1 ELSE NULL END) AS 市州,
+        COUNT(CASE WHEN inf.ANCESTORS IS NOT NULL THEN 1 ELSE NULL END) AS 湖北省
+        FROM "s_dept" inf
+        JOIN CERT_INFO ci
+        ON inf.DEPT_ID = ci.FZJGID
+        WHERE ci.zt = '4'
+        AND ci.YXzt = '10'
+        AND inf.status = '0'
+        <if test="startTime != null and startTime != ''">
+            AND ci.FZRQ &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND ci.FZRQ &lt;= #{endTime}
+        </if>
+    </select>
+
+
+    <select id="getYjCount" resultType="java.lang.Integer">
+        SELECT
+            COUNT(1)
+        FROM
+            ZS_YWXXB a
+        WHERE
+            a.YXZT = '10'
+          AND a.ZT = '3'
+          AND a.ZSZT != '4'
+  AND a.FZRQ IS NOT NULL
+  AND (TO_DAYS(CURRENT_DATE) - TO_DAYS(a.FZRQ)) >= 1
+    </select>
+
+
+    <select id="getstampWarnList" resultType="java.util.Map">
+        SELECT
+            ct."certtypename" ,
+            a.ZSBH AS zsbh,
+            a.QYMC AS qymc,
+            CASE WHEN a.YJCLZT = '0' THEN '已处理'
+                 ELSE '未处理' END AS yjzt
+        FROM CERT_INFO a JOIN cert_type ct  ON a.CERTTYPEID  = ct."id"
+        WHERE
+            a.YXZT = 10
+          and a.ZT = 4
+          AND a.YXQZ IS NOT NULL
+          AND a.zslx IS NOT null
+         AND DATE_FORMAT(a.YXQZ, '%Y-%m-%d') BETWEEN CURRENT_DATE
+            AND ADD_MONTHS(DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d'),'3')
+    </select>
+
+</mapper>

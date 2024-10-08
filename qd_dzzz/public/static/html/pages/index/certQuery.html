@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公示平台</title>
+    <link rel="stylesheet" href="../css/biz_common.css">
+    <link rel="stylesheet" href="../../js/libs/pagination/mricode.pagination.css">
+    <link rel="stylesheet" href="../../js/libs/element-ui/index.css">
+    <link rel="stylesheet" href="../../js/libs/vue-treeselect/vue-treeselect.css">
+    <link rel="stylesheet" href="./css/index.css">
+
+</head>
+
+<body>
+    <div class="container" id="app" v-cloak>
+        <h2 class="page-title">湖北省药品监督管理局</h2>
+        <h3 class="sub-title">电子证书公示平台</h3>
+        <div class="info">
+          <div class="search-info-box">
+            <div class="item">
+              <p class="item-name">企业名称：</p>
+              <input class="search-input" type="text" autocomplete="off" id="value1" placeholder="请输入" v-model="value1">
+            </div>
+            <div class="item">
+              <p class="item-name">社会信用代码：</p>
+              <input class="search-input" type="text" autocomplete="off" id="value2" placeholder="请输入" v-model="value2">
+            </div>
+            <div class="item">
+              <p class="item-name">许可编号：</p>
+              <input class="search-input" type="text" autocomplete="off" id="value3" placeholder="请输入" v-model="value3">
+            </div>
+            <div class="item">
+              <p class="item-name">发证机关：</p>
+              <input class="search-input" type="text" autocomplete="off" id="value5" placeholder="请输入" v-model="value5">
+            </div>
+            <div class="item">
+              <p class="item-name">发证日期：</p>
+              <el-date-picker v-model="value6" :format="'yyyy-MM-dd'" value-format="yyyy-MM-dd" type="date" placeholder="选择日期">
+              </el-date-picker>
+            </div>
+            <div class="item">
+              <p class="item-name">行政区划：</p>
+              <treeselect class="search-input search-input2" search-nested placeholder="选择地区" no-results-text="没有数据"
+                          :flat="true" v-model="value4" :multiple="false" :options="cityData">
+                <div slot="value-label" slot-scope="{ node }">{{ formatNestedLabel(node) }}</div>
+              </treeselect>
+            </div>
+            <div class="firm-search-btn" id="firmSearchBtn" @click="handleSearch">点击查询</div>
+          </div>
+            <div class="list-box">
+                <div class="list-head">
+                    <p class="col1">序号</p>
+                    <p class="col2">证书类型</p>
+<!--                    <div class="col3">证书编号<div class="number-arrow-box" id="numberArrowBox">
+                            <p class="arrow-up" id="numberUp" @click="rankState = 'numberup'" :class="{active: rankState === 'numberup'}"></p>
+                            <p class="arrow-down" id="numberDown" @click="rankState = 'numberdown'" :class="{active: rankState === 'numberdown'}"></p>
+                        </div>
+                    </div>-->
+                    <p class="col3">证书编号</p>
+                    <p class="col4">企业名称</p>
+                    <p class="col5">发证机关</p>
+                    <p class="col6">发证日期</p>
+<!--                    <div class="col6">发证日期
+                      <div class="number-arrow-box" id="timeArrowBox">
+                            <p class="arrow-up" id="timeUp" @click="rankState = 'timeup'" :class="{active: rankState === 'timeup'}"></p>
+                            <p class="arrow-down" id="timeDown" @click="rankState = 'timedown'" :class="{active: rankState === 'timedown'}"></p>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="list-body" id="listBody" v-loading="loading">
+                    <p v-if="!listData.length" class="no-data">暂时数据</p>
+                    <div v-else>
+                        <div class="list-item" v-for="(item,index) of listData" :key="index">
+                            <p class="col1">{{ pageindex * pagesize + index + 1 }}</p>
+                            <p class="col2" :title="item.zslx">{{ item.zslx }}</p>
+                            <p class="col3" :title="item.zsbh"><a href='javascript:void(0);' :id="item" @click="openmenu(item)" >{{ item.zsbh }}</a></p>
+                            <p class="col4" :title="item.qymc">{{ item.qymc }}</p>
+                            <p class="col5" :title="item.fzjg">{{ item.fzjg }}</p>
+                            <p class="col6" :title="item.fzrq">{{ item.fzrq }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pager" id="pager"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/config.js"></script>
+    <script src="../../js/libs/rem.js"></script>
+    <script src="../../js/libs/jquery-1.12.4.min.js"></script>
+    <script src="../../js/libs/vue/vue.js"></script>
+    <script src="../../js/libs/pagination/mricode.pagination.js"></script>
+    <script src="../../js/util/util.js"></script>
+    <script src="../../js/libs/element-ui/index.js"></script>
+    <script src="../../js/libs/mock.min.js"></script>
+    <script src="../../js/libs/vue-treeselect/vue-treeselect.js"></script>
+    <script type="text/javascript" src="../../js/layer/layer.js"></script>
+
+</body>
+<script type="text/javascript">
+  // 公示平台
+  $(function () {
+    const params = new URLSearchParams(window.location.search);
+    // 获取参数
+    const queryParam = params.get('workCode');
+
+    initVue();
+    function initVue () {
+      Vue.component('treeselect', VueTreeselect.Treeselect);
+      let vue = new Vue({
+        el: '#app',
+        data: {
+          cityData: [], //区域划分数据
+          value1: '', //企业名称
+          value2: '', //社会信用代码
+          value3: '', //许可编号
+          value4: [], //行政区划
+          value5: '', //发证机关
+          value6: '', //发证日期
+          workCode: queryParam, //页面传参 证照类型
+          listData: [], //列表数据
+          pageindex: 0, //页码
+          pagesize: 10, //页数
+          loading: true,
+          rankState: 'timedown', //证书编号升降\发证日期升降
+        },
+        watch: {
+          /*rankState () {
+            this.pageindex = 0;
+            this.getListData();
+          },*/
+        },
+        mounted () {
+          this.getCityName();
+          this.getListData();
+        },
+        methods: {
+          formatNestedLabel (node) {
+            if (!node.nestedSearchLabel) {
+              return "";
+            }
+            return node.label;
+            // return node.nestedSearchLabel.replaceAll(" ", "/");
+          },
+          //打开弹窗
+          openmenu (record) {
+            let parma = { recordData: record };
+            // window.open("https://zsgs.hubyjj.cn:8096/licenseInfo?id=" + record.zsid, "_blank", "alwaysLowered");
+            layer.open({
+              type: 2,
+              title: ['证照信息','font-size:16px'],
+              skin: 'layui-layer-rim',
+              area: ['40%', '80%'],
+              icon: 1,
+              maxmin: false,
+              // content: ['http://localhost:3100/licenseInfo?id='+record.zsid, 'no'], //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+              content: ['https://zsgs.hubyjj.cn:8096/licenseInfo?id='+record.zsid, 'no'], //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+            });
+          },
+          // 请求区域划分
+          getCityName () {
+            let _that = this;
+            const url = '/dzzz.homepage/otherPage/cityName'
+            this.commonAjaxRequest(url, {}, 'POST', function(data) {
+              let list = data.result.list;
+              _that.cityData = list;
+            });
+          },
+          // 请求列表数据
+          getListData () {
+            let _that = this;
+            _that.loading = true;
+            const url = '/dzzz.homepage/otherPage/ListDetailByCerttype'
+            this.commonAjaxRequest(url, {
+              value1: this.value1,
+              value2: this.value2,
+              value3: this.value3,
+              value4: this.value4,
+              value5: this.value5,
+              value6: this.value6 == null ? "" : this.value6,
+              pageindex: this.pageindex + 1, //页码
+              pagesize: this.pagesize, //每页个数
+              workCode: this.workCode //证书类型
+            }, 'POST', function (data) {
+              let list = data.result.list,
+                total = data.result.total;
+              _that.listData = list;
+              _that.loading = false;
+              _that.renderPager(_that.pageindex, _that.pagesize, total, _that.getListData);
+            });
+          },
+          // 分页
+          renderPager (pageindex, pagesize, total, fn) {
+            let $pager = $('#pager'),
+              _that = this;
+            if ($pager.pagination()) {
+              $pager.pagination('setPageIndex', pageindex);
+              $pager.pagination('setPageSize', pagesize);
+              $pager.pagination('render', total);
+            } else {
+              $pager.pagination({
+                pageIndex: pageindex,
+                pageSize: pagesize,
+                total: total,
+                prevBtnText: '<',
+                nextBtnText: '>',
+                // debug: true,
+                pageElementSort: ['$size', '$page', '$jump','$info'],
+                showInfo: true,
+                infoFormat: ' 共{total}条数据',
+                noInfoText: '无记录',
+                showJump: true,
+                showPageSizes: true,
+                showFirstLastBtn: false
+              });
+              $pager
+                .on('pageClicked', function (event, data) {
+                  _that.pageindex = data.pageIndex,
+                    _that.pagesize = data.pageSize;
+                  fn && fn(data.pageIndex, data.pageSize);
+                })
+                .on('jumpClicked', function (event, data) {
+                  _that.pageindex = data.pageIndex,
+                    _that.pagesize = data.pageSize;
+                  fn && fn(data.pageIndex, data.pageSize);
+                })
+                .on('pageSizeChanged', function (event, data) {
+                  _that.pageindex = data.pageIndex,
+                    _that.pagesize = data.pageSize;
+                  fn && fn(data.pageIndex, data.pageSize);
+                });
+            }
+          },
+          handleSearch () {
+            this.pageindex = 0;
+            this.getListData();
+          },
+          //通用ajax方法
+          commonAjaxRequest (url, param, type, successCallback) {
+            let token = localStorage.getItem('token');
+            // let fullUrl = 'http://localhost:3100/hbdzzz' + url;
+            var baseUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+            let fullUrl = baseUrl + '/hbdzzz' + url;
+
+            $.ajax({
+              url: fullUrl,
+              type: type,
+              contentType: 'application/json',
+              dataType: 'json',
+             /* headers: {
+                'Authorization': token,
+                'X-Access-Token': token,
+                'X-Sign': Sign,
+                'X-Tenant-Id': tenantId,
+                'X-Timestamp': TIMESTAMP,
+                'X-Version': 'v3'
+              },*/
+              data: JSON.stringify(param),
+              success: function (data) {
+                successCallback(data);
+              }
+            });
+          },
+
+        }
+      });
+    }
+  });
+
+</script>
+
+</html>

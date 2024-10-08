@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.certInfoOperation.mapper.CertInfoOperationRecordMapper">
+
+    <select id="selectBgJlByParams" parameterType="org.jeecg.modules.demo.dzzz.dataExchange.dto.SscjDataReqDto"
+            resultType="java.lang.String">
+        SELECT
+            a.BGNR
+        FROM CERT_INFO_OPERATION_RECORD a, ZS_YWXXB b
+        WHERE a.ZSID = b."zsid"
+          AND a.STUTAS = 20
+          AND b.SHXYDM = #{shxydm}
+          AND a.YWLX = #{ywlx}
+          AND b.YWLB = #{ywlx}
+          AND b.ZSLX = #{zslx}
+          AND a.CZRQ = #{bgsj}
+        ORDER BY a.CREATE_TIME DESC LIMIT 1
+    </select>
+
+</mapper>

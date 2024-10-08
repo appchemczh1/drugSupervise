@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.certStatistics.mapper.ZslxtjMapper">
+    <select id="selectZslxtjList" resultType="org.jeecg.modules.demo.dzzz.certStatistics.entity.Zslxtj">
+        select /*+ENABLE_INDEX_JOIN(0)*/
+            ct."certtypename" as zsmc,
+            max(ct.ordernum) ordernum,
+        COUNT(CASE WHEN  inf.DEPT_ID ='4028e49e404d20ed01404d33c1db0004'  THEN 1 ELSE NULL END) AS sbNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f187b6efc2664%' OR inf.DEPT_ID ='ff8080816ce2137c016f187b6efc2664' THEN 1 ELSE NULL END) AS whNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f187fb5212674%' OR inf.DEPT_ID ='ff8080816ce2137c016f187fb5212674' THEN 1 ELSE NULL END) AS hsNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f188013972678%' OR inf.DEPT_ID ='ff8080816ce2137c016f188013972678' THEN 1 ELSE NULL END) AS syNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f187dd3232668%' OR inf.DEPT_ID ='ff8080816ce2137c016f187dd3232668' THEN 1 ELSE NULL END) AS ycNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f187d7fee2666%' OR inf.DEPT_ID ='ff8080816ce2137c016f187d7fee2666' THEN 1 ELSE NULL END) AS xyNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f187e075f266a%' OR inf.DEPT_ID ='ff8080816ce2137c016f187e075f266a' THEN 1 ELSE NULL END) AS ezNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f187f4c6f2670%' OR inf.DEPT_ID ='ff8080816ce2137c016f187f4c6f2670' THEN 1 ELSE NULL END) AS jmNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f187f0fd7266e%' OR inf.DEPT_ID ='ff8080816ce2137c016f187f0fd7266e' THEN 1 ELSE NULL END) AS xgNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f187fe51a2676%' OR inf.DEPT_ID ='ff8080816ce2137c016f187fe51a2676' THEN 1 ELSE NULL END) AS jzNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f18804cc8267a%' OR inf.DEPT_ID ='ff8080816ce2137c016f18804cc8267a' THEN 1 ELSE NULL END) AS hgNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f187ed728266c%' OR inf.DEPT_ID ='ff8080816ce2137c016f187ed728266c' THEN 1 ELSE NULL END) AS xnNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f18807ff7267c%' OR inf.DEPT_ID ='ff8080816ce2137c016f18807ff7267c' THEN 1 ELSE NULL END) AS szNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%ff8080816ce2137c016f187f7e0b2672%' OR inf.DEPT_ID ='ff8080816ce2137c016f187f7e0b2672' THEN 1 ELSE NULL END) AS esNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%87183c33f70549c8b9f880d79c5e4ba9%' OR inf.DEPT_ID ='87183c33f70549c8b9f880d79c5e4ba9' THEN 1 ELSE NULL END) AS xtNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%dbe2bddff44d4b1484ef4fda425d680d%' OR inf.DEPT_ID ='dbe2bddff44d4b1484ef4fda425d680d' THEN 1 ELSE NULL END) AS qjNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%6789671b5f19446fa0196babc6121b88%' OR inf.DEPT_ID ='6789671b5f19446fa0196babc6121b88' THEN 1 ELSE NULL END) AS tmNum,
+        COUNT(CASE WHEN inf.ANCESTORS LIKE '%d2a3b3d2f6e6456d88924fb7cdf89f86%' OR inf.DEPT_ID ='d2a3b3d2f6e6456d88924fb7cdf89f86' THEN 1 ELSE NULL END) AS snjNum,
+        COUNT(CASE WHEN inf.ANCESTORS IS NOT NULL THEN 1 ELSE NULL END) AS totalNum
+        from "cert_type" as ct
+        LEFT JOIN (SELECT *
+            FROM "CERT_INFO"
+            WHERE yxzt='10'
+            <if test="yxqq != null and yxqq != '' ">AND fzrq &gt;= &apos;${yxqq}&apos;</if>
+            <if test="yxqz != null and yxqz != '' ">AND fzrq &lt;= &apos;${yxqz}&apos;</if>
+            ) as ci
+        ON ci.certtypeId=ct.ID
+        LEFT JOIN "s_dept" inf   ON inf.dept_id  = ci.fzjgid
+        WHERE ct.status='2'
+        GROUP by ct."certtypename"
+        order by ordernum
+    </select>
+</mapper>

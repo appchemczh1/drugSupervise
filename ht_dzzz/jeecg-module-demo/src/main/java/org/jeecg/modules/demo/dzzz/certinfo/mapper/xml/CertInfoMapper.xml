@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.certinfo.mapper.CertInfoMapper">
+
+    <select id="queryCertMetadateById" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.certmatadataversion.entity.CertMetadata" >
+        SELECT
+            cm.*,
+               ct.zszb as TYPEVALUE
+        FROM
+            "cert_type" ct ,
+            "cert_metadata_version" cmv ,
+            "cert_metadata" cm
+
+        WHERE
+            ct.id = cmv."cert_type_id"
+          AND cm.certmetadataversion_id=cmv.id
+          AND cmv.status='0'
+          AND cm.sfsc='0'
+          AND ct.id = #{certtypeid}
+          order by cm.px
+    </select>
+    <select id="queryCertMetadateByIdelse" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.certmatadataversion.entity.LabelValue" >
+        SELECT
+            cm.lm as label,
+            cm.yssx as value
+        FROM
+            "cert_type" ct ,
+            "cert_metadata_version" cmv ,
+            "cert_metadata" cm
+        WHERE
+            ct.id = cmv."cert_type_id"
+          AND cm.certmetadataversion_id=cmv.id
+          AND cmv.status='0'
+          AND ct.id = #{certtypeid}
+        order by cm.px
+    </select>
+    <select id="getAttachByCertid" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.attachinfo.entity.Attachinfo" >
+        SELECT
+            *
+        FROM
+            ATTACHINFO a
+        WHERE
+            a.ZSID = #{id}
+          AND a."TYPE" = #{certmodetype}
+          AND a.isgz= #{isgz}
+          AND STATUS = '1'
+         order by CREATE_TIME desc
+         limit 1
+    </select>
+    <select id="getCertModeByCertid" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.certmode.entity.CertMode" >
+        SELECT
+            cm.*
+        FROM
+
+            "cert_type" ct ,
+            CERT_INFO ci,
+            "cert_mode" cm
+        WHERE
+            ci.CERTTYPEID = ct."id"
+          AND ct.id = cm."certtypeid"
+          AND ct."status" = '2'  --发布
+          AND cm."status" = '0'   --使用
+          AND ci.id=#{id}
+    </select>
+
+    <select id="getCertroles" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.certtyperole.entity.CerttypeRole" >
+        SELECT
+            *
+        FROM
+            "certtype_role" cr
+        WHERE
+            cr."certtypeid" = #{certtypeid}
+            and
+              <foreach collection="roleids.split(',')" index="index" item="roleid" open="(" separator="or" close=")">
+                  roleid=#{roleid}
+              </foreach>
+
+    </select>
+    <select id="getzminfodata" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.certzminfo.entity.CertZminfo" >
+        SELECT
+        *
+        FROM
+        "cert_zminfo" cr
+        WHERE
+        cr."id" = #{id}
+
+    </select>
+
+    <select id="selectAll" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.wgz.entity.ZsYwxxb" >
+        select  ci.*,ct.certtypename from cert_type ct join (
+        SELECT  * FROM  (SELECT  ID, QYID, ZSLX, ZSBH, QYMC, SHXYDM, ZCDZ, FDDBR, QYFZR, ZLFZR, FLM, RCJDGLJG, RCJDGLRY, SCDZHFW, FZJG, QFR, FZRQ, YXQQ, YXQZ, SCDZ, SLH, CKDZ, JGJZC, FW, FWYW, BZ, ZS, chaosong, chanping, CPLB, CPMX, DH, CZ, guige, JX, FJ, WZYM, JSLY, ZT, YWLB, BBID, MBID, YLZD1, YLZD2, YLZD3, YLZD4, YLZD5, FZJGID, SJTB_GSPT, SJTB_DA, SJTB_XZSP, SJTB_GJ, SJTB_CWXX, SJTB_GJSJ, YLZD6, YLZD7, YLZD8, YLZD9, YLZD10, YLZD11, YLZD12, YLZD13, YLZD14, YLZD15, YLZD16, YLZD17, YLZD18, YLZD19, YLZD20, YLZD21, YLZD22, YLZD23, YLZD24, YLZD25, YLZD26, YLZD27, YLZD28, YLZD29, YLZD30, YLZD31, YLZD32, YLZD33, YLZD34, YLZD35, YLZD36, YLZD37, YLZD38, YLZD39, YLZD40, EWMLJ, SYNC, GLZDB, QYLX, LXRYX, LXDH, TYPELEVEL, MOBILE, CERTTYPEID, ZSZT, YXZT, EWM, SYNCTIME, ZSDL, zsid, ISXT,czzt
+                         FROM ZS_YWXXB <where>${sql1}</where>
+                         UNION ALL
+                         SELECT  ID, QYID, ZSLX, ZSBH, QYMC, SHXYDM, ZCDZ, FDDBR, QYFZR, ZLFZR, FLM, RCJDGLJG, RCJDGLRY, SCDZHFW, FZJG, QFR, FZRQ, YXQQ, YXQZ, SCDZ, SLH, CKDZ, JGJZC, FW, FWYW, BZ, ZS, chaosong, chanping, CPLB, CPMX, DH, CZ, guige, JX, FJ, WZYM, JSLY, ZT, YWLB, BBID, MBID, YLZD1, YLZD2, YLZD3, YLZD4, YLZD5, FZJGID, SJTB_GSPT, SJTB_DA, SJTB_XZSP, SJTB_GJ, SJTB_CWXX, SJTB_GJSJ, YLZD6, YLZD7, YLZD8, YLZD9, YLZD10, YLZD11, YLZD12, YLZD13, YLZD14, YLZD15, YLZD16, YLZD17, YLZD18, YLZD19, YLZD20, YLZD21, YLZD22, YLZD23, YLZD24, YLZD25, YLZD26, YLZD27, YLZD28, YLZD29, YLZD30, YLZD31, YLZD32, YLZD33, YLZD34, YLZD35, YLZD36, YLZD37, YLZD38, YLZD39, YLZD40, EWMLJ, SYNC, GLZDB, QYLX, LXRYX, LXDH, TYPELEVEL, MOBILE, CERTTYPEID, ZSZT, YXZT, EWM, SYNCTIME, ZSDL, zsid, ISXT,czzt
+                         FROM cert_info <where>${sql2}</where>
+                        ) ${weiba} ) ci on ct.id = ci.CERTTYPEID
+
+    </select>
+    <select id="countselectAll" parameterType="java.lang.String" resultType="java.lang.Integer" >
+        SELECT  count(*) FROM  (SELECT  ID, QYID, ZSLX, ZSBH, QYMC, SHXYDM, ZCDZ, FDDBR, QYFZR, ZLFZR, FLM, RCJDGLJG, RCJDGLRY, SCDZHFW, FZJG, QFR, FZRQ, YXQQ, YXQZ, SCDZ, SLH, CKDZ, JGJZC, FW, FWYW, BZ, ZS, chaosong, chanping, CPLB, CPMX, DH, CZ, guige, JX, FJ, WZYM, JSLY, ZT, YWLB, BBID, MBID, YLZD1, YLZD2, YLZD3, YLZD4, YLZD5, FZJGID, SJTB_GSPT, SJTB_DA, SJTB_XZSP, SJTB_GJ, SJTB_CWXX, SJTB_GJSJ, YLZD6, YLZD7, YLZD8, YLZD9, YLZD10, YLZD11, YLZD12, YLZD13, YLZD14, YLZD15, YLZD16, YLZD17, YLZD18, YLZD19, YLZD20, YLZD21, YLZD22, YLZD23, YLZD24, YLZD25, YLZD26, YLZD27, YLZD28, YLZD29, YLZD30, YLZD31, YLZD32, YLZD33, YLZD34, YLZD35, YLZD36, YLZD37, YLZD38, YLZD39, YLZD40, EWMLJ, SYNC, GLZDB, QYLX, LXRYX, LXDH, TYPELEVEL, MOBILE, CERTTYPEID, ZSZT, YXZT, EWM, SYNCTIME, ZSDL, zsid, ISXT
+                         FROM ZS_YWXXB <where>(iswh IS NULL OR iswh = '0') ${sql1}</where>
+                         UNION ALL
+                         SELECT  ID, QYID, ZSLX, ZSBH, QYMC, SHXYDM, ZCDZ, FDDBR, QYFZR, ZLFZR, FLM, RCJDGLJG, RCJDGLRY, SCDZHFW, FZJG, QFR, FZRQ, YXQQ, YXQZ, SCDZ, SLH, CKDZ, JGJZC, FW, FWYW, BZ, ZS, chaosong, chanping, CPLB, CPMX, DH, CZ, guige, JX, FJ, WZYM, JSLY, ZT, YWLB, BBID, MBID, YLZD1, YLZD2, YLZD3, YLZD4, YLZD5, FZJGID, SJTB_GSPT, SJTB_DA, SJTB_XZSP, SJTB_GJ, SJTB_CWXX, SJTB_GJSJ, YLZD6, YLZD7, YLZD8, YLZD9, YLZD10, YLZD11, YLZD12, YLZD13, YLZD14, YLZD15, YLZD16, YLZD17, YLZD18, YLZD19, YLZD20, YLZD21, YLZD22, YLZD23, YLZD24, YLZD25, YLZD26, YLZD27, YLZD28, YLZD29, YLZD30, YLZD31, YLZD32, YLZD33, YLZD34, YLZD35, YLZD36, YLZD37, YLZD38, YLZD39, YLZD40, EWMLJ, SYNC, GLZDB, QYLX, LXRYX, LXDH, TYPELEVEL, MOBILE, CERTTYPEID, ZSZT, YXZT, EWM, SYNCTIME, ZSDL, zsid, ISXT
+                         FROM cert_info c
+                        <where>
+                            (iswh IS NULL OR iswh = '0')
+                            AND NOT EXISTS(SELECT 1 FROM ZS_YWXXB WHERE ZSID=c.ZSID AND YXZT IN ('10', '98') AND (iswh IS NULL OR iswh = '0') ${sql2})
+                            ${sql2}
+                         </where>
+                        )
+
+    </select>
+    <select id="getByzsid" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.certinfo.entity.CertInfo" >
+        SELECT
+            *
+        FROM
+            "cert_info" cr
+        WHERE
+            cr."zsid" = #{zsid}
+        and yxzt='10'
+        order by fzrq
+        limit 1
+
+    </select>
+
+    <sql id="yxqWarnSelectSql">
+        SELECT
+            a.ZSLX AS zslx,
+            DATE_FORMAT(a.YXQZ, '%Y-%m-%d') AS yxqz,
+            ADD_MONTHS(CURRENT_DATE, 1) AS oneMonth,
+            ADD_MONTHS(CURRENT_DATE, 3) AS threeMonth,
+            a.ZSBH AS zsbh,
+            a.QYMC AS qymc,
+            a.FZJG AS fzjg,
+            CASE WHEN b."certtype_classification" = 'yp' THEN '药品'
+            WHEN b."certtype_classification" = 'hzp' THEN '化妆品'
+            WHEN b."certtype_classification" = 'ylqx' THEN '医疗器械'
+            ELSE '' END AS zsdlName,
+            b."certtype_classification" zsdl,
+            a.SHXYDM AS shxydm,
+            a.ZCDZ AS zcdz,
+            a.FDDBR AS fddbr,
+            a.QYFZR AS qyfzr,
+            a.ZLFZR AS zlfzr,
+            a.RCJDGLJG AS rcjdgljg,
+            a.FW AS fw,
+            a.QFR AS qfr,
+            DATE_FORMAT(a.FZRQ , '%Y-%m-%d') AS fzrq,
+            a.LXDH AS lxdh,
+            a.YLZD1 AS jyfs,
+            a.YJCLZT as yjclzt
+        FROM CERT_INFO a, "cert_type" b
+        WHERE a.CERTTYPEID = b.id
+        AND a.YXZT = 10
+        and a.ZT = 4
+        AND IFNULL(a.YXQZ, '') != ''
+        AND IFNULL(a.zslx, '') != ''
+        <if test="null != dto.intervalMonth">
+            AND DATE_FORMAT(a.YXQZ, '%Y-%m-%d') BETWEEN CURRENT_DATE
+            AND ADD_MONTHS(DATE_FORMAT(CURRENT_DATE, '%Y-%m-%d'), #{dto.intervalMonth})
+        </if>
+        <if test="null != dto.zsbh and '' != dto.zsbh">
+            AND a.ZSBH = #{dto.zsbh}
+        </if>
+        <if test="null != dto.fzjg and '' != dto.fzjg">
+            AND a.FZJG = #{dto.fzjg}
+        </if>
+        <if test="null != dto.zsdl and '' != dto.zsdl">
+            AND b."certtype_classification" = #{dto.zsdl}
+        </if>
+        <if test="null != dto.qymc and '' != dto.qymc">
+            AND a.QYMC = #{dto.qymc}
+        </if>
+        <if test="null != dto.beginDate">
+            AND DATE_FORMAT(a.YXQZ, '%Y-%m-%d') &gt;= #{dto.beginDate}
+        </if>
+        <if test="null != dto.endDate">
+            AND DATE_FORMAT(a.YXQZ, '%Y-%m-%d') &lt;= #{dto.endDate}
+        </if>
+        <if test="null != dto.yjclzt">
+            AND a.YJCLZT = #{dto.yjclzt}
+        </if>
+        ORDER BY a.YXQZ
+    </sql>
+
+    <sql id="wgzWarnSelectSql">
+        <!--查询发证日期超过一天的记录-->
+        SELECT
+        a.ZSLX AS zslx,
+        DATE_FORMAT(a.FZRQ, '%Y-%m-%d') AS fzrq,
+        TO_DAYS(CURRENT_DATE) - TO_DAYS(a.FZRQ) AS csDays,
+        a.ZSBH AS zsbh,
+        a.QYMC AS qymc,
+        a.FZJG AS fzjg,
+        CASE WHEN b."certtype_classification" = 'yp' THEN '药品'
+        WHEN b."certtype_classification" = 'hzp' THEN '化妆品'
+        WHEN b."certtype_classification" = 'ylqx' THEN '医疗器械'
+        ELSE '' END AS zsdlName,
+        b."certtype_classification" zsdl,
+        a.SHXYDM AS shxydm,
+        a.ZCDZ AS zcdz,
+        a.FDDBR AS fddbr,
+        a.QYFZR AS qyfzr,
+        a.ZLFZR AS zlfzr,
+        a.RCJDGLJG AS rcjdgljg,
+        a.FW AS fw,
+        a.QFR AS qfr,
+        DATE_FORMAT(a.YXQZ, '%Y-%m-%d') AS yxqz,
+        a.LXDH AS lxdh,
+        a.YLZD1 AS jyfs
+        FROM ZS_YWXXB a, "cert_type" b
+        WHERE a.CERTTYPEID = b.id
+        AND a.YXZT = 10
+        and a.ZT = 3
+        and a.ZSZT != 4
+        AND IFNULL(a.FZRQ, '') != ''
+        AND IFNULL(a.zslx, '') != ''
+        AND (TO_DAYS(CURRENT_DATE) - TO_DAYS(a.FZRQ)) >= 1
+        <if test="null != dto.zsbh and '' != dto.zsbh">
+            AND a.ZSBH = #{dto.zsbh}
+        </if>
+        <if test="null != dto.fzjg and '' != dto.fzjg">
+            AND a.FZJG = #{dto.fzjg}
+        </if>
+        <if test="null != dto.zsdl and '' != dto.zsdl">
+            AND b."certtype_classification" = #{dto.zsdl}
+        </if>
+        <if test="null != dto.qymc and '' != dto.qymc">
+            AND a.QYMC = #{dto.qymc}
+        </if>
+        <if test="null != dto.beginDate">
+            AND DATE_FORMAT(a.FZRQ, '%Y-%m-%d') &gt;= #{dto.beginDate}
+        </if>
+        <if test="null != dto.endDate">
+            AND DATE_FORMAT(a.FZRQ, '%Y-%m-%d') &lt;= #{dto.endDate}
+        </if>
+        ORDER BY a.FZRQ
+    </sql>
+
+    <select id="selectYxqWarningPageList"
+            parameterType="org.jeecg.modules.demo.dzzz.certWarning.dto.YxqWarnReqDto"
+            resultType="org.jeecg.modules.demo.dzzz.certWarning.dto.YxqWarnResDto">
+        <include refid="yxqWarnSelectSql"></include>
+    </select>
+
+    <select id="selectYxqWarningList"
+            parameterType="org.jeecg.modules.demo.dzzz.certWarning.dto.YxqWarnReqDto"
+            resultType="org.jeecg.modules.demo.dzzz.certWarning.dto.YxqWarnResDto">
+        <include refid="yxqWarnSelectSql"></include>
+    </select>
+
+    <select id="selectWgzWarningPageList"
+            parameterType="org.jeecg.modules.demo.dzzz.certWarning.dto.WgzWarnReqDto"
+            resultType="org.jeecg.modules.demo.dzzz.certWarning.dto.WgzWarnResDto">
+        <include refid="wgzWarnSelectSql"></include>
+    </select>
+
+    <select id="selectWgzWarningList"
+            parameterType="org.jeecg.modules.demo.dzzz.certWarning.dto.WgzWarnReqDto"
+            resultType="org.jeecg.modules.demo.dzzz.certWarning.dto.WgzWarnResDto">
+        <include refid="wgzWarnSelectSql"></include>
+    </select>
+
+    <select id="xybData" resultType="org.jeecg.modules.demo.dzzz.certinfo.entity.CertInfo">
+        select s.*
+        from cert_info s,cert_type a
+        where a.id = s.CERTTYPEID
+        and s.zt = '4'
+        and s.yxzt = '10'
+        and s.fzjg like '%湖北省药品监督%'
+        and date_format(s.fzrq, '%Y-%m-%d') >= '2024-04-01'
+        and date_format(s.fzrq, '%Y-%m-%d') &lt;=  '2024-05-31'
+        and a.certtypename in('医疗机构制剂许可证',
+        '第二、三类医疗器械生产许可证',
+        '第二类医疗器械注册证',
+        '医疗器械广告审查准予许可决定书',
+        '放射性药品生产许可证',
+        '放射性药品使用许可证',
+        '药品经营许可证(批发)',
+        '互联网药品信息服务资格证书',
+        '放射性药品经营许可证',
+        '药品生产许可证',
+        '药品广告审查准予许可决定书',
+        '化妆品生产许可证')
+        and zsbh not in ('鄂械注准20242144915','鄂械注准20222014071','鄂械注准20192172597')
+    </select>
+
+    <select id="getAttachByParamsForSp" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.attachinfo.entity.Attachinfo" >
+        SELECT *
+        FROM ATTACHINFO a
+        WHERE a.ZSID = #{id}
+          AND a.STATUS = '1'
+          AND a.isgz= 1
+        order by a.CREATE_TIME limit 1
+    </select>
+
+    <select id="getAttachListByParamsForSp" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.dzzz.attachinfo.entity.Attachinfo" >
+        SELECT *
+        FROM ATTACHINFO a
+        WHERE a.ZSID = #{id}
+          AND a.STATUS = '1'
+          AND a.isgz= 1
+        order by a.CREATE_TIME
+    </select>
+
+</mapper>

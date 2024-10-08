@@ -1,0 +1,262 @@
+<template>
+    <view>
+        <!--标题和返回-->
+		<cu-custom :bgColor="NavBarColor" isBack :backRouterName="backRouteName">
+			<block slot="backText">返回</block>
+			<block slot="content">t_jc_zs_ypscxk_wt_ls2</block>
+		</cu-custom>
+		 <!--表单区域-->
+		<view>
+			<form>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">protype：</text></view>
+                  <input  placeholder="请输入protype" v-model="model.protype"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">refcompaddr：</text></view>
+                  <input  placeholder="请输入refcompaddr" v-model="model.refcompaddr"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">workshop：</text></view>
+                  <input  placeholder="请输入workshop" v-model="model.workshop"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">refcompname：</text></view>
+                  <input  placeholder="请输入refcompname" v-model="model.refcompname"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">refcompid：</text></view>
+                  <input  placeholder="请输入refcompid" v-model="model.refcompid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">preparation：</text></view>
+                  <input  placeholder="请输入preparation" v-model="model.preparation"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">drugtype：</text></view>
+                  <input  placeholder="请输入drugtype" v-model="model.drugtype"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">drugname：</text></view>
+                  <input  placeholder="请输入drugname" v-model="model.drugname"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">cordrugid：</text></view>
+                  <input  placeholder="请输入cordrugid" v-model="model.cordrugid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">regnumb：</text></view>
+                  <input  placeholder="请输入regnumb" v-model="model.regnumb"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">drugdose：</text></view>
+                  <input  placeholder="请输入drugdose" v-model="model.drugdose"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">spec：</text></view>
+                  <input  placeholder="请输入spec" v-model="model.spec"/>
+                </view>
+              </view>
+              <my-date label="entrustvalidate：" fields="day" v-model="model.entrustvalidate" placeholder="请输入entrustvalidate"></my-date>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">productionscope：</text></view>
+                  <input  placeholder="请输入productionscope" v-model="model.productionscope"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">productionscopef：</text></view>
+                  <input  placeholder="请输入productionscopef" v-model="model.productionscopef"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">throughput：</text></view>
+                  <input  placeholder="请输入throughput" v-model="model.throughput"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">calculationunit：</text></view>
+                  <input  placeholder="请输入calculationunit" v-model="model.calculationunit"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">preparationnumber：</text></view>
+                  <input  placeholder="请输入preparationnumber" v-model="model.preparationnumber"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">getgmpcertificate：</text></view>
+                  <input  placeholder="请输入getgmpcertificate" v-model="model.getgmpcertificate"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">gmprzscope：</text></view>
+                  <input  placeholder="请输入gmprzscope" v-model="model.gmprzscope"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">zt：</text></view>
+                  <input  placeholder="请输入zt" v-model="model.zt"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">bgqid：</text></view>
+                  <input  placeholder="请输入bgqid" v-model="model.bgqid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">zsid：</text></view>
+                  <input  placeholder="请输入zsid" v-model="model.zsid"/>
+                </view>
+              </view>
+              <my-date label="createtime：" fields="day" v-model="model.createtime" placeholder="请输入createtime"></my-date>
+              <my-date label="gzrq：" fields="day" v-model="model.gzrq" placeholder="请输入gzrq"></my-date>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">productionscopecode：</text></view>
+                  <input  placeholder="请输入productionscopecode" v-model="model.productionscopecode"/>
+                </view>
+              </view>
+              <my-date label="regnumbvalidate：" fields="day" v-model="model.regnumbvalidate" placeholder="请输入regnumbvalidate"></my-date>
+              <my-date label="hfrq：" fields="day" v-model="model.hfrq" placeholder="请输入hfrq"></my-date>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">xzspid：</text></view>
+                  <input  placeholder="请输入xzspid" v-model="model.xzspid"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">ggflag：</text></view>
+                  <input  placeholder="请输入ggflag" v-model="model.ggflag"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">isgmp：</text></view>
+                  <input  placeholder="请输入isgmp" v-model="model.isgmp"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">throughput1：</text></view>
+                  <input  placeholder="请输入throughput1" v-model="model.throughput1"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">preparationnumber1：</text></view>
+                  <input  placeholder="请输入preparationnumber1" v-model="model.preparationnumber1"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">sync：</text></view>
+                  <input  placeholder="请输入sync" v-model="model.sync"/>
+                </view>
+              </view>
+              <view class="cu-form-group">
+                <view class="flex align-center">
+                  <view class="title"><text space="ensp">num：</text></view>
+                  <input  placeholder="请输入num" v-model="model.num"/>
+                </view>
+              </view>
+				<view class="padding">
+					<button class="cu-btn block bg-blue margin-tb-sm lg" @click="onSubmit">
+						<text v-if="loading" class="cuIcon-loading2 cuIconfont-spin"></text>提交
+					</button>
+				</view>
+			</form>
+		</view>
+    </view>
+</template>
+
+<script>
+    import myDate from '@/components/my-componets/my-date.vue'
+
+    export default {
+        name: "TJcZsYpscxkWtLs2Form",
+        components:{ myDate },
+        props:{
+          formData:{
+              type:Object,
+              default:()=>{},
+              required:false
+          }
+        },
+        data(){
+            return {
+				CustomBar: this.CustomBar,
+				NavBarColor: this.NavBarColor,
+				loading:false,
+                model: {},
+                backRouteName:'index',
+                url: {
+                  queryById: "/dzzz.spht/tJcZsYpscxkWtLs2/queryById",
+                  add: "/dzzz.spht/tJcZsYpscxkWtLs2/add",
+                  edit: "/dzzz.spht/tJcZsYpscxkWtLs2/edit",
+                },
+            }
+        },
+        created(){
+             this.initFormData();
+        },
+        methods:{
+           initFormData(){
+               if(this.formData){
+                    let dataId = this.formData.dataId;
+                    this.$http.get(this.url.queryById,{params:{id:dataId}}).then((res)=>{
+                        if(res.data.success){
+                            console.log("表单数据",res);
+                            this.model = res.data.result;
+                        }
+                    })
+                }
+            },
+            onSubmit() {
+                let myForm = {...this.model};
+                this.loading = true;
+                let url = myForm.id?this.url.edit:this.url.add;
+				this.$http.post(url,myForm).then(res=>{
+				   console.log("res",res)
+				   this.loading = false
+				   this.$Router.push({name:this.backRouteName})
+				}).catch(()=>{
+					this.loading = false
+				});
+            }
+        }
+    }
+</script>

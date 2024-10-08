@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.dataExchange.mapper.TYwSjJlbMapper">
+
+    <sql id="selectSql">
+        SELECT
+        a.ID AS id,
+        a.ZSBH AS zsbh,
+        a.ZSLX AS zslx,
+        b."certtypename" AS zslxName,
+        a.YWLX AS ywlx,
+        a.JLSJ AS jlsj,
+        a.JLZT AS jlzt,
+        a.JLLY AS jlly,
+        a.ZSID AS zsid,
+        a.JL_IN_JSON AS jlInJson,
+        a.JL_OUT_JSON AS jlOutJson,
+        a.YWID AS ywid,
+        a.OUT_ID AS outId
+        FROM T_YW_SJ_JLB a LEFT JOIN cert_type b
+        ON a.ZSLX  = b."zslx"
+        WHERE a.JLLY = #{vo.jlly}
+        <if test="null != vo.zslxName and '' != vo.zslxName">
+            AND b."certtypename" LIKE CONCAT('%', #{vo.zslxName}, '%')
+        </if>
+        <if test="null != vo.zsbh and '' != vo.zsbh">
+            AND a.ZSBH LIKE CONCAT('%', #{vo.zsbh}, '%')
+        </if>
+        <if test="null != vo.jlzt">
+            AND a.JLZT = #{vo.jlzt}
+        </if>
+        <if test="null != vo.beginDate">
+            AND DATE_FORMAT(a.JLSJ, '%Y-%m-%d') &gt;= #{vo.beginDate}
+        </if>
+        <if test="null != vo.endDate">
+            AND DATE_FORMAT(a.JLSJ, '%Y-%m-%d') &lt;= #{vo.endDate}
+        </if>
+        <if test="null != vo.ywlx and '' != vo.ywlx">
+            AND a.YWLX = #{vo.ywlx}
+        </if>
+        ORDER BY a.JLSJ DESC
+    </sql>
+
+    <select id="selectPageList" parameterType="org.jeecg.modules.demo.dzzz.dataExchange.vo.SjjlbReqVo"
+        resultType="org.jeecg.modules.demo.dzzz.dataExchange.vo.SjjlbResVo">
+        <include refid="selectSql"></include>
+    </select>
+
+    <select id="listByParams" parameterType="org.jeecg.modules.demo.dzzz.dataExchange.vo.SjjlbReqVo"
+            resultType="org.jeecg.modules.demo.dzzz.dataExchange.vo.SjjlbResVo">
+        <include refid="selectSql"></include>
+    </select>
+
+</mapper>

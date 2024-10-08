@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.demo.dzzz.certtype.mapper.CertTypeMapper">
+
+    <select id="getCerttypeIdByClassification" resultType="java.lang.String">
+        select id from cert_type where certtype_classification = #{classification}
+    </select>
+
+    <select id="queryCerttypeByRole" resultType="org.jeecg.modules.demo.dzzz.certtype.entity.CertType" parameterType="java.util.Map">
+        select ct.* from "cert_type" as ct
+         LEFT JOIN "certtype_role" as cr
+          on ct."id" = cr."certtypeid"
+        where
+            cr."zt" = 1 -- 权限有效
+            and cr."roleid" = #{roleId} --权限名
+            and ct."certtype_classification" is not null
+           and ct."status"= #{status}
+        ORDER by ct."ordernum" asc;
+    </select>
+
+    <select id="getCerttypeIdByClassificationAndRole" resultType="java.lang.String" parameterType="java.util.Map">
+        select ct.id as id from "cert_type" as ct
+         LEFT JOIN "certtype_role" as cr
+           on ct."id" = cr."certtypeid"
+        where
+            cr."zt" = 1 -- 权限有效
+          and cr."roleid" = #{roleId} --权限名
+          and ct."certtype_classification" = #{classification}
+          and ct."status"= #{status}
+        ORDER by ct."ordernum" asc;
+    </select>
+
+</mapper>

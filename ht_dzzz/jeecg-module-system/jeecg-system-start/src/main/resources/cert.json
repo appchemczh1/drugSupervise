@@ -1,0 +1,528 @@
+{
+	"subTable": {
+		"zc": {
+			"metadata": [
+				{
+					"lbs": "protype",
+					"lm": "生产类别"
+				},
+				{
+					"lbs": "addrdetail",
+					"lm": "生产地址"
+				},
+				{
+					"lbs": "workshop",
+					"lm": "车间"
+				},
+				{
+					"lbs": "preparation",
+					"lm": "生产线"
+				},
+				{
+					"lbs": "productionscope",
+					"lm": "生产范围(正本)"
+				},
+				{
+					"lbs": "productionscopef",
+					"lm": "生产范围(副本)"
+				},
+				{
+					"lbs": "throughput",
+					"lm": "年生产能力"
+				},
+				{
+					"lbs": "calculationunit",
+					"lm": "计算单位"
+				},
+				{
+					"lbs": "preparationnumber",
+					"lm": "生产线(条)"
+				},
+				{
+					"lbs": "getgmpcertificate",
+					"lm": "药品GMP证书编码"
+				},
+				{
+					"lbs": "gmprzscope",
+					"lm": "GMP认证范围"
+				}
+			]
+		},
+		"wt": {
+			"metadata": [
+				{
+					"lbs": "protype",
+					"lm": "生产类别"
+				},
+				{
+					"lbs": "refcompname",
+					"lm": "受托企业"
+				},
+				{
+					"lbs": "addrdetail",
+					"lm": "委托方生产地址"
+				},
+				{
+					"lbs": "workshop",
+					"lm": "车间"
+				},
+				{
+					"lbs": "preparation",
+					"lm": "生产线"
+				},
+				{
+					"lbs": "refcompaddr",
+					"lm": "注册地址"
+				},
+				{
+					"lbs": "refcompId",
+					"lm": "企业编码"
+				},
+				{
+					"lbs": "drugtype",
+					"lm": "生产药类型"
+				},
+				{
+					"lbs": "cordrugid",
+					"lm": "相关药品编码"
+				},
+				{
+					"lbs": "entrustvalidate",
+					"lm": "委托有效期"
+				},
+				{
+					"lbs": "drugdose",
+					"lm": "药品剂型"
+				},
+				{
+					"lbs": "spec",
+					"lm": "药品规格"
+				},
+				{
+					"lbs": "drugname",
+					"lm": "药品通用名称"
+				},
+				{
+					"lbs": "regnumb",
+					"lm": "批准文号/登记号"
+				},
+				{
+					"lbs": "throughput",
+					"lm": "年生产能力"
+				},
+				{
+					"lbs": "calculationunit",
+					"lm": "计算单位"
+				},
+				{
+					"lbs": "preparationnumber",
+					"lm": "生产线(条)"
+				},
+				{
+					"lbs": "getgmpcertificate",
+					"lm": "药品GMP证书编码"
+				},
+				{
+					"lbs": "gmprzscope",
+					"lm": "GMP认证范围"
+				}
+			]
+		},
+		"st": {
+			"metadata": [
+				{
+					"lbs": "protype",
+					"lm": "生产类别"
+				},
+				{
+					"lbs": "refcompname",
+					"lm": "委托企业"
+				},
+				{
+					"lbs": "refcompid",
+					"lm": "企业编码"
+				},
+				{
+					"lbs": "refcompaddr",
+					"lm": "注册地址"
+				},
+				{
+					"lbs": "addrdetail",
+					"lm": "受托方生产地址"
+				},
+				{
+					"lbs": "workshop",
+					"lm": "车间"
+				},
+				{
+					"lbs": "preparation",
+					"lm": "生产线"
+				},
+				{
+					"lbs": "drugtype",
+					"lm": "生产药类型"
+				},
+				{
+					"lbs": "drugname",
+					"lm": "药品通用名称"
+				},
+				{
+					"lbs": "regnumb",
+					"lm": "批准文号/登记号"
+				},
+				{
+					"lbs": "cordrugid",
+					"lm": "相关药品编码"
+				},
+				{
+					"lbs": "spec",
+					"lm": "药品规格"
+				},
+				{
+					"lbs": "drugdose",
+					"lm": "药品剂型"
+				},
+				{
+					"lbs": "entrustvalidate",
+					"lm": "委托有效期"
+				},
+				{
+					"lbs": "throughput",
+					"lm": "年生产能力"
+				},
+				{
+					"lbs": "calculationunit",
+					"lm": "计算单位"
+				},
+				{
+					"lbs": "preparationnumber",
+					"lm": "生产线(条)"
+				},
+				{
+					"lbs": "getgmpcertificate",
+					"lm": "药品GMP证书编码"
+				},
+				{
+					"lbs": "gmprzscope",
+					"lm": "GMP认证范围"
+				}
+			]
+		},
+		"mz": {
+			"metadata": [
+				{
+					"lbs": "zsid",
+					"lm": "证书id"
+				},
+				{
+					"lbs": "num",
+					"lm": "条数"
+				},
+				{
+					"lbs": "ypmc",
+					"lm": "药品名称"
+				},
+				{
+					"lbs": "jy",
+					"lm": "剂型"
+				},
+				{
+					"lbs": "gg",
+					"lm": "规格"
+				},
+				{
+					"lbs": "gzlb",
+					"lm": "管制类别"
+				},
+				{
+					"lbs": "pzwh",
+					"lm": "批准文号"
+				}
+			]
+		},
+		"ypck": {
+			"metadata": [
+				{
+					"lbs": "zsid",
+					"lm": "证书id"
+				},
+				{
+					"lbs": "num",
+					"lm": "条数"
+				},
+				{
+					"lbs": "ckywmc",
+					"lm": "出口药物名称"
+				},
+				{
+					"lbs": "ckywywmc",
+					"lm": "出口药物名称英文"
+				},
+				{
+					"lbs": "spbm",
+					"lm": "商品编码"
+				},
+				{
+					"lbs": "jx",
+					"lm": "剂型"
+				},
+				{
+					"lbs": "ckywbz",
+					"lm": "出口药物包装"
+				},
+				{
+					"lbs": "ckywgz",
+					"lm": "出口药物规格"
+				},
+				{
+					"lbs": "ckywsl",
+					"lm": "出口药物数量"
+				}
+			]
+		},
+		"ypxs": {
+			"metadata": [
+				{
+					"lbs": "zsid",
+					"lm": "证书id"
+				},
+				{
+					"lbs": "num",
+					"lm": "条数"
+				},
+				{
+					"lbs": "jkgjzw",
+					"lm": "进口国家中文"
+				},
+				{
+					"lbs": "jkgjyw",
+					"lm": "进口国家英文"
+				},
+				{
+					"lbs": "cksl",
+					"lm": "出口数量"
+				},
+				{
+					"lbs": "lx",
+					"lm": "类型"
+				}
+			]
+		},
+		"om": {
+			"metadata": [
+				{
+					"lbs": "zsid",
+					"lm": "证书Id"
+				},
+				{
+					"lbs": "num",
+					"lm": "条数"
+				},
+				{
+					"lbs": "yptymczw",
+					"lm": "药品通用名称中文"
+				},
+				{
+					"lbs": "yptymcyw",
+					"lm": "药品通用名称英文"
+				},
+				{
+					"lbs": "jgffzw",
+					"lm": "加工方法中文"
+				},
+				{
+					"lbs": "jgffyw",
+					"lm": "加工方法英文"
+				},
+				{
+					"lbs": "zgyppzwhzw",
+					"lm": "中国药品批准文号中文"
+				},
+				{
+					"lbs": "zgyppzwhyw",
+					"lm": "中国药品批准文号英文"
+				},
+				{
+					"lbs": "sftgrz",
+					"lm": "是否通过我过gmp认证"
+				}
+			]
+		},
+		"dyl": {
+			"metadata": [
+				{
+					"lbs": "zczh",
+					"lm": "产品备案号"
+				},
+				{
+					"lbs": "cpmc",
+					"lm": "产品名称"
+				},
+				{
+					"lbs": "cplbDm",
+					"lm": "产品类别代码"
+				},
+				{
+					"lbs": "cplbDm",
+					"lm": "类别类型"
+				},
+				{
+					"lbs": "sfwtsc",
+					"lm": "是否受托生产"
+				},
+				{
+					"lbs": "zcbarmc",
+					"lm": "注册/备案人名称"
+				},
+				{
+					"lbs": "zcbardz",
+					"lm": "注册/备案人地址"
+				},
+				{
+					"lbs": "shxydm",
+					"lm": "社会信用代码"
+				},
+				{
+					"lbs": "wtqx",
+					"lm": "委托期限"
+				},
+				{
+					"lbs": "bz",
+					"lm": "备注"
+				}
+			]
+		},
+		"qxba23": {
+			"metadata": [
+				{
+					"lbs": "zsid",
+					"lm": "证书id"
+				},
+				{
+					"lbs": "cpmc",
+					"lm": "产品名称"
+				},
+				{
+					"lbs": "cpzch",
+					"lm": "产品备案号"
+				},
+				{
+					"lbs": "wtrq",
+					"lm": "登记日期"
+				},
+				{
+					"lbs": "px",
+					"lm": "排序"
+				}
+			]
+		},
+		"qxxkz": {
+			"metadata": [
+				{
+					"lbs": "zsid",
+					"lm": "证书Id"
+				},
+				{
+					"lbs": "cpmc",
+					"lm": "产品名称"
+				},
+				{
+					"lbs": "cpbah",
+					"lm": "产品备案号"
+				},
+				{
+					"lbs": "dzrq",
+					"lm": "登记日期"
+				},
+				{
+					"lbs": "bz",
+					"lm": "备注"
+				},
+				{
+					"lbs": "px",
+					"lm": "排序"
+				}
+			]
+		},
+		"qxba": {
+			"metadata": [
+				{
+					"lbs": "zsid",
+					"lm": "证书id"
+				},
+				{
+					"lbs": "num",
+					"lm": "条数"
+				},
+				{
+					"lbs": "mc",
+					"lm": "名称"
+				},
+				{
+					"lbs": "dz",
+					"lm": "地址/科室"
+				},
+				{
+					"lbs": "lxr",
+					"lm": "联系人/职务"
+				},
+				{
+					"lbs": "dh",
+					"lm": "电话"
+				},
+				{
+					"lbs": "lb",
+					"lm": "类别 1临床实验机构(如多中心应注明牵头单位)2:研究者"
+				}
+			]
+		},
+		"qxxs": {
+			"metadata": [
+				{
+					"lbs": "zsid",
+					"lm": "证书Id"
+				},
+				{
+					"lbs": "num",
+					"lm": "条数"
+				},
+				{
+					"lbs": "mc",
+					"lm": "产品名称"
+				},
+				{
+					"lbs": "gg",
+					"lm": "规格"
+				},
+				{
+					"lbs": "bh",
+					"lm": "注册证或者备案号"
+				}
+			]
+		},
+		"wlxsba": {
+			"metadata": [
+				{
+					"lbs": "zsid",
+					"lm": "证书Id"
+				},
+				{
+					"lbs": "num",
+					"lm": "条数"
+				},
+				{
+					"lbs": "dsfptbafptmc",
+					"lm": "医疗器械交易服务第三方平台备案平台名称"
+				},
+				{
+					"lbs": "pzbh",
+					"lm": "医疗器械交易服务第三方平台备案凭证编号"
+				},
+				{
+					"lbs": "bz",
+					"lm": "备注"
+				}
+			]
+		}
+	}
+}
